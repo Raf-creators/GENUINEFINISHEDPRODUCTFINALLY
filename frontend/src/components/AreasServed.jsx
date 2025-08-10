@@ -5,6 +5,14 @@ import { Button } from "./ui/button";
 import { Card, CardContent } from "./ui/card";
 
 const AreasServed = () => {
+  // Scroll to contact section function
+  const scrollToContact = () => {
+    const element = document.getElementById('contact');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <section id="areas" className="py-20 bg-gray-50">
       <div className="container mx-auto px-4">
