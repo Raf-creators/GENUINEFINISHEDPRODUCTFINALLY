@@ -231,17 +231,22 @@ const ReviewsMap = () => {
 
                   {selectedReview.images && selectedReview.images.length > 0 && (
                     <div>
-                      <div className="flex items-center space-x-2 mb-3">
-                        <Image className="w-4 h-4 text-gray-500" />
-                        <span className="text-sm font-medium text-gray-700">Work Photos</span>
-                      </div>
+                      <button
+                        onClick={() => openPhotoModal(selectedReview)}
+                        className="w-full bg-green-700 text-white px-4 py-3 rounded-lg font-medium hover:bg-green-800 transition-colors flex items-center justify-center space-x-2 mb-3"
+                      >
+                        <Eye className="w-5 h-5" />
+                        <span>View {selectedReview.images.length} Work Photo{selectedReview.images.length !== 1 ? 's' : ''}</span>
+                      </button>
+                      
                       <div className="grid grid-cols-2 gap-2">
-                        {selectedReview.images.map((image, index) => (
+                        {selectedReview.images.slice(0, 4).map((image, index) => (
                           <img
                             key={index}
                             src={image}
                             alt={`Work completed ${index + 1}`}
-                            className="w-full h-20 object-cover rounded-lg border"
+                            className="w-full h-20 object-cover rounded-lg border cursor-pointer hover:opacity-80 transition-opacity"
+                            onClick={() => openPhotoModal(selectedReview)}
                             onError={(e) => {
                               e.target.style.display = 'none';
                             }}
@@ -315,6 +320,13 @@ const ReviewsMap = () => {
             </CardContent>
           </Card>
         </div>
+        
+        {/* Photo Modal */}
+        <PhotoModal 
+          isOpen={photoModalOpen}
+          onClose={closePhotoModal}
+          review={modalReview}
+        />
       </div>
     </section>
   );
