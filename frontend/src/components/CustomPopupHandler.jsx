@@ -84,6 +84,13 @@ const CustomPopupHandler = ({ reviews, openPhotoModal }) => {
             });
           }
         });
+
+        // Set selected review when marker is clicked
+        marker.on('click', () => {
+          // We need to access setSelectedReview from the parent component
+          // For now, let's trigger a custom event
+          window.dispatchEvent(new CustomEvent('markerClicked', { detail: review }));
+        });
       }
     });
 
