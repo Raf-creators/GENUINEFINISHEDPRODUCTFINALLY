@@ -8,33 +8,76 @@ import PhotoModal from "./PhotoModal";
 
 const WorkGallery = () => {
   const [reviews, setReviews] = useState([]);
-  const [filteredReviews, setFilteredReviews] = useState([]);
+  const [photos, setPhotos] = useState([]); // Individual photos from reviews
+  const [filteredPhotos, setFilteredPhotos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedService, setSelectedService] = useState("all");
-  const [selectedLocation, setSelectedLocation] = useState("all");
   const [viewMode, setViewMode] = useState("grid"); // grid or list
   const [photoModalOpen, setPhotoModalOpen] = useState(false);
-  const [modalReview, setModalReview] = useState(null);
+  const [modalPhoto, setModalPhoto] = useState(null);
 
-  // Fetch reviews on component mount
+  // Fetch reviews and extract individual photos
   useEffect(() => {
     const fetchReviews = async () => {
       try {
         setLoading(true);
         const data = await apiService.getReviews();
-        const reviewsWithPhotos = data.filter(review => review.images && review.images.length > 0);
-        setReviews(reviewsWithPhotos);
-        setFilteredReviews(reviewsWithPhotos);
+        setReviews(data);
+        
+        // Extract individual photos from all reviews
+        const allPhotos = [];
+        data.forEach(review => {
+          if (review.images && review.images.length > 0) {
+            review.images.forEach((imageUrl, index) => {
+              allPhotos.push({
+                id: `${review.id}_${index}`,
+                url: imageUrl,
+                review: review,
+                title: `${review.service} - ${review.postcode}`,
+                description: review.text,
+                service: review.service,
+                postcode: review.postcode,
+                rating: review.rating,
+                date: review.date,
+                customerName: review.name
+              });
+            });
+          }
+        });
+        
+        setPhotos(allPhotos);
+        setFilteredPhotos(allPhotos);
         setError(null);
       } catch (err) {
         console.error('Failed to fetch reviews:', err);
         const errorInfo = handleApiError(err);
         setError(errorInfo.message);
-        const fallbackWithPhotos = fallbackReviews.filter(review => review.images && review.images.length > 0);
-        setReviews(fallbackWithPhotos);
-        setFilteredReviews(fallbackWithPhotos);
+        
+        // Extract photos from fallback data
+        const fallbackPhotos = [];
+        fallbackReviews.forEach(review => {
+          if (review.images && review.images.length > 0) {
+            review.images.forEach((imageUrl, index) => {
+              fallbackPhotos.push({
+                id: `${review.id}_${index}`,
+                url: imageUrl,
+                review: review,
+                title: `${review.service} - ${review.postcode}`,
+                description: review.text,
+                service: review.service,
+                postcode: review.postcode,
+                rating: review.rating,
+                date: review.date,
+                customerName: review.name
+              });
+            });
+          }
+        });
+        
+        setPhotos(fallbackPhotos);
+        setFilteredPhotos(fallbackPhotos);
       } finally {
         setLoading(false);
       }
@@ -43,47 +86,43 @@ const WorkGallery = () => {
     fetchReviews();
   }, []);
 
-  // Filter reviews based on search and filters
+  // Filter photos based on search and filters
   useEffect(() => {
-    let filtered = reviews;
+    let filtered = photos;
 
     // Search filter
     if (searchTerm) {
-      filtered = filtered.filter(review => 
-        review.service.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        review.text.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        review.postcode.toLowerCase().includes(searchTerm.toLowerCase())
+      filtered = filtered.filter(photo => 
+        photo.service.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        photo.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        photo.postcode.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        photo.title.toLowerCase().includes(searchTerm.toLowerCase())
       );
     }
 
     // Service filter
     if (selectedService !== "all") {
-      filtered = filtered.filter(review => 
-        review.service.toLowerCase().includes(selectedService.toLowerCase())
+      filtered = filtered.filter(photo => 
+        photo.service.toLowerCase().includes(selectedService.toLowerCase())
       );
     }
 
-    // Location filter
-    if (selectedLocation !== "all") {
-      filtered = filtered.filter(review => review.postcode === selectedLocation);
-    }
+    setFilteredPhotos(filtered);
+  }, [photos, searchTerm, selectedService]);
 
-    setFilteredReviews(filtered);
-  }, [reviews, searchTerm, selectedService, selectedLocation]);
-
-  const openPhotoModal = (review) => {
-    setModalReview(review);
+  const openPhotoModal = (photo) => {
+    setModalPhoto(photo);
     setPhotoModalOpen(true);
   };
 
   const closePhotoModal = () => {
     setPhotoModalOpen(false);
-    setModalReview(null);
+    setModalPhoto(null);
   };
 
-  // Get unique services and locations for filters
-  const uniqueServices = [...new Set(reviews.map(review => {
-    const service = review.service.toLowerCase();
+  // Get unique services for filters
+  const uniqueServices = [...new Set(photos.map(photo => {
+    const service = photo.service.toLowerCase();
     if (service.includes('garden') && service.includes('clearance')) return 'Garden Clearance';
     if (service.includes('hedge')) return 'Hedge Trimming';
     if (service.includes('lawn')) return 'Lawn Care';
@@ -93,8 +132,6 @@ const WorkGallery = () => {
     if (service.includes('tree') || service.includes('pruning')) return 'Tree Services';
     return 'Other Services';
   }))];
-
-  const uniqueLocations = [...new Set(reviews.map(review => review.postcode))].sort();
 
   if (loading) {
     return (
@@ -130,7 +167,7 @@ const WorkGallery = () => {
         {/* Filters and Search */}
         <Card className="mb-8 border-0 shadow-lg">
           <CardContent className="p-6">
-            <div className="grid md:grid-cols-4 gap-4 items-end">
+            <div className="grid md:grid-cols-3 gap-4 items-end">
               {/* Search */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -161,23 +198,6 @@ const WorkGallery = () => {
                   <option value="all">All Services</option>
                   {uniqueServices.map(service => (
                     <option key={service} value={service}>{service}</option>
-                  ))}
-                </select>
-              </div>
-
-              {/* Location Filter */}
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Location
-                </label>
-                <select
-                  value={selectedLocation}
-                  onChange={(e) => setSelectedLocation(e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-green-500 focus:border-green-500"
-                >
-                  <option value="all">All Locations</option>
-                  {uniqueLocations.map(location => (
-                    <option key={location} value={location}>{location}</option>
                   ))}
                 </select>
               </div>
@@ -216,10 +236,10 @@ const WorkGallery = () => {
 
             {/* Results Count */}
             <div className="mt-4 text-sm text-gray-600">
-              Showing {filteredReviews.length} project{filteredReviews.length !== 1 ? 's' : ''} with photos
-              {reviews.length > filteredReviews.length && (
+              Showing {filteredPhotos.length} photo{filteredPhotos.length !== 1 ? 's' : ''}
+              {photos.length > filteredPhotos.length && (
                 <span className="ml-2 text-green-700">
-                  (filtered from {reviews.length} total)
+                  (filtered from {photos.length} total)
                 </span>
               )}
             </div>
@@ -227,22 +247,23 @@ const WorkGallery = () => {
         </Card>
 
         {/* Gallery Content */}
-        {filteredReviews.length > 0 ? (
+        {filteredPhotos.length > 0 ? (
           <div className={`grid gap-6 ${
             viewMode === 'grid' 
-              ? 'md:grid-cols-2 lg:grid-cols-3' 
+              ? 'md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4' 
               : 'grid-cols-1 max-w-4xl mx-auto'
           }`}>
-            {filteredReviews.map((review) => (
-              <Card key={review.id} className="border-0 shadow-lg hover:shadow-xl transition-shadow">
+            {filteredPhotos.map((photo) => (
+              <Card key={photo.id} className="border-0 shadow-lg hover:shadow-xl transition-shadow">
                 <CardContent className="p-0">
                   {viewMode === 'grid' ? (
                     // Grid View
                     <>
-                      <div className="aspect-video bg-gray-100 rounded-t-lg overflow-hidden relative group">
+                      <div className="aspect-square bg-gray-100 rounded-t-lg overflow-hidden relative group cursor-pointer"
+                           onClick={() => openPhotoModal(photo)}>
                         <img
-                          src={review.images[0]}
-                          alt={`Work completed: ${review.service}`}
+                          src={photo.url}
+                          alt={photo.title}
                           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                           onError={(e) => {
                             e.target.src = "https://images.unsplash.com/photo-1621460248083-6271cc4437a8?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Nzd8MHwxfHNlYXJjaHwxfHxnYXJkZW5pbmd8ZW58MHx8fHwxNzU0ODM3OTM2fDA&ixlib=rb-4.1.0&q=85";
@@ -252,61 +273,52 @@ const WorkGallery = () => {
                         {/* Overlay */}
                         <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300 flex items-center justify-center">
                           <button
-                            onClick={() => openPhotoModal(review)}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              openPhotoModal(photo);
+                            }}
                             className="opacity-0 group-hover:opacity-100 transition-opacity bg-white rounded-full p-3 shadow-lg"
                           >
                             <Eye className="w-5 h-5 text-gray-800" />
                           </button>
                         </div>
-                        
-                        {/* Photo Count Badge */}
-                        {review.images.length > 1 && (
-                          <div className="absolute top-3 right-3 bg-black bg-opacity-50 text-white px-2 py-1 rounded text-sm">
-                            +{review.images.length - 1}
-                          </div>
-                        )}
                       </div>
                       
                       <div className="p-4">
                         <div className="flex items-center justify-between mb-2">
                           <Badge variant="outline" className="text-green-700 border-green-200">
-                            {review.postcode}
+                            {photo.postcode}
                           </Badge>
                           <div className="flex items-center space-x-1">
                             <Star className="w-4 h-4 text-yellow-400 fill-current" />
-                            <span className="text-sm font-medium">{review.rating}/10</span>
+                            <span className="text-sm font-medium">{photo.rating}/10</span>
                           </div>
                         </div>
                         
-                        <h3 className="font-semibold text-gray-900 mb-2 line-clamp-2">
-                          {review.service}
+                        <h3 className="font-semibold text-gray-900 mb-2 line-clamp-2 text-sm">
+                          {photo.service}
                         </h3>
                         
-                        <p className="text-sm text-gray-600 mb-3 line-clamp-3">
-                          "{review.text}"
+                        <p className="text-xs text-gray-600 mb-3 line-clamp-2">
+                          "{photo.description.length > 80 ? `${photo.description.substring(0, 80)}...` : photo.description}"
                         </p>
                         
                         <div className="flex items-center justify-between text-xs text-gray-500">
                           <div className="flex items-center space-x-1">
                             <Calendar className="w-3 h-3" />
-                            <span>{review.date}</span>
+                            <span>{photo.date}</span>
                           </div>
-                          <button
-                            onClick={() => openPhotoModal(review)}
-                            className="text-green-700 hover:text-green-800 font-medium"
-                          >
-                            View Photos
-                          </button>
                         </div>
                       </div>
                     </>
                   ) : (
                     // List View
-                    <div className="flex space-x-4 p-6">
-                      <div className="flex-shrink-0 w-48 h-32 bg-gray-100 rounded-lg overflow-hidden">
+                    <div className="flex space-x-4 p-4 cursor-pointer hover:bg-gray-50"
+                         onClick={() => openPhotoModal(photo)}>
+                      <div className="flex-shrink-0 w-32 h-24 bg-gray-100 rounded-lg overflow-hidden">
                         <img
-                          src={review.images[0]}
-                          alt={`Work completed: ${review.service}`}
+                          src={photo.url}
+                          alt={photo.title}
                           className="w-full h-full object-cover"
                           onError={(e) => {
                             e.target.src = "https://images.unsplash.com/photo-1621460248083-6271cc4437a8?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Nzd8MHwxfHNlYXJjaHwxfHxnYXJkZW5pbmd8ZW58MHx8fHwxNzU0ODM3OTM2fDA&ixlib=rb-4.1.0&q=85";
@@ -317,38 +329,27 @@ const WorkGallery = () => {
                       <div className="flex-1">
                         <div className="flex items-center space-x-2 mb-2">
                           <Badge variant="outline" className="text-green-700 border-green-200">
-                            {review.postcode}
+                            {photo.postcode}
                           </Badge>
                           <div className="flex items-center space-x-1">
                             <Star className="w-4 h-4 text-yellow-400 fill-current" />
-                            <span className="text-sm font-medium">{review.rating}/10</span>
+                            <span className="text-sm font-medium">{photo.rating}/10</span>
                           </div>
-                          <span className="text-xs text-gray-500">•</span>
-                          <span className="text-xs text-gray-500">{review.images.length} photo{review.images.length !== 1 ? 's' : ''}</span>
                         </div>
                         
                         <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                          {review.service}
+                          {photo.service}
                         </h3>
                         
-                        <p className="text-gray-600 mb-3">
-                          "{review.text}"
+                        <p className="text-gray-600 text-sm mb-2">
+                          "{photo.description.length > 120 ? `${photo.description.substring(0, 120)}...` : photo.description}"
                         </p>
                         
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center space-x-2 text-sm text-gray-500">
-                            <Calendar className="w-4 h-4" />
-                            <span>{review.date}</span>
-                            <span>•</span>
-                            <span>{review.name}</span>
-                          </div>
-                          <button
-                            onClick={() => openPhotoModal(review)}
-                            className="bg-green-700 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-green-800 transition-colors flex items-center space-x-2"
-                          >
-                            <Eye className="w-4 h-4" />
-                            <span>View Photos</span>
-                          </button>
+                        <div className="flex items-center space-x-2 text-sm text-gray-500">
+                          <Calendar className="w-4 h-4" />
+                          <span>{photo.date}</span>
+                          <span>•</span>
+                          <span>{photo.customerName}</span>
                         </div>
                       </div>
                     </div>
@@ -363,7 +364,7 @@ const WorkGallery = () => {
             <CardContent className="p-12 text-center">
               <Filter className="w-16 h-16 text-gray-400 mx-auto mb-4" />
               <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                No Projects Found
+                No Photos Found
               </h3>
               <p className="text-gray-600 mb-4">
                 Try adjusting your search terms or filters to see more results.
@@ -372,7 +373,6 @@ const WorkGallery = () => {
                 onClick={() => {
                   setSearchTerm("");
                   setSelectedService("all");
-                  setSelectedLocation("all");
                 }}
                 className="bg-green-700 text-white px-4 py-2 rounded-md hover:bg-green-800 transition-colors"
               >
@@ -382,12 +382,19 @@ const WorkGallery = () => {
           </Card>
         )}
 
-        {/* Photo Modal */}
-        <PhotoModal 
-          isOpen={photoModalOpen}
-          onClose={closePhotoModal}
-          review={modalReview}
-        />
+        {/* Photo Modal - Modified to show single photo */}
+        {modalPhoto && (
+          <PhotoModal 
+            isOpen={photoModalOpen}
+            onClose={closePhotoModal}
+            review={{
+              ...modalPhoto.review,
+              images: [modalPhoto.url], // Show only the selected photo
+              service: modalPhoto.service,
+              postcode: modalPhoto.postcode
+            }}
+          />
+        )}
       </div>
     </div>
   );
