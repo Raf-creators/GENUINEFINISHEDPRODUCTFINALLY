@@ -3,6 +3,14 @@ import { Phone, Star, Award } from "lucide-react";
 import { Button } from "./ui/button";
 
 const HeroSection = () => {
+  // Scroll to contact section function
+  const scrollToContact = () => {
+    const element = document.getElementById('contact');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <section className="relative bg-gradient-to-br from-green-50 to-green-100 py-20">
       <div className="container mx-auto px-4">
