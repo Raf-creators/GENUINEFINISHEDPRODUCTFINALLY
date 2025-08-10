@@ -129,7 +129,7 @@ const PhotoModal = ({ isOpen, onClose, review }) => {
             </div>
             <div className="flex items-center space-x-1">
               <ImageIcon className="w-4 h-4" />
-              <span>{review.images.length} photo{review.images.length !== 1 ? 's' : ''}</span>
+              <span>{images.length} photo{images.length !== 1 ? 's' : ''}</span>
             </div>
             <span>•</span>
             <span>{review.name}</span>
