@@ -61,6 +61,18 @@ const ReviewsMap = () => {
 
   const reviewsWithCoords = reviews.filter(review => review.lat && review.lng);
 
+  // Debug logging
+  console.log('ReviewsMap Debug:', {
+    totalReviews: reviews.length,
+    reviewsWithCoords: reviewsWithCoords.length,
+    reviewsData: reviewsWithCoords.map(r => ({
+      id: r.id,
+      postcode: r.postcode,
+      lat: r.lat,
+      lng: r.lng
+    }))
+  });
+
   return (
     <section className="py-20 bg-gray-50">
       <div className="container mx-auto px-4">
