@@ -116,7 +116,10 @@ const Gallery = () => {
             Let PNM Gardeners transform and maintain your garden to the highest standards. 
             Contact us today for reliable, high-quality gardening services in Balham.
           </p>
-          <Button className="bg-green-700 hover:bg-green-800 text-white px-8 py-3">
+          <Button 
+            onClick={scrollToContact}
+            className="bg-green-700 hover:bg-green-800 text-white px-8 py-3"
+          >
             View All Our Work
           </Button>
         </div>
