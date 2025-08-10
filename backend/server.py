@@ -138,6 +138,23 @@ async def create_quote_request(quote_data: QuoteRequestCreate):
         
         logger.info(f"New quote request received from {quote_data.name} for {quote_data.service}")
         
+        # Send email notifications
+        try:
+            # Send notification to business email
+            await email_service.send_quote_notification(quote_data)
+            
+            # Send confirmation to customer
+            await email_service.send_customer_confirmation(
+                quote_data.email, 
+                quote_data.name, 
+                "quote"
+            )
+            
+            logger.info(f"Email notifications sent for quote request {quote_id}")
+        except Exception as email_error:
+            logger.error(f"Failed to send email notifications: {email_error}")
+            # Don't fail the request if email fails
+        
         return MessageResponse(
             message="Quote request submitted successfully. We'll get back to you within 24 hours!",
             id=quote_id
