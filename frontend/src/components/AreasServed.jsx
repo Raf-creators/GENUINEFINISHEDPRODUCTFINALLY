@@ -94,10 +94,17 @@ const AreasServed = () => {
 
                   {/* CTA Buttons */}
                   <div className="space-y-3">
-                    <Button className="w-full bg-green-700 hover:bg-green-800 text-white">
+                    <Button 
+                      onClick={scrollToContact}
+                      className="w-full bg-green-700 hover:bg-green-800 text-white"
+                    >
                       Get Free Quote Now
                     </Button>
-                    <Button variant="outline" className="w-full border-green-700 text-green-700 hover:bg-green-700 hover:text-white">
+                    <Button 
+                      variant="outline" 
+                      className="w-full border-green-700 text-green-700 hover:bg-green-700 hover:text-white"
+                      onClick={() => window.open('tel:02034881912')}
+                    >
                       <Phone className="w-4 h-4 mr-2" />
                       Call Now
                     </Button>
