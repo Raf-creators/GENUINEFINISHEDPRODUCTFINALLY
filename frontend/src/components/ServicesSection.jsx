@@ -129,7 +129,10 @@ const ServicesSection = () => {
             <p className="text-gray-600 mb-6">
               Get your gardening services carried out by professional garden maintenance specialists
             </p>
-            <Button className="bg-green-700 hover:bg-green-800 text-white px-8 py-3 text-lg">
+            <Button 
+              onClick={scrollToContact}
+              className="bg-green-700 hover:bg-green-800 text-white px-8 py-3 text-lg"
+            >
               Get A Quote Now
             </Button>
           </div>
