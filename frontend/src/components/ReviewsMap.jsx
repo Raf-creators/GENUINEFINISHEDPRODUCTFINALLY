@@ -133,65 +133,7 @@ const ReviewsMap = () => {
                         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                       />
-                      {reviewsWithCoords.map((review) => (
-                        <Marker
-                          key={review.id}
-                          position={[review.lat, review.lng]}
-                          eventHandlers={{
-                            click: () => setSelectedReview(review)
-                          }}
-                        >
-                          <Popup>
-                            <div className="max-w-sm">
-                              <div className="flex items-center space-x-2 mb-3">
-                                <div className="flex text-yellow-400">
-                                  {[...Array(Math.floor(review.rating))].map((_, i) => (
-                                    <Star key={i} className="w-4 h-4 fill-current" />
-                                  ))}
-                                </div>
-                                <span className="font-semibold text-lg">{review.rating}/10</span>
-                                <Badge variant="outline" className="text-green-700 border-green-200">
-                                  {review.postcode}
-                                </Badge>
-                              </div>
-                              
-                              <h4 className="font-semibold text-gray-900 mb-2 text-lg">
-                                {review.service}
-                              </h4>
-                              
-                              <p className="text-sm text-gray-600 mb-3 leading-relaxed">
-                                {review.text.length > 100 ? `${review.text.substring(0, 100)}...` : review.text}
-                              </p>
-
-                              {review.images && review.images.length > 0 && (
-                                <div className="mb-3">
-                                  <button
-                                    onClick={(e) => {
-                                      e.preventDefault();
-                                      e.stopPropagation();
-                                      openPhotoModal(review);
-                                    }}
-                                    className="w-full bg-green-700 text-white px-3 py-2 rounded-md text-sm font-medium hover:bg-green-800 transition-colors flex items-center justify-center space-x-2"
-                                    style={{ cursor: 'pointer' }}
-                                  >
-                                    <Eye className="w-4 h-4" />
-                                    <span>View {review.images.length} Photo{review.images.length !== 1 ? 's' : ''}</span>
-                                  </button>
-                                </div>
-                              )}
-                              
-                              <div className="text-xs text-gray-500 border-t pt-2">
-                                <div className="flex items-center space-x-2">
-                                  <Calendar className="w-3 h-3" />
-                                  <span>{review.date}</span>
-                                  <span>•</span>
-                                  <span>{review.name}</span>
-                                </div>
-                              </div>
-                            </div>
-                          </Popup>
-                        </Marker>
-                      ))}
+                      <CustomPopupHandler reviews={reviewsWithCoords} openPhotoModal={openPhotoModal} />
                     </MapContainer>
                   ) : (
                     <div className="h-full flex items-center justify-center bg-gray-100">
