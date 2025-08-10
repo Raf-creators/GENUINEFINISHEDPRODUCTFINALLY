@@ -43,54 +43,145 @@ export const services = [
   }
 ];
 
-export const reviews = [
+export const services = [
   {
     id: 1,
-    name: "Sarah Johnson",
-    rating: 5,
-    date: "15 Dec 2024",
-    text: "Absolutely brilliant service! The PNM team transformed our overgrown back garden in Balham. They were professional, punctual, and cleaned up everything perfectly. Will definitely use them again.",
-    service: "Garden Maintenance"
+    title: "Garden Maintenance",
+    description: "Comprehensive garden maintenance including lawn mowing, hedge trimming, weeding, and general upkeep. Professional service to keep your garden looking its best all year round.",
+    image: "https://images.unsplash.com/photo-1621460248083-6271cc4437a8?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Nzd8MHwxfHNlYXJjaHwxfHxnYXJkZW5pbmd8ZW58MHx8fHwxNzU0ODM3OTM2fDA&ixlib=rb-4.1.0&q=85",
+    features: ["Lawn Mowing", "Hedge Trimming", "Weeding", "General Upkeep", "Seasonal Maintenance"]
   },
   {
     id: 2,
-    name: "Michael Thompson",
-    rating: 5,
-    date: "08 Dec 2024",
-    text: "Outstanding work on our hedge trimming. The team was efficient, friendly, and left our garden looking pristine. Great value for money and excellent customer service throughout.",
-    service: "Hedge Trimming"
+    title: "Garden Clearance",
+    description: "Complete garden clearance services including removal of overgrown vegetation, waste disposal, and site preparation. Fast and efficient clearance with professional waste removal.",
+    image: "https://images.unsplash.com/photo-1458245201577-fc8a130b8829?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1Nzh8MHwxfHNlYXJjaHwzfHxsYW5kc2NhcGluZ3xlbnwwfHx8fDE3NTQ4Mzc5NDJ8MA&ixlib=rb-4.1.0&q=85",
+    features: ["Overgrown Garden Clearance", "Waste Removal", "Site Preparation", "Ivy Removal", "Thorny Bush Disposal"]
   },
   {
     id: 3,
-    name: "Emma Wilson",
-    rating: 5,
-    date: "02 Dec 2024",
-    text: "We had PNM Gardeners install a new lawn and the results are fantastic! The preparation work was thorough and the new turf looks amazing. Highly recommend their turfing services.",
-    service: "Turfing Services"
+    title: "Hedge Trimming & Removal",
+    description: "Professional hedge trimming and removal services. Expert maintenance to keep your hedges neat and healthy, or complete removal when needed.",
+    image: "https://images.unsplash.com/photo-1605117882932-f9e32b03fea9?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1Nzh8MHwxfHNlYXJjaHwyfHxsYW5kc2NhcGluZ3xlbnwwfHx8fDE3NTQ4Mzc5NDJ8MA&ixlib=rb-4.1.0&q=85",
+    features: ["Hedge Trimming", "Hedge Removal", "Hedge Shaping", "Pruning", "Cleanup Service"]
   },
   {
     id: 4,
-    name: "David Brown",
-    rating: 5,
-    date: "28 Nov 2024",
-    text: "Excellent pressure washing service for our patio and driveway. The difference is remarkable - looks like new! Professional team and fair pricing. Will book them for regular maintenance.",
-    service: "Pressure Washing"
+    title: "Lawn Care",
+    description: "Professional lawn care services including mowing, edging, weed treatment, and overseeding. Keep your lawn healthy and beautiful throughout the year.",
+    image: "https://images.pexels.com/photos/5905352/pexels-photo-5905352.jpeg",
+    features: ["Lawn Mowing", "Edging", "Weed Treatment", "Overseeding", "Lawn Health Assessment"]
   },
   {
     id: 5,
-    name: "Lisa Parker",
-    rating: 5,
-    date: "21 Nov 2024",
-    text: "PNM Gardeners have been maintaining our garden for 6 months now. Consistently excellent service, always on time, and our garden has never looked better. True professionals!",
-    service: "Garden Maintenance"
+    title: "Pruning",
+    description: "Expert pruning services for trees, shrubs, and plants. Professional techniques to promote healthy growth and maintain the shape and size of your plants.",
+    image: "https://images.unsplash.com/photo-1515150144380-bca9f1650ed9?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Nzd8MHwxfHNlYXJjaHwyfHxnYXJkZW5pbmd8ZW58MHx8fHwxNzU0ODM3OTM2fDA&ixlib=rb-4.1.0&q=85",
+    features: ["Tree Pruning", "Shrub Pruning", "Seasonal Pruning", "Health Assessment", "Shape Maintenance"]
   },
   {
     id: 6,
-    name: "James Mitchell",
-    rating: 5,
-    date: "15 Nov 2024",
-    text: "Brilliant tree pruning service. The team removed dangerous overhanging branches safely and tidied everything up. Very knowledgeable about tree care and reasonably priced.",
-    service: "Tree Surgery"
+    title: "Weed Control",
+    description: "Effective weed control solutions to keep your garden beds and lawn weed-free. Professional treatment and ongoing maintenance programs available.",
+    image: "https://images.pexels.com/photos/1301856/pexels-photo-1301856.jpeg",
+    features: ["Weed Treatment", "Preventive Control", "Organic Options", "Lawn Weed Removal", "Garden Bed Maintenance"]
+  },
+  {
+    id: 7,
+    title: "Emergency Garden Service",
+    description: "Emergency garden services for urgent situations including storm damage, fallen trees, and emergency clearance work. Available for immediate response.",
+    image: "https://images.unsplash.com/photo-1597201278257-3687be27d954?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1Nzh8MHwxfHNlYXJjaHw0fHxsYW5kc2NhcGluZ3xlbnwwfHx8fDE3NTQ4Mzc5NDJ8MA&ixlib=rb-4.1.0&q=85",
+    features: ["Storm Damage Cleanup", "Emergency Tree Removal", "Urgent Clearance", "Same Day Service", "24/7 Response"]
+  },
+  {
+    id: 8,
+    title: "Patio Services",
+    description: "Professional patio installation, repair, and maintenance. From new patio construction to pressure washing and restoration of existing patios.",
+    image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1Nzh8MHwxfHNlYXJjaHw1fHxwYXRpb3xlbnwwfHx8fDE3NTQ4Mzc5NDJ8MA&ixlib=rb-4.1.0&q=85",
+    features: ["Patio Installation", "Patio Repair", "Pressure Washing", "Stone & Block Paving", "Patio Design"]
+  },
+  {
+    id: 9,
+    title: "Planting Services",
+    description: "Expert planting schemes to suit your space and style. Professional plant selection, installation, and ongoing care to create beautiful garden displays.",
+    image: "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1Nzh8MHwxfHNlYXJjaHw2fHxwbGFudGluZ3xlbnwwfHx8fDE3NTQ4Mzc5NDJ8MA&ixlib=rb-4.1.0&q=85",
+    features: ["Plant Selection", "Flower Bed Design", "Seasonal Planting", "Bulb Planting", "Plant Care Advice"]
+  },
+  {
+    id: 10,
+    title: "Trellis & Fencing",
+    description: "Professional trellis installation and fencing services. Custom solutions for privacy, plant support, and garden structure. Quality materials and expert installation.",
+    image: "https://images.unsplash.com/photo-1585128792020-803d29415281?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1Nzh8MHwxfHNlYXJjaHw3fHx0cmVsbGlzfGVufDB8fHx8MTc1NDgzNzk0Mnww&ixlib=rb-4.1.0&q=85",
+    features: ["Trellis Installation", "Garden Fencing", "Privacy Screens", "Plant Support Systems", "Custom Design"]
+  }
+];
+
+export const reviews = [
+  {
+    id: 1,
+    name: "Verified Customer",
+    rating: 10,
+    date: "4 days ago",
+    text: "Great communication from start to finish. Computerised drawing was provided so we could visualise the end result. The team arrived when they said they would, worked fast and efficiently. Delighted with the end result.",
+    service: "Complete garden clearance and removal of waste, laying of lawn, jet washing patio",
+    postcode: "SW19",
+    images: [
+      "https://storage.googleapis.com/core-media-service-production/user-media/01K20D7JF9PAXZC50HKQXKWQ2N.8A587B8F-ECA9-4B62-A048-F173619539FA.thumb.jpeg",
+      "https://storage.googleapis.com/core-media-service-production/user-media/01K20D7JTQNTDA7ZV9RF88CCQD.36BE73D4-47B7-4FFD-A13C-072AB930D37F.thumb.jpeg"
+    ]
+  },
+  {
+    id: 2,
+    name: "Verified Customer",
+    rating: 10,
+    date: "4 days ago",
+    text: "Really great experience, the guys were friendly, helpful, informed and efficient. Cleared a really heavily congested garden with no issue and were very dilligent about it. Absolutely would recommend and go with again.",
+    service: "Highly recommended",
+    postcode: "SW16",
+    images: [
+      "https://storage.googleapis.com/core-media-service-production/user-media/01K1Z59GTJSEAYJ1C52M16ZVX8.WhatsApp%20Image%202025-08-05%20at%2018.20.28_08e28d1a.thumb.jpg",
+      "https://storage.googleapis.com/core-media-service-production/user-media/01K1Z59H44TRPFVJQSX8BA1GP4.WhatsApp%20Image%202025-08-05%20at%2018.20.26_8984b8ef.thumb.jpg"
+    ]
+  },
+  {
+    id: 3,
+    name: "Verified Customer", 
+    rating: 10,
+    date: "5 days ago",
+    text: "Booked on day of posting and completed within 2 hours of booking",
+    service: "Dispose of thorny bush",
+    postcode: "SW16",
+    images: []
+  },
+  {
+    id: 4,
+    name: "Verified Customer",
+    rating: 9,
+    date: "6 days ago", 
+    text: "PNM gardening were quick to quote from a photo and easy to communicate with. The two gardeners did a great job and cleared an overgrown garden really quickly and left no mess. Would recommend",
+    service: "Small garden clearance",
+    postcode: "SW12",
+    images: []
+  },
+  {
+    id: 5,
+    name: "Verified Customer",
+    rating: 10,
+    date: "6 days ago",
+    text: "Very good job, good communication and would use again.",
+    service: "Ivy Removal",
+    postcode: "SW10",
+    images: []
+  },
+  {
+    id: 6,
+    name: "Verified Customer",
+    rating: 9.33,
+    date: "01 August",
+    text: "Paolo and his team arrived promptly and worked hard to sort out our and our neighbour's front hedges. They were friendly and courteous and cleaned up well afterwards. The only negative was that their ladders were not quite tall enough to really trim the tops to perfection.",
+    service: "Good hedge trimming",
+    postcode: "SW4",
+    images: []
   }
 ];
 
