@@ -68,8 +68,14 @@ class QuoteRequestCreate(BaseModel):
 
     @validator('phone')
     def validate_phone(cls, v):
-        # Basic UK phone number validation
+        # Basic UK phone number validation - allow international format
         cleaned = ''.join(filter(str.isdigit, v))
+        # Remove country code if present (+44 becomes 44)
+        if v.startswith('+44'):
+            cleaned = '0' + cleaned[2:]  # Convert +447... to 07...
+        elif v.startswith('0044'):
+            cleaned = '0' + cleaned[4:]  # Convert 00447... to 07...
+        
         if len(cleaned) < 10 or len(cleaned) > 11:
             raise ValueError('Invalid phone number format')
         return v
