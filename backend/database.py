@@ -218,101 +218,10 @@ class Database:
             
             await self.db.services.insert_many(services_data)
             
-            # Seed reviews
-            reviews_data = [
-                {
-                    "id": "1",
-                    "name": "Verified Customer",
-                    "rating": 10,
-                    "date": "4 days ago",
-                    "text": "Great communication from start to finish. Computerised drawing was provided so we could visualise the end result. The team arrived when they said they would, worked fast and efficiently. Delighted with the end result.",
-                    "service": "Complete garden clearance and removal of waste, laying of lawn, jet washing patio",
-                    "postcode": "SW19",
-                    "lat": 51.4214,
-                    "lng": -0.1878,
-                    "images": [
-                        "https://storage.googleapis.com/core-media-service-production/user-media/01K20D7JF9PAXZC50HKQXKWQ2N.8A587B8F-ECA9-4B62-A048-F173619539FA.thumb.jpeg",
-                        "https://storage.googleapis.com/core-media-service-production/user-media/01K20D7JTQNTDA7ZV9RF88CCQD.36BE73D4-47B7-4FFD-A13C-072AB930D37F.thumb.jpeg"
-                    ],
-                    "approved": True,
-                    "created_at": "2024-12-15T00:00:00"
-                },
-                {
-                    "id": "2",
-                    "name": "Verified Customer",
-                    "rating": 10,
-                    "date": "4 days ago",
-                    "text": "Really great experience, the guys were friendly, helpful, informed and efficient. Cleared a really heavily congested garden with no issue and were very dilligent about it. Absolutely would recommend and go with again.",
-                    "service": "Garden Clearance",
-                    "postcode": "SW16",
-                    "lat": 51.4325,
-                    "lng": -0.1221,
-                    "images": [
-                        "https://storage.googleapis.com/core-media-service-production/user-media/01K1Z59GTJSEAYJ1C52M16ZVX8.WhatsApp%20Image%202025-08-05%20at%2018.20.28_08e28d1a.thumb.jpg",
-                        "https://storage.googleapis.com/core-media-service-production/user-media/01K1Z59H44TRPFVJQSX8BA1GP4.WhatsApp%20Image%202025-08-05%20at%2018.20.26_8984b8ef.thumb.jpg"
-                    ],
-                    "approved": True,
-                    "created_at": "2024-12-08T00:00:00"
-                },
-                {
-                    "id": "3",
-                    "name": "Verified Customer",
-                    "rating": 10,
-                    "date": "5 days ago",
-                    "text": "Booked on day of posting and completed within 2 hours of booking",
-                    "service": "Dispose of thorny bush",
-                    "postcode": "SW16",
-                    "lat": 51.4352,
-                    "lng": -0.1205,
-                    "images": [],
-                    "approved": True,
-                    "created_at": "2024-12-02T00:00:00"
-                },
-                {
-                    "id": "4",
-                    "name": "Verified Customer",
-                    "rating": 9,
-                    "date": "6 days ago",
-                    "text": "PNM gardening were quick to quote from a photo and easy to communicate with. The two gardeners did a great job and cleared an overgrown garden really quickly and left no mess. Would recommend",
-                    "service": "Small garden clearance",
-                    "postcode": "SW12",
-                    "lat": 51.4648,
-                    "lng": -0.1731,
-                    "images": [],
-                    "approved": True,
-                    "created_at": "2024-11-28T00:00:00"
-                },
-                {
-                    "id": "5",
-                    "name": "Verified Customer",
-                    "rating": 10,
-                    "date": "6 days ago",
-                    "text": "Very good job, good communication and would use again.",
-                    "service": "Ivy Removal",
-                    "postcode": "SW10",
-                    "lat": 51.4892,
-                    "lng": -0.1934,
-                    "images": [],
-                    "approved": True,
-                    "created_at": "2024-11-21T00:00:00"
-                },
-                {
-                    "id": "6",
-                    "name": "Verified Customer",
-                    "rating": 9,
-                    "date": "01 August",
-                    "text": "Paolo and his team arrived promptly and worked hard to sort out our and our neighbour's front hedges. They were friendly and courteous and cleaned up well afterwards. The only negative was that their ladders were not quite tall enough to really trim the tops to perfection.",
-                    "service": "Good hedge trimming",
-                    "postcode": "SW4",
-                    "lat": 51.4822,
-                    "lng": -0.1448,
-                    "images": [],
-                    "approved": True,
-                    "created_at": "2024-11-15T00:00:00"
-                }
-            ]
-            
-            await self.db.reviews.insert_many(reviews_data)
+            # Seed reviews - Use comprehensive dataset
+            all_reviews = generate_all_reviews()
+            await self.db.reviews.insert_many(all_reviews)
+            logger.info(f"Seeded {len(all_reviews)} reviews with coordinates")
             
             # Seed gallery images
             gallery_data = [
