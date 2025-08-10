@@ -1,15 +1,20 @@
-from fastapi import FastAPI, APIRouter
+from fastapi import FastAPI, APIRouter, HTTPException, status
+from fastapi.responses import JSONResponse
 from dotenv import load_dotenv
 from starlette.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
 import os
 import logging
 from pathlib import Path
-from pydantic import BaseModel, Field
 from typing import List
-import uuid
-from datetime import datetime
 
+# Import models and database
+from models import (
+    Service, ServiceCreate, Review, ReviewCreate, 
+    QuoteRequest, QuoteRequestCreate, Contact, ContactCreate,
+    GalleryImage, GalleryImageCreate, MessageResponse, ErrorResponse
+)
+from database import Database
 
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
@@ -17,51 +22,20 @@ load_dotenv(ROOT_DIR / '.env')
 # MongoDB connection
 mongo_url = os.environ['MONGO_URL']
 client = AsyncIOMotorClient(mongo_url)
-db = client[os.environ['DB_NAME']]
+db_client = client[os.environ['DB_NAME']]
 
-# Create the main app without a prefix
-app = FastAPI()
+# Initialize database helper
+database = Database()
+
+# Create the main app
+app = FastAPI(
+    title="PNM Gardeners API",
+    description="Backend API for PNM Gardeners website",
+    version="1.0.0"
+)
 
 # Create a router with the /api prefix
 api_router = APIRouter(prefix="/api")
-
-
-# Define Models
-class StatusCheck(BaseModel):
-    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
-    client_name: str
-    timestamp: datetime = Field(default_factory=datetime.utcnow)
-
-class StatusCheckCreate(BaseModel):
-    client_name: str
-
-# Add your routes to the router instead of directly to app
-@api_router.get("/")
-async def root():
-    return {"message": "Hello World"}
-
-@api_router.post("/status", response_model=StatusCheck)
-async def create_status_check(input: StatusCheckCreate):
-    status_dict = input.dict()
-    status_obj = StatusCheck(**status_dict)
-    _ = await db.status_checks.insert_one(status_obj.dict())
-    return status_obj
-
-@api_router.get("/status", response_model=List[StatusCheck])
-async def get_status_checks():
-    status_checks = await db.status_checks.find().to_list(1000)
-    return [StatusCheck(**status_check) for status_check in status_checks]
-
-# Include the router in the main app
-app.include_router(api_router)
-
-app.add_middleware(
-    CORSMiddleware,
-    allow_credentials=True,
-    allow_origins=os.environ.get('CORS_ORIGINS', '*').split(','),
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
 
 # Configure logging
 logging.basicConfig(
@@ -70,6 +44,225 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
+# Startup event - seed initial data
+@app.on_event("startup")
+async def startup_event():
+    logger.info("Starting up PNM Gardeners API...")
+    try:
+        await database.seed_initial_data()
+        logger.info("Database initialization completed")
+    except Exception as e:
+        logger.error(f"Failed to initialize database: {e}")
+
+# Health check endpoint
+@api_router.get("/", response_model=MessageResponse)
+async def root():
+    return MessageResponse(message="PNM Gardeners API is running")
+
+# Services Endpoints
+@api_router.get("/services", response_model=List[Service])
+async def get_all_services():
+    """Get all gardening services"""
+    try:
+        services = await database.get_all_services()
+        return services
+    except Exception as e:
+        logger.error(f"Error fetching services: {e}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Failed to fetch services"
+        )
+
+@api_router.get("/services/{service_id}", response_model=Service)
+async def get_service(service_id: str):
+    """Get a specific service by ID"""
+    try:
+        service = await database.get_service_by_id(service_id)
+        if not service:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail="Service not found"
+            )
+        return service
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error fetching service {service_id}: {e}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Failed to fetch service"
+        )
+
+# Reviews Endpoints
+@api_router.get("/reviews", response_model=List[Review])
+async def get_all_reviews():
+    """Get all approved customer reviews"""
+    try:
+        reviews = await database.get_all_reviews()
+        return reviews
+    except Exception as e:
+        logger.error(f"Error fetching reviews: {e}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Failed to fetch reviews"
+        )
+
+@api_router.post("/reviews", response_model=MessageResponse)
+async def create_review(review_data: ReviewCreate):
+    """Submit a new customer review"""
+    try:
+        review = Review(**review_data.dict(), approved=False)  # New reviews need approval
+        review_id = await database.create_review(review)
+        return MessageResponse(
+            message="Review submitted successfully and is pending approval",
+            id=review_id
+        )
+    except Exception as e:
+        logger.error(f"Error creating review: {e}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Failed to submit review"
+        )
+
+# Quote Requests Endpoints
+@api_router.post("/quotes", response_model=MessageResponse)
+async def create_quote_request(quote_data: QuoteRequestCreate):
+    """Submit a quote request"""
+    try:
+        quote = QuoteRequest(**quote_data.dict())
+        quote_id = await database.create_quote_request(quote)
+        
+        logger.info(f"New quote request received from {quote_data.name} for {quote_data.service}")
+        
+        return MessageResponse(
+            message="Quote request submitted successfully. We'll get back to you within 24 hours!",
+            id=quote_id
+        )
+    except ValueError as e:
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+            detail=str(e)
+        )
+    except Exception as e:
+        logger.error(f"Error creating quote request: {e}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Failed to submit quote request"
+        )
+
+@api_router.get("/quotes", response_model=List[QuoteRequest])
+async def get_all_quotes():
+    """Get all quote requests (admin endpoint)"""
+    try:
+        quotes = await database.get_all_quote_requests()
+        return quotes
+    except Exception as e:
+        logger.error(f"Error fetching quotes: {e}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Failed to fetch quotes"
+        )
+
+# Contact Endpoints
+@api_router.post("/contact", response_model=MessageResponse)
+async def create_contact(contact_data: ContactCreate):
+    """Submit a contact form"""
+    try:
+        contact = Contact(**contact_data.dict())
+        contact_id = await database.create_contact(contact)
+        
+        logger.info(f"New contact form received from {contact_data.name}")
+        
+        return MessageResponse(
+            message="Thank you for contacting us. We'll respond to your inquiry soon!",
+            id=contact_id
+        )
+    except ValueError as e:
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+            detail=str(e)
+        )
+    except Exception as e:
+        logger.error(f"Error creating contact: {e}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Failed to submit contact form"
+        )
+
+@api_router.get("/contacts", response_model=List[Contact])
+async def get_all_contacts():
+    """Get all contact form submissions (admin endpoint)"""
+    try:
+        contacts = await database.get_all_contacts()
+        return contacts
+    except Exception as e:
+        logger.error(f"Error fetching contacts: {e}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Failed to fetch contacts"
+        )
+
+# Gallery Endpoints
+@api_router.get("/gallery", response_model=List[GalleryImage])
+async def get_gallery_images():
+    """Get all gallery images"""
+    try:
+        images = await database.get_all_gallery_images()
+        return images
+    except Exception as e:
+        logger.error(f"Error fetching gallery images: {e}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Failed to fetch gallery images"
+        )
+
+@api_router.post("/gallery", response_model=MessageResponse)
+async def create_gallery_image(image_data: GalleryImageCreate):
+    """Upload a new gallery image (admin endpoint)"""
+    try:
+        image = GalleryImage(**image_data.dict())
+        image_id = await database.create_gallery_image(image)
+        return MessageResponse(
+            message="Gallery image uploaded successfully",
+            id=image_id
+        )
+    except Exception as e:
+        logger.error(f"Error creating gallery image: {e}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Failed to upload gallery image"
+        )
+
+# Error handlers
+@app.exception_handler(HTTPException)
+async def http_exception_handler(request, exc):
+    return JSONResponse(
+        status_code=exc.status_code,
+        content={"error": exc.detail}
+    )
+
+@app.exception_handler(Exception)
+async def general_exception_handler(request, exc):
+    logger.error(f"Unexpected error: {exc}")
+    return JSONResponse(
+        status_code=500,
+        content={"error": "Internal server error", "details": str(exc)}
+    )
+
+# Include the router in the main app
+app.include_router(api_router)
+
+# CORS middleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_credentials=True,
+    allow_origins=["*"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 @app.on_event("shutdown")
 async def shutdown_db_client():
+    await database.close()
     client.close()
+    logger.info("Database connections closed")
