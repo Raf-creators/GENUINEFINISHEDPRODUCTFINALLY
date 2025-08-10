@@ -9,38 +9,16 @@ import 'leaflet/dist/leaflet.css';
 
 // Fix for default markers in React Leaflet
 import L from 'leaflet';
-delete L.Icon.Default.prototype._getIconUrl;
-L.Icon.Default.mergeOptions({
-  iconRetinaUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-2x.png',
-  iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png',
-  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
-});
 
-// Create custom icon for our markers
-const createCustomIcon = (rating) => {
-  const color = rating >= 9.5 ? '#16a34a' : rating >= 8 ? '#ca8a04' : '#dc2626';
-  return L.divIcon({
-    html: `
-      <div style="
-        background-color: ${color};
-        color: white;
-        border-radius: 50%;
-        width: 30px;
-        height: 30px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-weight: bold;
-        font-size: 12px;
-        border: 2px solid white;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-      ">${rating}</div>
-    `,
-    className: 'custom-marker',
-    iconSize: [30, 30],
-    iconAnchor: [15, 15]
-  });
-};
+// Create proper marker icons
+const greenIcon = new L.Icon({
+  iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  shadowSize: [41, 41]
+});
 
 const ReviewsMap = () => {
   const [reviews, setReviews] = useState([]);
@@ -132,35 +110,62 @@ const ReviewsMap = () => {
                       <Marker
                         key={review.id}
                         position={[review.lat, review.lng]}
-                        icon={createCustomIcon(review.rating)}
+                        icon={greenIcon}
                         eventHandlers={{
                           click: () => setSelectedReview(review)
                         }}
                       >
                         <Popup>
                           <div className="max-w-sm">
-                            <div className="flex items-center space-x-2 mb-2">
+                            <div className="flex items-center space-x-2 mb-3">
                               <div className="flex text-yellow-400">
                                 {[...Array(Math.floor(review.rating))].map((_, i) => (
                                   <Star key={i} className="w-4 h-4 fill-current" />
                                 ))}
                               </div>
-                              <span className="font-semibold">{review.rating}/10</span>
-                              <Badge variant="outline" className="text-xs">
+                              <span className="font-semibold text-lg">{review.rating}/10</span>
+                              <Badge variant="outline" className="text-green-700 border-green-200">
                                 {review.postcode}
                               </Badge>
                             </div>
-                            <h4 className="font-semibold text-gray-900 mb-2">
+                            
+                            <h4 className="font-semibold text-gray-900 mb-2 text-lg">
                               {review.service}
                             </h4>
-                            <p className="text-sm text-gray-600 mb-2">
-                              {review.text.length > 100 ? 
-                                `${review.text.substring(0, 100)}...` : 
-                                review.text
-                              }
+                            
+                            <p className="text-sm text-gray-600 mb-3 leading-relaxed">
+                              {review.text}
                             </p>
-                            <div className="text-xs text-gray-500">
-                              {review.date} • {review.name}
+
+                            {review.images && review.images.length > 0 && (
+                              <div className="mb-3">
+                                <div className="text-xs font-medium text-gray-700 mb-2 flex items-center">
+                                  <Image className="w-3 h-3 mr-1" />
+                                  Work Photos:
+                                </div>
+                                <div className="grid grid-cols-2 gap-1">
+                                  {review.images.slice(0, 4).map((image, index) => (
+                                    <img
+                                      key={index}
+                                      src={image}
+                                      alt={`Work completed in ${review.postcode}`}
+                                      className="w-full h-16 object-cover rounded border"
+                                      onError={(e) => {
+                                        e.target.style.display = 'none';
+                                      }}
+                                    />
+                                  ))}
+                                </div>
+                              </div>
+                            )}
+                            
+                            <div className="text-xs text-gray-500 border-t pt-2">
+                              <div className="flex items-center space-x-2">
+                                <Calendar className="w-3 h-3" />
+                                <span>{review.date}</span>
+                                <span>•</span>
+                                <span>{review.name}</span>
+                              </div>
                             </div>
                           </div>
                         </Popup>
@@ -178,7 +183,7 @@ const ReviewsMap = () => {
               <Card className="border-0 shadow-xl">
                 <CardHeader>
                   <div className="flex items-center justify-between">
-                    <CardTitle className="text-lg">Customer Review</CardTitle>
+                    <CardTitle className="text-lg">Work Completed</CardTitle>
                     <Badge variant="outline" className="text-green-700 border-green-200">
                       {selectedReview.postcode}
                     </Badge>
@@ -214,8 +219,11 @@ const ReviewsMap = () => {
                           <img
                             key={index}
                             src={image}
-                            alt={`Work photo ${index + 1}`}
+                            alt={`Work completed ${index + 1}`}
                             className="w-full h-20 object-cover rounded-lg border"
+                            onError={(e) => {
+                              e.target.style.display = 'none';
+                            }}
                           />
                         ))}
                       </div>
@@ -240,38 +248,11 @@ const ReviewsMap = () => {
                     Click a Marker
                   </h3>
                   <p className="text-gray-600">
-                    Click on any marker on the map to see detailed customer reviews and photos of our work.
+                    Click on any marker on the map to see detailed customer reviews and photos of our completed work.
                   </p>
                 </CardContent>
               </Card>
             )}
-
-            {/* Map Legend */}
-            <Card className="border-0 shadow-xl mt-6">
-              <CardHeader>
-                <CardTitle className="text-lg">Map Legend</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-3">
-                <div className="flex items-center space-x-3">
-                  <div className="w-6 h-6 bg-green-600 rounded-full flex items-center justify-center text-white text-xs font-bold">
-                    10
-                  </div>
-                  <span className="text-sm">Excellent (9.5-10)</span>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <div className="w-6 h-6 bg-yellow-600 rounded-full flex items-center justify-center text-white text-xs font-bold">
-                    9
-                  </div>
-                  <span className="text-sm">Very Good (8-9.4)</span>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <div className="w-6 h-6 bg-red-600 rounded-full flex items-center justify-center text-white text-xs font-bold">
-                    7
-                  </div>
-                  <span className="text-sm">Good (Below 8)</span>
-                </div>
-              </CardContent>
-            </Card>
           </div>
         </div>
 
