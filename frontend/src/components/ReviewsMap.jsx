@@ -48,6 +48,8 @@ const ReviewsMap = () => {
   }, []);
 
   const openPhotoModal = (review) => {
+    console.log('Opening photo modal for review:', review);
+    console.log('Review images:', review.images);
     setModalReview(review);
     setPhotoModalOpen(true);
   };
