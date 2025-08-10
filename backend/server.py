@@ -112,7 +112,9 @@ async def get_all_reviews():
 async def create_review(review_data: ReviewCreate):
     """Submit a new customer review"""
     try:
-        review = Review(**review_data.dict(), approved=False)  # New reviews need approval
+        # Add current date for the review
+        current_date = datetime.now().strftime("%d %b %Y")
+        review = Review(**review_data.dict(), date=current_date, approved=False)  # New reviews need approval
         review_id = await database.create_review(review)
         return MessageResponse(
             message="Review submitted successfully and is pending approval",
