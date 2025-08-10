@@ -46,12 +46,16 @@ const HeroSection = () => {
 
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button className="bg-green-700 hover:bg-green-800 text-white px-8 py-4 text-lg">
+              <Button 
+                onClick={scrollToContact}
+                className="bg-green-700 hover:bg-green-800 text-white px-8 py-4 text-lg"
+              >
                 Book Free Quote Today
               </Button>
               <Button 
                 variant="outline" 
                 className="border-green-700 text-green-700 hover:bg-green-700 hover:text-white px-8 py-4 text-lg"
+                onClick={() => window.open('tel:02034881912')}
               >
                 <Phone className="w-5 h-5 mr-2" />
                 020 3488 1912
