@@ -134,17 +134,11 @@ const Header = () => {
               >
                 Areas
               </button>
-              <button 
-                onClick={() => scrollToSection('gallery')} 
-                className="text-gray-700 hover:text-green-800 font-medium text-left"
-              >
-                Gallery
-              </button>
               <a 
                 href="/gallery"
                 className="text-gray-700 hover:text-green-800 font-medium text-left"
               >
-                Work Gallery
+                Gallery
               </a>
               <button 
                 onClick={() => scrollToSection('contact')} 
