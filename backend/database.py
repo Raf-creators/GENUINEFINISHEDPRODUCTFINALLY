@@ -124,54 +124,90 @@ class Database:
                 {
                     "id": "1",
                     "title": "Garden Maintenance",
-                    "description": "Whether you require a complete garden clearing, one-off visit or regular maintenance visits to ensure a great looking garden all year round. We consist of a small team of gardeners and are not a franchise company.",
+                    "description": "Comprehensive garden maintenance including lawn mowing, hedge trimming, weeding, and general upkeep. Professional service to keep your garden looking its best all year round.",
                     "image": "https://images.unsplash.com/photo-1621460248083-6271cc4437a8?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Nzd8MHwxfHNlYXJjaHwxfHxnYXJkZW5pbmd8ZW58MHx8fHwxNzU0ODM3OTM2fDA&ixlib=rb-4.1.0&q=85",
-                    "features": ["Hedge Trimming", "Leaf Clearance", "Pruning", "Weeding", "Seasonal Clean-ups"],
+                    "features": ["Lawn Mowing", "Hedge Trimming", "Weeding", "General Upkeep", "Seasonal Maintenance"],
                     "created_at": "2024-01-01T00:00:00",
                     "updated_at": "2024-01-01T00:00:00"
                 },
                 {
                     "id": "2",
-                    "title": "Lawn Care Services",
-                    "description": "We provide professional lawn care services with cost effective solutions for any lawn problems. From mowing to seeding, we ensure your lawn stays healthy and beautiful all year round.",
+                    "title": "Garden Clearance",
+                    "description": "Complete garden clearance services including removal of overgrown vegetation, waste disposal, and site preparation. Fast and efficient clearance with professional waste removal.",
                     "image": "https://images.unsplash.com/photo-1458245201577-fc8a130b8829?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1Nzh8MHwxfHNlYXJjaHwzfHxsYW5kc2NhcGluZ3xlbnwwfHx8fDE3NTQ4Mzc5NDJ8MA&ixlib=rb-4.1.0&q=85",
-                    "features": ["Lawn Mowing", "Edging", "Weed Treatment", "Overseeding", "Lawn Repair"],
+                    "features": ["Overgrown Garden Clearance", "Waste Removal", "Site Preparation", "Ivy Removal", "Thorny Bush Disposal"],
                     "created_at": "2024-01-01T00:00:00",
                     "updated_at": "2024-01-01T00:00:00"
                 },
                 {
                     "id": "3",
-                    "title": "Hedge Trimming & Planting",
-                    "description": "Professional hedge trimming and planting services. We offer all types of hedge services whether it's replacing an existing hedge, planting a new hedge, or maintaining your current hedges.",
+                    "title": "Hedge Trimming & Removal",
+                    "description": "Professional hedge trimming and removal services. Expert maintenance to keep your hedges neat and healthy, or complete removal when needed.",
                     "image": "https://images.unsplash.com/photo-1605117882932-f9e32b03fea9?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1Nzh8MHwxfHNlYXJjaHwyfHxsYW5kc2NhcGluZ3xlbnwwfHx8fDE3NTQ4Mzc5NDJ8MA&ixlib=rb-4.1.0&q=85",
-                    "features": ["Hedge Trimming", "Hedge Planting", "Topiary Work", "Privacy Screens", "Hedge Removal"],
+                    "features": ["Hedge Trimming", "Hedge Removal", "Hedge Shaping", "Pruning", "Cleanup Service"],
                     "created_at": "2024-01-01T00:00:00",
                     "updated_at": "2024-01-01T00:00:00"
                 },
                 {
                     "id": "4",
-                    "title": "Turfing Services",
-                    "description": "Lawn turfing in Balham is perfect if you're looking to improve the look of your lawn areas. All lawn turf we supply is sourced from premium suppliers for guaranteed quality.",
+                    "title": "Lawn Care",
+                    "description": "Professional lawn care services including mowing, edging, weed treatment, and overseeding. Keep your lawn healthy and beautiful throughout the year.",
                     "image": "https://images.pexels.com/photos/5905352/pexels-photo-5905352.jpeg",
-                    "features": ["New Lawn Installation", "Turf Laying", "Ground Preparation", "Artificial Grass", "Lawn Renovation"],
+                    "features": ["Lawn Mowing", "Edging", "Weed Treatment", "Overseeding", "Lawn Health Assessment"],
                     "created_at": "2024-01-01T00:00:00",
                     "updated_at": "2024-01-01T00:00:00"
                 },
                 {
                     "id": "5",
-                    "title": "Pressure Washing",
-                    "description": "The almost instant way to improve the look and feel of your outdoor space is by booking us to carry out professional pressure washing for your patios, driveways, and outdoor areas.",
+                    "title": "Pruning",
+                    "description": "Expert pruning services for trees, shrubs, and plants. Professional techniques to promote healthy growth and maintain the shape and size of your plants.",
                     "image": "https://images.unsplash.com/photo-1515150144380-bca9f1650ed9?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Nzd8MHwxfHNlYXJjaHwyfHxnYXJkZW5pbmd8ZW58MHx8fHwxNzU0ODM3OTM2fDA&ixlib=rb-4.1.0&q=85",
-                    "features": ["Patio Cleaning", "Driveway Washing", "Fence Cleaning", "Decking Restoration", "Building Exterior"],
+                    "features": ["Tree Pruning", "Shrub Pruning", "Seasonal Pruning", "Health Assessment", "Shape Maintenance"],
                     "created_at": "2024-01-01T00:00:00",
                     "updated_at": "2024-01-01T00:00:00"
                 },
                 {
                     "id": "6",
-                    "title": "Tree Surgery & Pruning",
-                    "description": "Professional tree surgery services including pruning, crown reduction, and tree removal. Our certified arborists ensure the health and safety of your trees while maintaining their beauty.",
+                    "title": "Weed Control",
+                    "description": "Effective weed control solutions to keep your garden beds and lawn weed-free. Professional treatment and ongoing maintenance programs available.",
                     "image": "https://images.pexels.com/photos/1301856/pexels-photo-1301856.jpeg",
-                    "features": ["Tree Pruning", "Crown Reduction", "Tree Removal", "Stump Grinding", "Emergency Tree Services"],
+                    "features": ["Weed Treatment", "Preventive Control", "Organic Options", "Lawn Weed Removal", "Garden Bed Maintenance"],
+                    "created_at": "2024-01-01T00:00:00",
+                    "updated_at": "2024-01-01T00:00:00"
+                },
+                {
+                    "id": "7",
+                    "title": "Emergency Garden Service",
+                    "description": "Emergency garden services for urgent situations including storm damage, fallen trees, and emergency clearance work. Available for immediate response.",
+                    "image": "https://images.unsplash.com/photo-1597201278257-3687be27d954?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1Nzh8MHwxfHNlYXJjaHw0fHxsYW5kc2NhcGluZ3xlbnwwfHx8fDE3NTQ4Mzc5NDJ8MA&ixlib=rb-4.1.0&q=85",
+                    "features": ["Storm Damage Cleanup", "Emergency Tree Removal", "Urgent Clearance", "Same Day Service", "24/7 Response"],
+                    "created_at": "2024-01-01T00:00:00",
+                    "updated_at": "2024-01-01T00:00:00"
+                },
+                {
+                    "id": "8",
+                    "title": "Patio Services",
+                    "description": "Professional patio installation, repair, and maintenance. From new patio construction to pressure washing and restoration of existing patios.",
+                    "image": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1Nzh8MHwxfHNlYXJjaHw1fHxwYXRpb3xlbnwwfHx8fDE3NTQ4Mzc5NDJ8MA&ixlib=rb-4.1.0&q=85",
+                    "features": ["Patio Installation", "Patio Repair", "Pressure Washing", "Stone & Block Paving", "Patio Design"],
+                    "created_at": "2024-01-01T00:00:00",
+                    "updated_at": "2024-01-01T00:00:00"
+                },
+                {
+                    "id": "9",
+                    "title": "Planting Services",
+                    "description": "Expert planting schemes to suit your space and style. Professional plant selection, installation, and ongoing care to create beautiful garden displays.",
+                    "image": "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1Nzh8MHwxfHNlYXJjaHw2fHxwbGFudGluZ3xlbnwwfHx8fDE3NTQ4Mzc5NDJ8MA&ixlib=rb-4.1.0&q=85",
+                    "features": ["Plant Selection", "Flower Bed Design", "Seasonal Planting", "Bulb Planting", "Plant Care Advice"],
+                    "created_at": "2024-01-01T00:00:00",
+                    "updated_at": "2024-01-01T00:00:00"
+                },
+                {
+                    "id": "10",
+                    "title": "Trellis & Fencing",
+                    "description": "Professional trellis installation and fencing services. Custom solutions for privacy, plant support, and garden structure. Quality materials and expert installation.",
+                    "image": "https://images.unsplash.com/photo-1585128792020-803d29415281?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1Nzh8MHwxfHNlYXJjaHw3fHx0cmVsbGlzfGVufDB8fHx8MTc1NDgzNzk0Mnww&ixlib=rb-4.1.0&q=85",
+                    "features": ["Trellis Installation", "Garden Fencing", "Privacy Screens", "Plant Support Systems", "Custom Design"],
                     "created_at": "2024-01-01T00:00:00",
                     "updated_at": "2024-01-01T00:00:00"
                 }
