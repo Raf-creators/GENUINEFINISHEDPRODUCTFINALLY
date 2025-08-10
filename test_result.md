@@ -315,13 +315,11 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Full-stack integration testing completed"
-    - "Backend API endpoints verified"
-    - "Frontend-backend communication confirmed"
+    - "Interactive Map Backend Support"
   stuck_tasks: []
-  test_all: true
-  test_priority: "completed"
+  test_all: false
+  test_priority: "high_first"
 
 agent_communication:
     - agent: "main"
-      message: "PNM Gardeners website development completed successfully. Full-stack application with React frontend and FastAPI backend deployed. All major functionality tested and working: services display, reviews carousel, contact forms, gallery, and responsive design. Backend API comprehensively tested with 91.3% success rate (21/23 tests passed). Minor issues with phone validation and review creation were identified and fixed. Database properly seeded with gardening services data. Application is production-ready."
+      message: "Fixed the interactive London map functionality. Updated Review model to include lat, lng, postcode, and images fields. Cleared database and reseeded with coordinate data. Map now displays 6 clickable markers with customer review details and work photos. Backend needs testing to verify API endpoints work correctly with updated model."
