@@ -33,9 +33,16 @@ const Header = () => {
       <nav className="container mx-auto px-4 py-4">
         <div className="flex justify-between items-center">
           <div className="flex items-center">
-            <h1 className="text-3xl font-bold text-green-800">PNM Gardeners</h1>
-            <div className="hidden md:block ml-2 text-sm text-gray-600">
-              Professional Gardening Services
+            <img 
+              src="https://customer-assets.emergentagent.com/job_green-thumbs-balham/artifacts/qsdqvwf5_IMG_7243.jpeg" 
+              alt="PNM Gardeners Logo" 
+              className="h-14 w-14 mr-3"
+            />
+            <div>
+              <h1 className="text-3xl font-bold text-green-800">PNM Gardeners</h1>
+              <div className="hidden md:block text-sm text-gray-600">
+                Professional Gardening Services
+              </div>
             </div>
           </div>
 
