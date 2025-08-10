@@ -24,6 +24,8 @@ const ReviewsMap = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedReview, setSelectedReview] = useState(null);
+  const [photoModalOpen, setPhotoModalOpen] = useState(false);
+  const [modalReview, setModalReview] = useState(null);
 
   useEffect(() => {
     const fetchReviews = async () => {
