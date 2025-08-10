@@ -163,8 +163,13 @@ const ReviewsMap = () => {
                               {review.images && review.images.length > 0 && (
                                 <div className="mb-3">
                                   <button
-                                    onClick={() => openPhotoModal(review)}
+                                    onClick={(e) => {
+                                      e.preventDefault();
+                                      e.stopPropagation();
+                                      openPhotoModal(review);
+                                    }}
                                     className="w-full bg-green-700 text-white px-3 py-2 rounded-md text-sm font-medium hover:bg-green-800 transition-colors flex items-center justify-center space-x-2"
+                                    style={{ cursor: 'pointer' }}
                                   >
                                     <Eye className="w-4 h-4" />
                                     <span>View {review.images.length} Photo{review.images.length !== 1 ? 's' : ''}</span>
