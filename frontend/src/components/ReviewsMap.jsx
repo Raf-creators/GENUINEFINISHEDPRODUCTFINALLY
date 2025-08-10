@@ -2,9 +2,10 @@ import React, { useState, useEffect } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import { apiService, handleApiError } from "../services/api";
 import { reviews as fallbackReviews } from "../mock/data";
-import { Star, MapPin, Calendar, Image } from "lucide-react";
+import { Star, MapPin, Calendar, Image, Eye } from "lucide-react";
 import { Badge } from "./ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
+import PhotoModal from "./PhotoModal";
 import 'leaflet/dist/leaflet.css';
 
 // Import and set up Leaflet properly
