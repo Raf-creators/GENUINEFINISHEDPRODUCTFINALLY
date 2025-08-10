@@ -3,6 +3,7 @@ import Header from "./Header";
 import HeroSection from "./HeroSection";
 import ServicesSection from "./ServicesSection";
 import ReviewsSection from "./ReviewsSection";
+import ReviewsMap from "./ReviewsMap";
 import WhyChooseUs from "./WhyChooseUs";
 import AreasServed from "./AreasServed";
 import FAQ from "./FAQ";
