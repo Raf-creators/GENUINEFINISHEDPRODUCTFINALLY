@@ -11,13 +11,20 @@ const Footer = () => {
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Company Info */}
           <div className="space-y-6">
-            <div>
-              <h3 className="text-2xl font-bold text-white mb-2">PNM Gardeners</h3>
-              <p className="text-gray-300">
-                Your trusted local gardening experts serving Balham and surrounding London areas 
-                with professional, reliable gardening services.
-              </p>
+            <div className="flex items-center space-x-3">
+              <img 
+                src="https://customer-assets.emergentagent.com/job_green-thumbs-balham/artifacts/qsdqvwf5_IMG_7243.jpeg" 
+                alt="PNM Gardeners Logo" 
+                className="h-12 w-12"
+              />
+              <div>
+                <h3 className="text-2xl font-bold text-white">PNM Gardeners</h3>
+              </div>
             </div>
+            <p className="text-gray-300">
+              Your trusted local gardening experts serving Balham and surrounding London areas 
+              with professional, reliable gardening services.
+            </p>
             
             <div className="space-y-3">
               <div className="flex items-center space-x-3">
