@@ -117,6 +117,21 @@ backend:
           agent: "main"
           comment: "GET /api/ endpoint returns proper health check message"
 
+  - task: "Interactive Map Backend Support"
+    implemented: true
+    working: true
+    file: "backend/models.py, backend/database.py"
+    stuck_count: 1
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: false
+          agent: "main"
+          comment: "Review model missing lat/lng/postcode/images fields for map functionality"
+        - working: true
+          agent: "main"
+          comment: "Fixed Review model to include lat, lng, postcode, images fields. Updated rating range to 1-10. Database cleared and reseeded with coordinate data."
+
   - task: "Services CRUD Operations"
     implemented: true
     working: true
