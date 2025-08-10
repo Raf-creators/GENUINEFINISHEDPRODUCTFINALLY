@@ -49,17 +49,18 @@ const PhotoModal = ({ isOpen, onClose, review }) => {
         <div className="relative">
           <div className="aspect-video bg-gray-100 rounded-lg overflow-hidden">
             <img
-              src={review.images[currentImageIndex]}
+              src={images[currentImageIndex]}
               alt={`Work completed in ${review.postcode} - Image ${currentImageIndex + 1}`}
               className="w-full h-full object-cover"
               onError={(e) => {
+                console.error('Failed to load image:', images[currentImageIndex]);
                 e.target.src = "https://images.unsplash.com/photo-1621460248083-6271cc4437a8?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Nzd8MHwxfHNlYXJjaHwxfHxnYXJkZW5pbmd8ZW58MHx8fHwxNzU0ODM3OTM2fDA&ixlib=rb-4.1.0&q=85";
               }}
             />
           </div>
           
           {/* Navigation Arrows */}
-          {review.images.length > 1 && (
+          {images.length > 1 && (
             <>
               <button
                 onClick={prevImage}
@@ -77,17 +78,17 @@ const PhotoModal = ({ isOpen, onClose, review }) => {
           )}
           
           {/* Image Counter */}
-          {review.images.length > 1 && (
+          {images.length > 1 && (
             <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black bg-opacity-50 text-white px-3 py-1 rounded-full text-sm">
-              {currentImageIndex + 1} / {review.images.length}
+              {currentImageIndex + 1} / {images.length}
             </div>
           )}
         </div>
         
         {/* Thumbnail Navigation */}
-        {review.images.length > 1 && (
+        {images.length > 1 && (
           <div className="flex space-x-2 overflow-x-auto pb-2">
-            {review.images.map((image, index) => (
+            {images.map((image, index) => (
               <button
                 key={index}
                 onClick={() => setCurrentImageIndex(index)}
