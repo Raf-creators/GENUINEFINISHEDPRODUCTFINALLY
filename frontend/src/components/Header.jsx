@@ -116,22 +116,40 @@ const Header = () => {
         {isMenuOpen && (
           <div className="md:hidden mt-4 pb-4">
             <div className="flex flex-col space-y-4">
-              <a href="#services" className="text-gray-700 hover:text-green-800 font-medium">
+              <button 
+                onClick={() => scrollToSection('services')} 
+                className="text-gray-700 hover:text-green-800 font-medium text-left"
+              >
                 Services
-              </a>
-              <a href="#about" className="text-gray-700 hover:text-green-800 font-medium">
+              </button>
+              <button 
+                onClick={() => scrollToSection('about')} 
+                className="text-gray-700 hover:text-green-800 font-medium text-left"
+              >
                 About
-              </a>
-              <a href="#areas" className="text-gray-700 hover:text-green-800 font-medium">
+              </button>
+              <button 
+                onClick={() => scrollToSection('areas')} 
+                className="text-gray-700 hover:text-green-800 font-medium text-left"
+              >
                 Areas
-              </a>
-              <a href="#gallery" className="text-gray-700 hover:text-green-800 font-medium">
+              </button>
+              <button 
+                onClick={() => scrollToSection('gallery')} 
+                className="text-gray-700 hover:text-green-800 font-medium text-left"
+              >
                 Gallery
-              </a>
-              <a href="#contact" className="text-gray-700 hover:text-green-800 font-medium">
+              </button>
+              <button 
+                onClick={() => scrollToSection('contact')} 
+                className="text-gray-700 hover:text-green-800 font-medium text-left"
+              >
                 Contact
-              </a>
-              <Button className="bg-green-700 hover:bg-green-800 text-white w-full">
+              </button>
+              <Button 
+                onClick={handleQuoteClick}
+                className="bg-green-700 hover:bg-green-800 text-white w-full"
+              >
                 Get Free Quote
               </Button>
               <div className="pt-4 border-t flex flex-col space-y-2 text-sm">
