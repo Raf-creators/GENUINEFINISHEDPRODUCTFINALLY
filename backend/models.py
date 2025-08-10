@@ -23,10 +23,14 @@ class ServiceCreate(BaseModel):
 class Review(BaseModel):
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
     name: str
-    rating: int = Field(..., ge=1, le=5)
+    rating: int = Field(..., ge=1, le=10)  # Changed to allow ratings up to 10 to match Checkatrade
     date: str
     text: str
     service: str
+    postcode: Optional[str] = None  # Added for location identification
+    lat: Optional[float] = None  # Added for map coordinates
+    lng: Optional[float] = None  # Added for map coordinates
+    images: List[str] = []  # Added for work photos
     approved: bool = True
     created_at: datetime = Field(default_factory=datetime.utcnow)
 
