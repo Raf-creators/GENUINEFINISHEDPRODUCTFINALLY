@@ -157,28 +157,18 @@ const ReviewsMap = () => {
                               </h4>
                               
                               <p className="text-sm text-gray-600 mb-3 leading-relaxed">
-                                {review.text}
+                                {review.text.length > 100 ? `${review.text.substring(0, 100)}...` : review.text}
                               </p>
 
                               {review.images && review.images.length > 0 && (
                                 <div className="mb-3">
-                                  <div className="text-xs font-medium text-gray-700 mb-2 flex items-center">
-                                    <Image className="w-3 h-3 mr-1" />
-                                    Work Photos:
-                                  </div>
-                                  <div className="grid grid-cols-2 gap-1">
-                                    {review.images.slice(0, 4).map((image, index) => (
-                                      <img
-                                        key={index}
-                                        src={image}
-                                        alt={`Work completed in ${review.postcode}`}
-                                        className="w-full h-16 object-cover rounded border"
-                                        onError={(e) => {
-                                          e.target.style.display = 'none';
-                                        }}
-                                      />
-                                    ))}
-                                  </div>
+                                  <button
+                                    onClick={() => openPhotoModal(review)}
+                                    className="w-full bg-green-700 text-white px-3 py-2 rounded-md text-sm font-medium hover:bg-green-800 transition-colors flex items-center justify-center space-x-2"
+                                  >
+                                    <Eye className="w-4 h-4" />
+                                    <span>View {review.images.length} Photo{review.images.length !== 1 ? 's' : ''}</span>
+                                  </button>
                                 </div>
                               )}
                               
