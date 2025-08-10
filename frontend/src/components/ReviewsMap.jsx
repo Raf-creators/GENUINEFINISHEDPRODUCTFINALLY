@@ -48,6 +48,18 @@ const ReviewsMap = () => {
     fetchReviews();
   }, []);
 
+  // Listen for custom marker click events
+  useEffect(() => {
+    const handleMarkerClick = (event) => {
+      setSelectedReview(event.detail);
+    };
+
+    window.addEventListener('markerClicked', handleMarkerClick);
+    return () => {
+      window.removeEventListener('markerClicked', handleMarkerClick);
+    };
+  }, []);
+
   const openPhotoModal = (review) => {
     console.log('Opening photo modal for review:', review);
     console.log('Review images:', review.images);
