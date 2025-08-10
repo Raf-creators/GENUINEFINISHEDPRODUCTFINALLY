@@ -47,8 +47,15 @@ const ReviewsMap = () => {
     fetchReviews();
   }, []);
 
-  // London center coordinates
-  const londonCenter = [51.5074, -0.1278];
+  const openPhotoModal = (review) => {
+    setModalReview(review);
+    setPhotoModalOpen(true);
+  };
+
+  const closePhotoModal = () => {
+    setPhotoModalOpen(false);
+    setModalReview(null);
+  };
 
   if (loading) {
     return (
