@@ -57,6 +57,9 @@ const ReviewsMap = () => {
     setModalReview(null);
   };
 
+  // London center coordinates
+  const londonCenter = [51.5074, -0.1278];
+
   if (loading) {
     return (
       <section className="py-20 bg-gray-50">
