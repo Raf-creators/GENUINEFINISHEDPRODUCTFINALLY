@@ -1,15 +1,15 @@
-import React, { useState } from "react";
-import { services } from "../mock/data";
-import { Phone, Mail, MapPin, Send } from "lucide-react";
+import React, { useState, useEffect } from "react";
+import { apiService, handleApiError } from "../services/api";
+import { services as fallbackServices } from "../mock/data";
+import { Phone, Mail, MapPin, Send, Loader2, CheckCircle, XCircle } from "lucide-react";
 import { Button } from "./ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
-import { useToast } from "../hooks/use-toast";
 
 const ContactSection = () => {
-  const { toast } = useToast();
+  const [services, setServices] = useState([]);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -17,6 +17,24 @@ const ContactSection = () => {
     service: "",
     message: "",
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState(null); // 'success', 'error', or null
+  const [submitMessage, setSubmitMessage] = useState("");
+
+  // Fetch services for the dropdown
+  useEffect(() => {
+    const fetchServices = async () => {
+      try {
+        const data = await apiService.getServices();
+        setServices(data);
+      } catch (err) {
+        console.error('Failed to fetch services for dropdown, using fallback:', err);
+        setServices(fallbackServices);
+      }
+    };
+
+    fetchServices();
+  }, []);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -24,6 +42,11 @@ const ContactSection = () => {
       ...prev,
       [name]: value,
     }));
+    // Clear submit status when user starts typing
+    if (submitStatus) {
+      setSubmitStatus(null);
+      setSubmitMessage("");
+    }
   };
 
   const handleServiceChange = (value) => {
@@ -33,21 +56,33 @@ const ContactSection = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Mock form submission
-    toast({
-      title: "Quote Request Sent!",
-      description: "Thank you for your inquiry. We'll get back to you within 24 hours with your free quote.",
-    });
-    // Reset form
-    setFormData({
-      name: "",
-      email: "",
-      phone: "",
-      service: "",
-      message: "",
-    });
+    setIsSubmitting(true);
+    setSubmitStatus(null);
+    setSubmitMessage("");
+
+    try {
+      const response = await apiService.createQuoteRequest(formData);
+      setSubmitStatus('success');
+      setSubmitMessage(response.message || "Quote request submitted successfully!");
+      
+      // Reset form on success
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        service: "",
+        message: "",
+      });
+      
+    } catch (error) {
+      const errorInfo = handleApiError(error);
+      setSubmitStatus('error');
+      setSubmitMessage(errorInfo.message);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -77,6 +112,22 @@ const ContactSection = () => {
                 </p>
               </CardHeader>
               <CardContent className="px-8 pb-8">
+                {/* Submit Status Message */}
+                {submitStatus && (
+                  <div className={`mb-6 p-4 rounded-lg flex items-center space-x-2 ${
+                    submitStatus === 'success' 
+                      ? 'bg-green-50 border border-green-200 text-green-800' 
+                      : 'bg-red-50 border border-red-200 text-red-800'
+                  }`}>
+                    {submitStatus === 'success' ? (
+                      <CheckCircle className="w-5 h-5" />
+                    ) : (
+                      <XCircle className="w-5 h-5" />
+                    )}
+                    <span>{submitMessage}</span>
+                  </div>
+                )}
+
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid md:grid-cols-2 gap-6">
                     <div>
@@ -90,6 +141,7 @@ const ContactSection = () => {
                         onChange={handleInputChange}
                         placeholder="Enter your full name"
                         required
+                        disabled={isSubmitting}
                         className="border-gray-300 focus:border-green-700"
                       />
                     </div>
@@ -104,6 +156,7 @@ const ContactSection = () => {
                         onChange={handleInputChange}
                         placeholder="Enter your email"
                         required
+                        disabled={isSubmitting}
                         className="border-gray-300 focus:border-green-700"
                       />
                     </div>
@@ -121,6 +174,7 @@ const ContactSection = () => {
                         onChange={handleInputChange}
                         placeholder="Enter your phone number"
                         required
+                        disabled={isSubmitting}
                         className="border-gray-300 focus:border-green-700"
                       />
                     </div>
@@ -128,7 +182,12 @@ const ContactSection = () => {
                       <label className="block text-sm font-medium text-gray-700 mb-2">
                         Service Required *
                       </label>
-                      <Select onValueChange={handleServiceChange} required>
+                      <Select 
+                        onValueChange={handleServiceChange} 
+                        required
+                        disabled={isSubmitting}
+                        value={formData.service}
+                      >
                         <SelectTrigger className="border-gray-300 focus:border-green-700">
                           <SelectValue placeholder="Choose a service" />
                         </SelectTrigger>
@@ -154,16 +213,27 @@ const ContactSection = () => {
                       onChange={handleInputChange}
                       placeholder="Tell us about your garden project, preferred dates, or any specific requirements..."
                       rows={5}
+                      disabled={isSubmitting}
                       className="border-gray-300 focus:border-green-700"
                     />
                   </div>
 
                   <Button
                     type="submit"
-                    className="w-full bg-green-700 hover:bg-green-800 text-white py-4 text-lg"
+                    disabled={isSubmitting}
+                    className="w-full bg-green-700 hover:bg-green-800 text-white py-4 text-lg disabled:opacity-50"
                   >
-                    <Send className="w-5 h-5 mr-2" />
-                    Send Quote Request
+                    {isSubmitting ? (
+                      <>
+                        <Loader2 className="w-5 h-5 mr-2 animate-spin" />
+                        Sending Quote Request...
+                      </>
+                    ) : (
+                      <>
+                        <Send className="w-5 h-5 mr-2" />
+                        Send Quote Request
+                      </>
+                    )}
                   </Button>
                 </form>
               </CardContent>

@@ -1,10 +1,50 @@
-import React from "react";
-import { services } from "../mock/data";
+import React, { useState, useEffect } from "react";
+import { apiService, handleApiError } from "../services/api";
+import { services as fallbackServices } from "../mock/data";
 import { Button } from "./ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "./ui/card";
 import { Badge } from "./ui/badge";
+import { Loader2 } from "lucide-react";
 
 const ServicesSection = () => {
+  const [services, setServices] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchServices = async () => {
+      try {
+        setLoading(true);
+        const data = await apiService.getServices();
+        setServices(data);
+        setError(null);
+      } catch (err) {
+        console.error('Failed to fetch services, using fallback data:', err);
+        const errorInfo = handleApiError(err);
+        setError(errorInfo.message);
+        // Use fallback data if API fails
+        setServices(fallbackServices);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchServices();
+  }, []);
+
+  if (loading) {
+    return (
+      <section id="services" className="py-20 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="text-center">
+            <Loader2 className="w-8 h-8 animate-spin mx-auto text-green-700" />
+            <p className="mt-4 text-gray-600">Loading our services...</p>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section id="services" className="py-20 bg-white">
       <div className="container mx-auto px-4">
@@ -18,6 +58,11 @@ const ServicesSection = () => {
             Call us at <span className="font-semibold text-green-700">020 3488 1912</span>. 
             We'll provide fast and free quotes for your requests.
           </p>
+          {error && (
+            <div className="mt-4 p-3 bg-yellow-50 border border-yellow-200 rounded-lg text-sm text-yellow-800">
+              ⚠️ Using cached data: {error}
+            </div>
+          )}
         </div>
 
         {/* Services Grid */}

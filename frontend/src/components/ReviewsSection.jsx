@@ -1,12 +1,37 @@
-import React, { useState } from "react";
-import { reviews } from "../mock/data";
-import { Star, ChevronLeft, ChevronRight } from "lucide-react";
+import React, { useState, useEffect } from "react";
+import { apiService, handleApiError } from "../services/api";
+import { reviews as fallbackReviews } from "../mock/data";
+import { Star, ChevronLeft, ChevronRight, Loader2 } from "lucide-react";
 import { Card, CardContent } from "./ui/card";
 import { Button } from "./ui/button";
 import { Badge } from "./ui/badge";
 
 const ReviewsSection = () => {
+  const [reviews, setReviews] = useState([]);
   const [currentReview, setCurrentReview] = useState(0);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchReviews = async () => {
+      try {
+        setLoading(true);
+        const data = await apiService.getReviews();
+        setReviews(data);
+        setError(null);
+      } catch (err) {
+        console.error('Failed to fetch reviews, using fallback data:', err);
+        const errorInfo = handleApiError(err);
+        setError(errorInfo.message);
+        // Use fallback data if API fails
+        setReviews(fallbackReviews);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchReviews();
+  }, []);
 
   const nextReview = () => {
     setCurrentReview((prev) => (prev + 1) % reviews.length);
@@ -16,11 +41,41 @@ const ReviewsSection = () => {
     setCurrentReview((prev) => (prev - 1 + reviews.length) % reviews.length);
   };
 
+  if (loading) {
+    return (
+      <section className="py-20 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <div className="text-center">
+            <Loader2 className="w-8 h-8 animate-spin mx-auto text-green-700" />
+            <p className="mt-4 text-gray-600">Loading customer reviews...</p>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  if (!reviews.length) {
+    return (
+      <section className="py-20 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <div className="text-center">
+            <p className="text-gray-600">No reviews available at the moment.</p>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section className="py-20 bg-gray-50">
       <div className="container mx-auto px-4">
         {/* Google Reviews Header */}
         <div className="text-center mb-16">
+          {error && (
+            <div className="mb-4 p-3 bg-yellow-50 border border-yellow-200 rounded-lg text-sm text-yellow-800 max-w-md mx-auto">
+              ⚠️ Using cached data: {error}
+            </div>
+          )}
           <div className="bg-white rounded-2xl p-8 shadow-lg max-w-md mx-auto">
             <div className="flex items-center justify-center mb-4">
               <img 
@@ -37,7 +92,7 @@ const ReviewsSection = () => {
                   <Star key={i} className="w-6 h-6 text-yellow-400 fill-current" />
                 ))}
               </div>
-              <div className="text-gray-600">Based on 238+ reviews</div>
+              <div className="text-gray-600">Based on {reviews.length}+ reviews</div>
             </div>
           </div>
         </div>
