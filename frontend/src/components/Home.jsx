@@ -18,6 +18,7 @@ const Home = () => {
       <HeroSection />
       <ServicesSection />
       <ReviewsSection />
+      <ReviewsMap />
       <WhyChooseUs />
       <AreasServed />
       <Gallery />
