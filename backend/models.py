@@ -35,6 +35,12 @@ class ReviewCreate(BaseModel):
     rating: int = Field(..., ge=1, le=5)
     text: str
     service: str
+    
+    @validator('name')
+    def validate_name_not_empty(cls, v):
+        if not v or not v.strip():
+            raise ValueError('Name cannot be empty')
+        return v.strip()
 
 # Quote Request Models
 class QuoteRequest(BaseModel):
