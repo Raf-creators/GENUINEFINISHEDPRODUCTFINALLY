@@ -16,11 +16,11 @@ const PhotoModal = ({ isOpen, onClose, review }) => {
   }
 
   const nextImage = () => {
-    setCurrentImageIndex((prev) => (prev + 1) % review.images.length);
+    setCurrentImageIndex((prev) => (prev + 1) % images.length);
   };
 
   const prevImage = () => {
-    setCurrentImageIndex((prev) => (prev - 1 + review.images.length) % review.images.length);
+    setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length);
   };
 
   return (
