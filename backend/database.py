@@ -3,6 +3,9 @@ from typing import List, Dict, Any, Optional
 import os
 from models import Service, Review, QuoteRequest, Contact, GalleryImage
 import logging
+import sys
+sys.path.append('/app')
+from comprehensive_reviews_data import generate_all_reviews
 
 # Setup logging
 logger = logging.getLogger(__name__)
