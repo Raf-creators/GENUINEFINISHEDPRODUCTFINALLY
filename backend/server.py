@@ -194,6 +194,23 @@ async def create_contact(contact_data: ContactCreate):
         
         logger.info(f"New contact form received from {contact_data.name}")
         
+        # Send email notifications
+        try:
+            # Send notification to business email
+            await email_service.send_contact_notification(contact_data)
+            
+            # Send confirmation to customer
+            await email_service.send_customer_confirmation(
+                contact_data.email, 
+                contact_data.name, 
+                "contact"
+            )
+            
+            logger.info(f"Email notifications sent for contact form {contact_id}")
+        except Exception as email_error:
+            logger.error(f"Failed to send email notifications: {email_error}")
+            # Don't fail the request if email fails
+        
         return MessageResponse(
             message="Thank you for contacting us. We'll respond to your inquiry soon!",
             id=contact_id
