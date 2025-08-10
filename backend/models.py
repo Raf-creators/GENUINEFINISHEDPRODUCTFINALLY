@@ -36,9 +36,13 @@ class Review(BaseModel):
 
 class ReviewCreate(BaseModel):
     name: str
-    rating: int = Field(..., ge=1, le=5)
+    rating: int = Field(..., ge=1, le=10)  # Changed to allow ratings up to 10
     text: str
     service: str
+    postcode: Optional[str] = None
+    lat: Optional[float] = None
+    lng: Optional[float] = None
+    images: List[str] = []
     
     @validator('name')
     def validate_name_not_empty(cls, v):
