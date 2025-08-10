@@ -6,7 +6,14 @@ import { Badge } from "./ui/badge";
 const PhotoModal = ({ isOpen, onClose, review }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   
-  if (!review || !review.images || review.images.length === 0) return null;
+  if (!review) return null;
+  
+  // Ensure images exist and is an array
+  const images = Array.isArray(review.images) ? review.images : [];
+  if (images.length === 0) {
+    console.log('No images found for review:', review);
+    return null;
+  }
 
   const nextImage = () => {
     setCurrentImageIndex((prev) => (prev + 1) % review.images.length);
