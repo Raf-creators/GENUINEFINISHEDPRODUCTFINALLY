@@ -295,7 +295,20 @@ frontend:
           agent: "main"
           comment: "Responsive design implemented across all components with proper mobile navigation"
 
-  - task: "Error Handling and Loading States"
+  - task: "Interactive London Reviews Map"
+    implemented: true
+    working: true
+    file: "frontend/src/components/ReviewsMap.jsx"
+    stuck_count: 1
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: false
+          agent: "main"
+          comment: "Map markers not displaying - backend review data missing coordinates"
+        - working: true
+          agent: "main"
+          comment: "Fixed by updating backend Review model to include coordinates. Map now displays 6 markers with clickable popups showing customer reviews, ratings, work photos, and postcodes"
     implemented: true
     working: true
     file: "frontend/src/services/api.js, frontend/src/components/"
