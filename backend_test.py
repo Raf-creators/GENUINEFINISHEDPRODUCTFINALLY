@@ -113,23 +113,102 @@ class APITester:
         
         self.test_endpoint("GET", "/reviews", description="Get all reviews")
         
-        # Test creating a new review
-        review_data = {
-            "name": "John Smith",
-            "rating": 5,
-            "text": "Excellent gardening service! Very professional and thorough work on our garden maintenance.",
-            "service": "Garden Maintenance"
-        }
-        self.test_endpoint("POST", "/reviews", data=review_data, description="Create new review")
+        # Test reviews with updated model (lat, lng, postcode, images, rating 1-10)
+        reviews_response = self.test_endpoint("GET", "/reviews", description="Get all reviews with coordinate data")
         
-        # Test invalid review (missing required fields)
+        if reviews_response and isinstance(reviews_response, list):
+            print(f"\n📍 TESTING UPDATED REVIEW MODEL FIELDS")
+            print("=" * 50)
+            
+            for i, review in enumerate(reviews_response[:3]):  # Test first 3 reviews
+                print(f"\n🔍 Review {i+1} Field Validation:")
+                
+                # Check required fields
+                required_fields = ['id', 'name', 'rating', 'text', 'service', 'date']
+                for field in required_fields:
+                    if field in review:
+                        print(f"   ✅ {field}: {review[field]}")
+                    else:
+                        print(f"   ❌ Missing required field: {field}")
+                        self.failed += 1
+                        self.errors.append(f"Review {review.get('id', 'unknown')} missing required field: {field}")
+                
+                # Check new coordinate fields
+                coordinate_fields = ['lat', 'lng', 'postcode']
+                for field in coordinate_fields:
+                    if field in review and review[field] is not None:
+                        print(f"   ✅ {field}: {review[field]}")
+                    else:
+                        print(f"   ⚠️  Optional field {field}: {review.get(field, 'None')}")
+                
+                # Check images field
+                if 'images' in review:
+                    images = review['images']
+                    if isinstance(images, list):
+                        print(f"   ✅ images: {len(images)} images - {images[:2] if images else 'empty list'}")
+                    else:
+                        print(f"   ❌ images field should be a list, got: {type(images)}")
+                        self.failed += 1
+                        self.errors.append(f"Review {review.get('id', 'unknown')} images field is not a list")
+                else:
+                    print(f"   ❌ Missing images field")
+                    self.failed += 1
+                    self.errors.append(f"Review {review.get('id', 'unknown')} missing images field")
+                
+                # Check rating range (1-10)
+                rating = review.get('rating')
+                if rating is not None:
+                    if 1 <= rating <= 10:
+                        print(f"   ✅ rating: {rating} (valid range 1-10)")
+                        self.passed += 1
+                    else:
+                        print(f"   ❌ rating: {rating} (invalid - should be 1-10)")
+                        self.failed += 1
+                        self.errors.append(f"Review {review.get('id', 'unknown')} has invalid rating: {rating}")
+                else:
+                    print(f"   ❌ Missing rating field")
+                    self.failed += 1
+                    self.errors.append(f"Review {review.get('id', 'unknown')} missing rating field")
+        
+        # Test creating a new review with updated model
+        review_data = {
+            "name": "Sarah Johnson",
+            "rating": 8,  # Test rating in new 1-10 range
+            "text": "Excellent gardening service! Very professional and thorough work on our garden maintenance. The team was punctual and left everything spotless.",
+            "service": "Garden Maintenance",
+            "postcode": "SW12",
+            "lat": 51.4648,
+            "lng": -0.1731,
+            "images": ["https://example.com/before.jpg", "https://example.com/after.jpg"]
+        }
+        self.test_endpoint("POST", "/reviews", data=review_data, description="Create new review with coordinates and images")
+        
+        # Test review with maximum rating (10)
+        max_rating_review = {
+            "name": "Michael Brown",
+            "rating": 10,  # Test maximum rating
+            "text": "Outstanding service! Completely transformed our garden.",
+            "service": "Garden Clearance"
+        }
+        self.test_endpoint("POST", "/reviews", data=max_rating_review, description="Create review with maximum rating (10)")
+        
+        # Test invalid review (rating > 10)
         invalid_review = {
             "name": "Test User",
-            "rating": 6,  # Invalid rating > 5
-            "text": "Test review"
-            # Missing service field
+            "rating": 11,  # Invalid rating > 10
+            "text": "Test review",
+            "service": "Garden Maintenance"
         }
-        self.test_endpoint("POST", "/reviews", data=invalid_review, expected_status=422, description="Create invalid review")
+        self.test_endpoint("POST", "/reviews", data=invalid_review, expected_status=422, description="Create review with invalid rating (>10)")
+        
+        # Test invalid review (rating < 1)
+        invalid_low_review = {
+            "name": "Test User",
+            "rating": 0,  # Invalid rating < 1
+            "text": "Test review",
+            "service": "Garden Maintenance"
+        }
+        self.test_endpoint("POST", "/reviews", data=invalid_low_review, expected_status=422, description="Create review with invalid rating (<1)")
         
         # 4. Quote Requests Tests
         print("\n" + "=" * 40)
