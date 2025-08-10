@@ -5,6 +5,20 @@ import { Button } from "./ui/button";
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  // Scroll to section function
+  const scrollToSection = (sectionId) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+      setIsMenuOpen(false); // Close mobile menu if open
+    }
+  };
+
+  // Handle quote button click
+  const handleQuoteClick = () => {
+    scrollToSection('contact');
+  };
+
   return (
     <header className="bg-white shadow-sm border-b">
       {/* Top Bar */}
