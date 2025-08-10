@@ -109,7 +109,10 @@ const ServicesSection = () => {
               </CardContent>
               
               <CardFooter className="pt-4">
-                <Button className="w-full bg-green-700 hover:bg-green-800 text-white">
+                <Button 
+                  onClick={scrollToContact}
+                  className="w-full bg-green-700 hover:bg-green-800 text-white"
+                >
                   Book {service.title}
                 </Button>
               </CardFooter>
