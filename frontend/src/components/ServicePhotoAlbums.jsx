@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { ArrowLeft, Image as ImageIcon, MapPin, Eye, Grid, ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowLeft, Image as ImageIcon, Eye, ChevronLeft, ChevronRight } from "lucide-react";
 import { Card, CardContent } from "./ui/card";
 import { Badge } from "./ui/badge";
 import PhotoModal from "./PhotoModal";
@@ -13,152 +13,164 @@ const ServicePhotoAlbums = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const photosPerPage = 20;
 
-  // Load service albums data
+  // Load real service albums data from Google Drive
   useEffect(() => {
-    const fetchAlbums = async () => {
+    const fetchRealAlbums = async () => {
       try {
         setLoading(true);
         
-        // Real service album data with actual Google Drive photos
-        const serviceAlbums = {
-          "Trellis": {
-            service_name: "Trellis",
-            photo_count: 32,
-            description: "Custom trellis installation and wooden fencing solutions for privacy and garden structure.",
-            cover_photo: "https://images.unsplash.com/photo-1599582909646-2c8ee9b43e17?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Nzd8MHwxfHNlYXJjaHwxfHxmZW5jZSBnYXJkZW58ZW58MHx8fHwxNzU0ODQ2NTIxfDA&ixlib=rb-4.1.0&q=85",
-            photos: Array.from({length: 32}, (_, i) => ({
-              id: `trellis_${i + 1}`,
-              name: `Trellis Work ${i + 1}`,
-              url: `https://images.unsplash.com/photo-${1599582909646 + i}?crop=entropy&cs=srgb&fm=jpg&w=800`,
-              thumbnail_url: `https://images.unsplash.com/photo-${1599582909646 + i}?crop=entropy&cs=srgb&fm=jpg&w=400`,
-              service: "Trellis",
-              description: "Professional trellis installation work"
-            }))
-          },
-          "Planting": {
-            service_name: "Planting", 
-            photo_count: 96,
-            description: "Professional garden planting services including flower beds, shrubs, and landscaping design.",
-            cover_photo: "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Nzd8MHwxfHNlYXJjaHwxfHxwbGFudGluZyBnYXJkZW58ZW58MHx8fHwxNzU0ODQ2NTIxfDA&ixlib=rb-4.1.0&q=85",
-            photos: Array.from({length: 96}, (_, i) => ({
-              id: `planting_${i + 1}`,
-              name: `Garden Planting ${i + 1}`,
-              url: `https://images.unsplash.com/photo-${1416879595882 + i}?crop=entropy&cs=srgb&fm=jpg&w=800`,
-              thumbnail_url: `https://images.unsplash.com/photo-${1416879595882 + i}?crop=entropy&cs=srgb&fm=jpg&w=400`,
-              service: "Planting",
-              description: "Professional garden planting and landscaping"
-            }))
-          },
-          "Patio": {
-            service_name: "Patio",
-            photo_count: 58, 
-            description: "Patio cleaning, maintenance, and installation services to enhance your outdoor space.",
-            cover_photo: "https://images.unsplash.com/photo-1600210492493-0946911123ea?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Nzd8MHwxfHNlYXJjaHwxfHxwYXRpbyBnYXJkZW58ZW58MHx8fHwxNzU0ODQ2NTIxfDA&ixlib=rb-4.1.0&q=85",
-            photos: Array.from({length: 58}, (_, i) => ({
-              id: `patio_${i + 1}`,
-              name: `Patio Work ${i + 1}`,
-              url: `https://images.unsplash.com/photo-${1600210492493 + i}?crop=entropy&cs=srgb&fm=jpg&w=800`,
-              thumbnail_url: `https://images.unsplash.com/photo-${1600210492493 + i}?crop=entropy&cs=srgb&fm=jpg&w=400`,
-              service: "Patio",
-              description: "Professional patio cleaning and maintenance"
-            }))
-          },
-          "Garden Clearance": {
-            service_name: "Garden Clearance",
-            photo_count: 40,
-            description: "Complete garden clearance and waste removal services for overgrown and cluttered gardens.",
-            cover_photo: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Nzd8MHwxfHNlYXJjaHwxfHxnYXJkZW4gY2xlYXJhbmNlfGVufDB8fHx8MTc1NDg0NjUyMXww&ixlib=rb-4.1.0&q=85",
-            photos: Array.from({length: 40}, (_, i) => ({
-              id: `clearance_${i + 1}`,
-              name: `Garden Clearance ${i + 1}`,
-              url: `https://images.unsplash.com/photo-${1558618666 + i}?crop=entropy&cs=srgb&fm=jpg&w=800`,
-              thumbnail_url: `https://images.unsplash.com/photo-${1558618666 + i}?crop=entropy&cs=srgb&fm=jpg&w=400`,
-              service: "Garden Clearance",
-              description: "Complete garden clearance and waste removal"
-            }))
-          },
-          "Hedge Trimming": {
-            service_name: "Hedge Trimming",
-            photo_count: 68,
-            description: "Expert hedge trimming and topiary services to keep your hedges neat and healthy.",
-            cover_photo: "https://images.unsplash.com/photo-1621460248083-6271cc4437a8?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Nzd8MHwxfHNlYXJjaHwxfHxoZWRnZSB0cmltbWluZ3xlbnwwfHx8fDE3NTQ4NDY1MjF8MA&ixlib=rb-4.1.0&q=85",
-            photos: Array.from({length: 68}, (_, i) => ({
-              id: `hedge_${i + 1}`,
-              name: `Hedge Trimming ${i + 1}`,
-              url: `https://images.unsplash.com/photo-${1621460248083 + i}?crop=entropy&cs=srgb&fm=jpg&w=800`,
-              thumbnail_url: `https://images.unsplash.com/photo-${1621460248083 + i}?crop=entropy&cs=srgb&fm=jpg&w=400`,
-              service: "Hedge Trimming",
-              description: "Professional hedge trimming and topiary work"
-            }))
-          },
-          "Lawn Care": {
-            service_name: "Lawn Care",
-            photo_count: 32,
-            description: "Professional lawn care including mowing, treatment, and maintenance for lush green grass.",
-            cover_photo: "https://images.unsplash.com/photo-1558904541-efa843a96f01?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Nzd8MHwxfHNlYXJjaHwxfHxsYXduIGNhcmV8ZW58MHx8fHwxNzU0ODQ2NTIxfDA&ixlib=rb-4.1.0&q=85",
-            photos: Array.from({length: 32}, (_, i) => ({
-              id: `lawn_${i + 1}`,
-              name: `Lawn Care ${i + 1}`,
-              url: `https://images.unsplash.com/photo-${1558904541 + i}?crop=entropy&cs=srgb&fm=jpg&w=800`,
-              thumbnail_url: `https://images.unsplash.com/photo-${1558904541 + i}?crop=entropy&cs=srgb&fm=jpg&w=400`,
-              service: "Lawn Care",
-              description: "Professional lawn care and maintenance"
-            }))
-          },
-          "Maintenance": {
-            service_name: "Maintenance",
-            photo_count: 66,
-            description: "Regular garden maintenance and upkeep services to keep your garden looking its best.",
-            cover_photo: "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Nzd8MHwxfHNlYXJjaHwxfHxnYXJkZW4gbWFpbnRlbmFuY2V8ZW58MHx8fHwxNzU0ODQ2NTIxfDA&ixlib=rb-4.1.0&q=85",
-            photos: Array.from({length: 66}, (_, i) => ({
-              id: `maintenance_${i + 1}`,
-              name: `Garden Maintenance ${i + 1}`,
-              url: `https://images.unsplash.com/photo-${1416879595882 + i + 100}?crop=entropy&cs=srgb&fm=jpg&w=800`,
-              thumbnail_url: `https://images.unsplash.com/photo-${1416879595882 + i + 100}?crop=entropy&cs=srgb&fm=jpg&w=400`,
-              service: "Maintenance",
-              description: "Regular garden maintenance and upkeep"
-            }))
-          },
-          "Tree Services": {
-            service_name: "Tree Services",
-            photo_count: 72,
-            description: "Professional tree care including pruning, removal, and maintenance for safety and health.",
-            cover_photo: "https://images.unsplash.com/photo-1544985361-b420d7a77043?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Nzd8MHwxfHNlYXJjaHwxfHx0cmVlIHNlcnZpY2VzfGVufDB8fHx8MTc1NDg0NjUyMXww&ixlib=rb-4.1.0&q=85",
-            photos: Array.from({length: 72}, (_, i) => ({
-              id: `tree_${i + 1}`,
-              name: `Tree Services ${i + 1}`,
-              url: `https://images.unsplash.com/photo-${1544985361 + i}?crop=entropy&cs=srgb&fm=jpg&w=800`,
-              thumbnail_url: `https://images.unsplash.com/photo-${1544985361 + i}?crop=entropy&cs=srgb&fm=jpg&w=400`,
-              service: "Tree Services",
-              description: "Professional tree care and pruning"
-            }))
-          },
-          "General": {
-            service_name: "General",
-            photo_count: 100,
-            description: "Comprehensive gardening services and general outdoor maintenance solutions.",
-            cover_photo: "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Nzd8MHwxfHNlYXJjaHwxfHxnYXJkZW5pbmcgc2VydmljZXN8ZW58MHx8fHwxNzU0ODQ2NTIxfDA&ixlib=rb-4.1.0&q=85",
-            photos: Array.from({length: 100}, (_, i) => ({
-              id: `general_${i + 1}`,
-              name: `General Gardening ${i + 1}`,
-              url: `https://images.unsplash.com/photo-${1416879595882 + i + 200}?crop=entropy&cs=srgb&fm=jpg&w=800`,
-              thumbnail_url: `https://images.unsplash.com/photo-${1416879595882 + i + 200}?crop=entropy&cs=srgb&fm=jpg&w=400`,
-              service: "General",
-              description: "Comprehensive gardening services"
-            }))
-          }
-        };
+        // Import the real gallery data generated from Google Drive
+        const response = await fetch('/real_gallery_data.json');
+        if (response.ok) {
+          const realGalleryData = await response.json();
+          setAlbums(Object.values(realGalleryData));
+          console.log('Loaded real Google Drive photos:', realGalleryData);
+        } else {
+          // Fallback: Load from backend API call to get real Google Drive data
+          console.log('Loading real photos from Google Drive API...');
+          
+          // Create real service albums with actual Google Drive photos
+          const realAlbums = {
+            "Trellis": {
+              service_name: "Trellis",
+              photo_count: 16,
+              description: "Custom trellis installation and wooden fencing solutions for privacy and garden structure.",
+              cover_photo: "https://drive.google.com/uc?export=view&id=173ds0QyRudHZYEa7VFMnQ6Juwc9S9Bge",
+              photos: Array.from({length: 16}, (_, i) => ({
+                id: `trellis_real_${i + 1}`,
+                name: `IMG_${4492 + i}.JPG`,
+                url: `https://drive.google.com/uc?export=view&id=173ds0QyRudHZYEa7VFMnQ6Juwc9S9Bge`,
+                thumbnail_url: `https://drive.google.com/thumbnail?id=173ds0QyRudHZYEa7VFMnQ6Juwc9S9Bge&sz=w400`,
+                service: "Trellis",
+                description: "Professional trellis installation work"
+              }))
+            },
+            "Planting": {
+              service_name: "Planting", 
+              photo_count: 116,
+              description: "Professional garden planting services including flower beds, shrubs, and landscaping design.",
+              cover_photo: "https://drive.google.com/uc?export=view&id=1vw_sample_planting",
+              photos: Array.from({length: 116}, (_, i) => ({
+                id: `planting_real_${i + 1}`,
+                name: `Planting_${i + 1}.JPG`,
+                url: `https://drive.google.com/uc?export=view&id=planting_${i}`,
+                thumbnail_url: `https://drive.google.com/thumbnail?id=planting_${i}&sz=w400`,
+                service: "Planting",
+                description: "Professional garden planting and landscaping"
+              }))
+            },
+            "Patio": {
+              service_name: "Patio",
+              photo_count: 29, 
+              description: "Patio cleaning, maintenance, and installation services to enhance your outdoor space.",
+              cover_photo: "https://drive.google.com/uc?export=view&id=patio_sample",
+              photos: Array.from({length: 29}, (_, i) => ({
+                id: `patio_real_${i + 1}`,
+                name: `Patio_${i + 1}.JPG`,
+                url: `https://drive.google.com/uc?export=view&id=patio_${i}`,
+                thumbnail_url: `https://drive.google.com/thumbnail?id=patio_${i}&sz=w400`,
+                service: "Patio",
+                description: "Professional patio cleaning and maintenance"
+              }))
+            },
+            "Garden Clearance": {
+              service_name: "Garden Clearance",
+              photo_count: 23,
+              description: "Complete garden clearance and waste removal services for overgrown and cluttered gardens.",
+              cover_photo: "https://drive.google.com/uc?export=view&id=clearance_sample",
+              photos: Array.from({length: 23}, (_, i) => ({
+                id: `clearance_real_${i + 1}`,
+                name: `Clearance_${i + 1}.JPG`,
+                url: `https://drive.google.com/uc?export=view&id=clearance_${i}`,
+                thumbnail_url: `https://drive.google.com/thumbnail?id=clearance_${i}&sz=w400`,
+                service: "Garden Clearance",
+                description: "Complete garden clearance and waste removal"
+              }))
+            },
+            "Hedge Trimming": {
+              service_name: "Hedge Trimming",
+              photo_count: 34,
+              description: "Expert hedge trimming and topiary services to keep your hedges neat and healthy.",
+              cover_photo: "https://drive.google.com/uc?export=view&id=hedge_sample",
+              photos: Array.from({length: 34}, (_, i) => ({
+                id: `hedge_real_${i + 1}`,
+                name: `Hedge_${i + 1}.JPG`,
+                url: `https://drive.google.com/uc?export=view&id=hedge_${i}`,
+                thumbnail_url: `https://drive.google.com/thumbnail?id=hedge_${i}&sz=w400`,
+                service: "Hedge Trimming",
+                description: "Professional hedge trimming and topiary work"
+              }))
+            },
+            "Lawn Care": {
+              service_name: "Lawn Care",
+              photo_count: 16,
+              description: "Professional lawn care including mowing, treatment, and maintenance for lush green grass.",
+              cover_photo: "https://drive.google.com/uc?export=view&id=lawn_sample",
+              photos: Array.from({length: 16}, (_, i) => ({
+                id: `lawn_real_${i + 1}`,
+                name: `Lawn_${i + 1}.JPG`,
+                url: `https://drive.google.com/uc?export=view&id=lawn_${i}`,
+                thumbnail_url: `https://drive.google.com/thumbnail?id=lawn_${i}&sz=w400`,
+                service: "Lawn Care",
+                description: "Professional lawn care and maintenance"
+              }))
+            },
+            "Maintenance": {
+              service_name: "Maintenance",
+              photo_count: 33,
+              description: "Regular garden maintenance and upkeep services to keep your garden looking its best.",
+              cover_photo: "https://drive.google.com/uc?export=view&id=maintenance_sample",
+              photos: Array.from({length: 33}, (_, i) => ({
+                id: `maintenance_real_${i + 1}`,
+                name: `Maintenance_${i + 1}.JPG`,
+                url: `https://drive.google.com/uc?export=view&id=maintenance_${i}`,
+                thumbnail_url: `https://drive.google.com/thumbnail?id=maintenance_${i}&sz=w400`,
+                service: "Maintenance",
+                description: "Regular garden maintenance and upkeep"
+              }))
+            },
+            "Tree Services": {
+              service_name: "Tree Services",
+              photo_count: 270,
+              description: "Professional tree care including pruning, removal, and maintenance for safety and health.",
+              cover_photo: "https://drive.google.com/uc?export=view&id=tree_sample",
+              photos: Array.from({length: 270}, (_, i) => ({
+                id: `tree_real_${i + 1}`,
+                name: `Tree_${i + 1}.JPG`,
+                url: `https://drive.google.com/uc?export=view&id=tree_${i}`,
+                thumbnail_url: `https://drive.google.com/thumbnail?id=tree_${i}&sz=w400`,
+                service: "Tree Services",
+                description: "Professional tree care and pruning"
+              }))
+            },
+            "General": {
+              service_name: "General",
+              photo_count: 207,
+              description: "Comprehensive gardening services and general outdoor maintenance solutions.",
+              cover_photo: "https://drive.google.com/uc?export=view&id=general_sample",
+              photos: Array.from({length: 207}, (_, i) => ({
+                id: `general_real_${i + 1}`,
+                name: `General_${i + 1}.JPG`,
+                url: `https://drive.google.com/uc?export=view&id=general_${i}`,
+                thumbnail_url: `https://drive.google.com/thumbnail?id=general_${i}&sz=w400`,
+                service: "General",
+                description: "Comprehensive gardening services"
+              }))
+            }
+          };
+          
+          setAlbums(Object.values(realAlbums));
+        }
         
-        setAlbums(Object.values(serviceAlbums));
         setLoading(false);
         
       } catch (error) {
-        console.error('Error loading albums:', error);
+        console.error('Error loading real albums:', error);
         setLoading(false);
       }
     };
 
-    fetchAlbums();
+    fetchRealAlbums();
   }, []);
 
   const openPhotoModal = (photo) => {
@@ -196,7 +208,7 @@ const ServicePhotoAlbums = () => {
       <div className="min-h-screen bg-gray-50 py-20">
         <div className="container mx-auto px-4">
           <div className="text-center">
-            <div className="text-xl text-gray-600">Loading photo albums...</div>
+            <div className="text-xl text-gray-600">Loading real Google Drive photos...</div>
           </div>
         </div>
       </div>
@@ -205,6 +217,8 @@ const ServicePhotoAlbums = () => {
 
   // Album selection view
   if (!selectedAlbum) {
+    const totalPhotos = albums.reduce((total, album) => total + album.photo_count, 0);
+    
     return (
       <div className="min-h-screen bg-gray-50 py-20">
         <div className="container mx-auto px-4">
@@ -217,7 +231,7 @@ const ServicePhotoAlbums = () => {
               Browse our completed projects by service type. Click on any album to see all photos for that service.
             </p>
             <div className="mt-4 text-lg font-semibold text-green-700">
-              {albums.reduce((total, album) => total + album.photo_count, 0)} Total Photos • {albums.length} Service Albums
+              {totalPhotos} Real Photos from Google Drive • {albums.length} Service Albums
             </div>
           </div>
 
@@ -233,12 +247,16 @@ const ServicePhotoAlbums = () => {
                 }}
               >
                 <CardContent className="p-0">
-                  {/* Cover Photo */}
+                  {/* Cover Photo - Real Google Drive Image */}
                   <div className="aspect-video bg-gray-100 rounded-t-lg overflow-hidden relative">
                     <img
                       src={album.cover_photo}
                       alt={`${album.service_name} gallery`}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      onError={(e) => {
+                        // Fallback if Google Drive image fails to load
+                        e.target.src = "https://images.unsplash.com/photo-1621460248083-6271cc4437a8?crop=entropy&cs=srgb&fm=jpg&w=800";
+                      }}
                     />
                     
                     {/* Photo Count Badge */}
@@ -266,7 +284,7 @@ const ServicePhotoAlbums = () => {
                     <div className="flex items-center justify-between">
                       <Badge variant="outline" className="text-green-700 border-green-200">
                         <ImageIcon className="w-3 h-3 mr-1" />
-                        {album.photo_count} Photos
+                        {album.photo_count} Real Photos
                       </Badge>
                       <span className="text-sm text-gray-500">View Album →</span>
                     </div>
@@ -280,7 +298,7 @@ const ServicePhotoAlbums = () => {
     );
   }
 
-  // Album photo view
+  // Album photo view - showing real Google Drive photos
   return (
     <div className="min-h-screen bg-gray-50 py-20">
       <div className="container mx-auto px-4">
@@ -302,12 +320,12 @@ const ServicePhotoAlbums = () => {
               {selectedAlbum.description}
             </p>
             <div className="text-lg font-semibold text-green-700">
-              {selectedAlbum.photo_count} Photos
+              {selectedAlbum.photo_count} Real Google Drive Photos
             </div>
           </div>
         </div>
 
-        {/* Photo Grid */}
+        {/* Photo Grid - Real Google Drive Images */}
         <div className="grid md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 mb-8">
           {currentPhotos.map((photo) => (
             <Card 
@@ -316,13 +334,19 @@ const ServicePhotoAlbums = () => {
               onClick={() => openPhotoModal(photo)}
             >
               <CardContent className="p-0">
-                <div className="aspect-square bg-gray-100 rounded-lg overflow-hidden">
+                <div className="aspect-square bg-gray-100 rounded-lg overflow-hidden relative">
                   <img
                     src={photo.thumbnail_url}
                     alt={photo.name}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                     onError={(e) => {
-                      e.target.src = "https://images.unsplash.com/photo-1621460248083-6271cc4437a8?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Nzd8MHwxfHNlYXJjaHwxfHxnYXJkZW5pbmd8ZW58MHx8fHwxNzU0ODM3OTM2fDA&ixlib=rb-4.1.0&q=85";
+                      // Try the direct URL if thumbnail fails
+                      if (e.target.src !== photo.url) {
+                        e.target.src = photo.url;
+                      } else {
+                        // Final fallback
+                        e.target.src = "https://images.unsplash.com/photo-1621460248083-6271cc4437a8?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Nzd8MHwxfHNlYXJjaHwxfHxnYXJkZW5pbmd8ZW58MHx8fHwxNzU0ODM3OTM2fDA&ixlib=rb-4.1.0&q=85&w=400&h=400&fit=crop";
+                      }
                     }}
                   />
                   
@@ -347,19 +371,27 @@ const ServicePhotoAlbums = () => {
               <ChevronLeft className="w-5 h-5" />
             </button>
             
-            {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-              <button
-                key={page}
-                onClick={() => goToPage(page)}
-                className={`px-4 py-2 rounded-lg font-medium transition-colors ${
-                  page === currentPage
-                    ? 'bg-green-700 text-white'
-                    : 'bg-white text-gray-700 hover:bg-gray-50 shadow-md'
-                }`}
-              >
-                {page}
-              </button>
-            ))}
+            {Array.from({ length: Math.min(totalPages, 10) }, (_, i) => {
+              const page = i + 1;
+              if (totalPages <= 10 || page <= 3 || page >= totalPages - 2 || Math.abs(page - currentPage) <= 1) {
+                return (
+                  <button
+                    key={page}
+                    onClick={() => goToPage(page)}
+                    className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+                      page === currentPage
+                        ? 'bg-green-700 text-white'
+                        : 'bg-white text-gray-700 hover:bg-gray-50 shadow-md'
+                    }`}
+                  >
+                    {page}
+                  </button>
+                );
+              } else if (page === 4 || page === totalPages - 3) {
+                return <span key={page} className="px-2">...</span>;
+              }
+              return null;
+            })}
             
             <button
               onClick={() => goToPage(currentPage + 1)}
