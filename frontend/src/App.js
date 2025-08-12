@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./components/Home";
 import AdminDashboard from "./components/AdminDashboard";
-import WorkGallery from "./components/WorkGallery";
+import ServicePhotoAlbums from "./components/ServicePhotoAlbums";
 import "./App.css";
 
 function App() {
@@ -12,7 +12,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/admin" element={<AdminDashboard />} />
-          <Route path="/gallery" element={<WorkGallery />} />
+          <Route path="/gallery" element={<ServicePhotoAlbums />} />
         </Routes>
       </BrowserRouter>
     </div>
