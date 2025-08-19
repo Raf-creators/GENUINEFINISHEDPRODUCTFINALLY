@@ -160,6 +160,21 @@ const ReviewsSection = () => {
           ))}
         </div>
 
+        {/* View All Reviews Link */}
+        <div className="text-center mt-8">
+          <a
+            href="https://www.checkatrade.com/trades/pnmgardening"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center px-6 py-3 bg-white border-2 border-green-700 text-green-700 font-semibold rounded-lg hover:bg-green-700 hover:text-white transition-all duration-300 shadow-lg hover:shadow-xl"
+          >
+            <span className="mr-2">View All Reviews on Checkatrade</span>
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+            </svg>
+          </a>
+        </div>
+
         {/* Bottom Text */}
         <div className="text-center mt-12">
           <p className="text-gray-600 mb-4">
