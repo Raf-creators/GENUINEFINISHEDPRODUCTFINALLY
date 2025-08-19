@@ -115,8 +115,8 @@ const ServicePhotoAlbums = () => {
                 description: "Professional lawn care and maintenance"
               }))
             },
-            "Maintenance": {
-              service_name: "Maintenance",
+            "Garden Clearance": {
+              service_name: "Garden Clearance",
               photo_count: 33,
               description: "Regular garden maintenance and upkeep services to keep your garden looking its best.",
               cover_photo: "https://drive.google.com/uc?export=view&id=maintenance_sample",
@@ -125,7 +125,7 @@ const ServicePhotoAlbums = () => {
                 name: `Maintenance_${i + 1}.JPG`,
                 url: `https://drive.google.com/uc?export=view&id=maintenance_${i}`,
                 thumbnail_url: `https://drive.google.com/thumbnail?id=maintenance_${i}&sz=w400`,
-                service: "Maintenance",
+                service: "Garden Clearance",
                 description: "Regular garden maintenance and upkeep"
               }))
             },
