@@ -70,7 +70,7 @@ const ReviewsSection = () => {
   return (
     <section className="py-20 bg-gray-50">
       <div className="container mx-auto px-4">
-        {/* Google Reviews Header */}
+        {/* Checkatrade Reviews Header */}
         <div className="text-center mb-16">
           {error && (
             <div className="mb-4 p-3 bg-yellow-50 border border-yellow-200 rounded-lg text-sm text-yellow-800 max-w-md mx-auto">
@@ -80,11 +80,10 @@ const ReviewsSection = () => {
           <div className="bg-white rounded-2xl p-8 shadow-lg max-w-md mx-auto">
             <div className="flex items-center justify-center mb-4">
               <img 
-                src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" 
-                alt="Google" 
-                className="w-8 h-8 mr-2"
+                src="https://www.checkatrade.com/shared/img/CT_logo_horizontal_RGB.png" 
+                alt="Checkatrade" 
+                className="h-8 mr-2"
               />
-              <span className="text-lg font-semibold">Google Reviews</span>
             </div>
             <div className="text-center">
               <div className="text-4xl font-bold text-gray-900 mb-2">4.9</div>
@@ -93,7 +92,7 @@ const ReviewsSection = () => {
                   <Star key={i} className="w-6 h-6 text-yellow-400 fill-current" />
                 ))}
               </div>
-              <div className="text-gray-600">Based on {reviews.length}+ reviews</div>
+              <div className="text-gray-600">Based on 50+ Checkatrade reviews</div>
             </div>
           </div>
         </div>
