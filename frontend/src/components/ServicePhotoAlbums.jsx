@@ -19,147 +19,50 @@ const ServicePhotoAlbums = () => {
       try {
         setLoading(true);
         
-        // Import the real gallery data generated from Google Drive
-        const response = await fetch('/real_gallery_data.json');
-        if (response.ok) {
-          const realGalleryData = await response.json();
-          setAlbums(Object.values(realGalleryData));
-          console.log('Loaded real Google Drive photos:', realGalleryData);
-        } else {
-          // Fallback: Load from backend API call to get real Google Drive data
-          console.log('Loading real photos from Google Drive API...');
+        console.log('Loading real Google Drive photos...');
+        
+        // Try to fetch from the public JSON file first
+        try {
+          const response = await fetch('/real_gallery_data.json');
+          if (response.ok) {
+            const realGalleryData = await response.json();
+            const albumsArray = Object.values(realGalleryData);
+            setAlbums(albumsArray);
+            console.log('✅ Loaded real Google Drive photos from static file:', realGalleryData);
+            setLoading(false);
+            return;
+          }
+        } catch (staticError) {
+          console.warn('Static file not available, trying API...', staticError);
+        }
+        
+        // Fallback to API endpoint
+        try {
+          const backendUrl = process.env.REACT_APP_BACKEND_URL || import.meta.env.REACT_APP_BACKEND_URL;
+          const apiResponse = await fetch(`${backendUrl}/api/gallery/real-photos`);
           
-          // Create real service albums with actual Google Drive photos
-          const realAlbums = {
-            "Trellis": {
-              service_name: "Trellis",
-              photo_count: 16,
-              description: "Custom trellis installation and wooden fencing solutions for privacy and garden structure.",
-              cover_photo: "https://drive.google.com/uc?export=view&id=173ds0QyRudHZYEa7VFMnQ6Juwc9S9Bge",
-              photos: Array.from({length: 16}, (_, i) => ({
-                id: `trellis_real_${i + 1}`,
-                name: `IMG_${4492 + i}.JPG`,
-                url: `https://drive.google.com/uc?export=view&id=173ds0QyRudHZYEa7VFMnQ6Juwc9S9Bge`,
-                thumbnail_url: `https://drive.google.com/thumbnail?id=173ds0QyRudHZYEa7VFMnQ6Juwc9S9Bge&sz=w400`,
-                service: "Trellis",
-                description: "Professional trellis installation work"
-              }))
-            },
-            "Planting": {
-              service_name: "Planting", 
-              photo_count: 116,
-              description: "Professional garden planting services including flower beds, shrubs, and landscaping design.",
-              cover_photo: "https://drive.google.com/uc?export=view&id=1vw_sample_planting",
-              photos: Array.from({length: 116}, (_, i) => ({
-                id: `planting_real_${i + 1}`,
-                name: `Planting_${i + 1}.JPG`,
-                url: `https://drive.google.com/uc?export=view&id=planting_${i}`,
-                thumbnail_url: `https://drive.google.com/thumbnail?id=planting_${i}&sz=w400`,
-                service: "Planting",
-                description: "Professional garden planting and landscaping"
-              }))
-            },
-            "Patio": {
-              service_name: "Patio",
-              photo_count: 29, 
-              description: "Patio cleaning, maintenance, and installation services to enhance your outdoor space.",
-              cover_photo: "https://drive.google.com/uc?export=view&id=patio_sample",
-              photos: Array.from({length: 29}, (_, i) => ({
-                id: `patio_real_${i + 1}`,
-                name: `Patio_${i + 1}.JPG`,
-                url: `https://drive.google.com/uc?export=view&id=patio_${i}`,
-                thumbnail_url: `https://drive.google.com/thumbnail?id=patio_${i}&sz=w400`,
-                service: "Patio",
-                description: "Professional patio cleaning and maintenance"
-              }))
-            },
-            "Maintenance": {
-              service_name: "Maintenance",
-              photo_count: 23,
-              description: "Complete garden clearance and waste removal services for overgrown and cluttered gardens.",
-              cover_photo: "https://drive.google.com/uc?export=view&id=clearance_sample",
-              photos: Array.from({length: 23}, (_, i) => ({
-                id: `clearance_real_${i + 1}`,
-                name: `Clearance_${i + 1}.JPG`,
-                url: `https://drive.google.com/uc?export=view&id=clearance_${i}`,
-                thumbnail_url: `https://drive.google.com/thumbnail?id=clearance_${i}&sz=w400`,
-                service: "Maintenance",
-                description: "Complete garden clearance and waste removal"
-              }))
-            },
-            "Hedge Trimming": {
-              service_name: "Hedge Trimming",
-              photo_count: 34,
-              description: "Expert hedge trimming and topiary services to keep your hedges neat and healthy.",
-              cover_photo: "https://drive.google.com/uc?export=view&id=hedge_sample",
-              photos: Array.from({length: 34}, (_, i) => ({
-                id: `hedge_real_${i + 1}`,
-                name: `Hedge_${i + 1}.JPG`,
-                url: `https://drive.google.com/uc?export=view&id=hedge_${i}`,
-                thumbnail_url: `https://drive.google.com/thumbnail?id=hedge_${i}&sz=w400`,
-                service: "Hedge Trimming",
-                description: "Professional hedge trimming and topiary work"
-              }))
-            },
-            "Lawn Care": {
-              service_name: "Lawn Care",
-              photo_count: 16,
-              description: "Professional lawn care including mowing, treatment, and maintenance for lush green grass.",
-              cover_photo: "https://drive.google.com/uc?export=view&id=lawn_sample",
-              photos: Array.from({length: 16}, (_, i) => ({
-                id: `lawn_real_${i + 1}`,
-                name: `Lawn_${i + 1}.JPG`,
-                url: `https://drive.google.com/uc?export=view&id=lawn_${i}`,
-                thumbnail_url: `https://drive.google.com/thumbnail?id=lawn_${i}&sz=w400`,
-                service: "Lawn Care",
-                description: "Professional lawn care and maintenance"
-              }))
-            },
-            "Garden Clearance": {
-              service_name: "Garden Clearance",
-              photo_count: 33,
-              description: "Regular garden maintenance and upkeep services to keep your garden looking its best.",
-              cover_photo: "https://drive.google.com/uc?export=view&id=maintenance_sample",
-              photos: Array.from({length: 33}, (_, i) => ({
-                id: `maintenance_real_${i + 1}`,
-                name: `Maintenance_${i + 1}.JPG`,
-                url: `https://drive.google.com/uc?export=view&id=maintenance_${i}`,
-                thumbnail_url: `https://drive.google.com/thumbnail?id=maintenance_${i}&sz=w400`,
-                service: "Garden Clearance",
-                description: "Regular garden maintenance and upkeep"
-              }))
-            },
-            "Tree Services": {
-              service_name: "Tree Services",
-              photo_count: 270,
-              description: "Professional tree care including pruning, removal, and maintenance for safety and health.",
-              cover_photo: "https://drive.google.com/uc?export=view&id=tree_sample",
-              photos: Array.from({length: 270}, (_, i) => ({
-                id: `tree_real_${i + 1}`,
-                name: `Tree_${i + 1}.JPG`,
-                url: `https://drive.google.com/uc?export=view&id=tree_${i}`,
-                thumbnail_url: `https://drive.google.com/thumbnail?id=tree_${i}&sz=w400`,
-                service: "Tree Services",
-                description: "Professional tree care and pruning"
-              }))
-            },
-            "General": {
-              service_name: "General",
-              photo_count: 207,
-              description: "Comprehensive gardening services and general outdoor maintenance solutions.",
-              cover_photo: "https://drive.google.com/uc?export=view&id=general_sample",
-              photos: Array.from({length: 207}, (_, i) => ({
-                id: `general_real_${i + 1}`,
-                name: `General_${i + 1}.JPG`,
-                url: `https://drive.google.com/uc?export=view&id=general_${i}`,
-                thumbnail_url: `https://drive.google.com/thumbnail?id=general_${i}&sz=w400`,
-                service: "General",
-                description: "Comprehensive gardening services"
-              }))
+          if (apiResponse.ok) {
+            const realGalleryData = await apiResponse.json();
+            const albumsArray = Object.values(realGalleryData);
+            setAlbums(albumsArray);
+            console.log('✅ Loaded real Google Drive photos from API:', realGalleryData);
+          } else {
+            throw new Error(`API failed with status: ${apiResponse.status}`);
+          }
+        } catch (apiError) {
+          console.error('API also failed:', apiError);
+          
+          // Final fallback: Use placeholder data with message
+          console.log('Using fallback placeholder data...');
+          setAlbums([
+            {
+              service_name: "Photos Loading...",
+              photo_count: 0,
+              description: "Real Google Drive photos are being loaded. Please refresh the page in a moment.",
+              cover_photo: "https://images.unsplash.com/photo-1621460248083-6271cc4437a8?crop=entropy&cs=srgb&fm=jpg&w=800",
+              photos: []
             }
-          };
-          
-          setAlbums(Object.values(realAlbums));
+          ]);
         }
         
         setLoading(false);
@@ -167,6 +70,17 @@ const ServicePhotoAlbums = () => {
       } catch (error) {
         console.error('Error loading real albums:', error);
         setLoading(false);
+        
+        // Show error state
+        setAlbums([
+          {
+            service_name: "Error Loading Photos",
+            photo_count: 0,
+            description: "There was an error loading the photo gallery. Please try refreshing the page.",
+            cover_photo: "https://images.unsplash.com/photo-1621460248083-6271cc4437a8?crop=entropy&cs=srgb&fm=jpg&w=800",
+            photos: []
+          }
+        ]);
       }
     };
 
