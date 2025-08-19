@@ -171,7 +171,7 @@ export const faqs = [
   {
     id: 4,
     question: "Do you take away all the garden waste?",
-    answer: "Yes, we include free waste disposal with all our services. We remove all garden waste from your property and dispose of it responsibly at licensed facilities."
+    answer: "Yes, we include free disposal of green waste with all our services. We remove all garden waste from your property and dispose of it responsibly at licensed facilities."
   },
   {
     id: 5,
