@@ -27,7 +27,7 @@ const WhyChooseUs = () => {
     {
       icon: Wrench,
       title: "Free Quotations",
-      description: "We offer fast and competitive quotes which include free waste disposal with all our gardening services."
+      description: "We offer fast and competitive quotes which include free disposal of green waste with all our gardening services."
     },
     {
       icon: Recycle,
