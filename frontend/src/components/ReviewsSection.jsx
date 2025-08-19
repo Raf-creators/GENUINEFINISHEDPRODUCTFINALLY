@@ -17,14 +17,15 @@ const ReviewsSection = () => {
       try {
         setLoading(true);
         const data = await apiService.getReviews();
-        setReviews(data);
+        // Limit to first 5 Checkatrade reviews
+        setReviews(data.slice(0, 5));
         setError(null);
       } catch (err) {
         console.error('Failed to fetch reviews, using fallback data:', err);
         const errorInfo = handleApiError(err);
         setError(errorInfo.message);
-        // Use fallback data if API fails
-        setReviews(fallbackReviews);
+        // Use fallback data if API fails, limited to 5 reviews
+        setReviews(fallbackReviews.slice(0, 5));
       } finally {
         setLoading(false);
       }
