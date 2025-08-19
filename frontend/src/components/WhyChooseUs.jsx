@@ -113,7 +113,7 @@ const WhyChooseUs = () => {
 
             <div className="grid grid-cols-2 gap-6">
               <div className="bg-white p-6 rounded-xl shadow-md text-center">
-                <div className="text-3xl font-bold text-green-700 mb-2">5+</div>
+                <div className="text-3xl font-bold text-green-700 mb-2">1+</div>
                 <div className="text-gray-600">Years of Experience</div>
               </div>
               <div className="bg-white p-6 rounded-xl shadow-md text-center">
