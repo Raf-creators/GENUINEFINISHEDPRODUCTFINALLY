@@ -79,11 +79,12 @@ const ReviewsSection = () => {
           )}
           <div className="bg-white rounded-2xl p-8 shadow-lg max-w-md mx-auto">
             <div className="flex items-center justify-center mb-4">
-              <img 
-                src="https://www.checkatrade.com/shared/img/CT_logo_horizontal_RGB.png" 
-                alt="Checkatrade" 
-                className="h-8 mr-2"
-              />
+              <div className="flex items-center bg-checkatrade-orange px-3 py-1 rounded">
+                <svg viewBox="0 0 200 50" className="h-6 mr-2 fill-white">
+                  <text x="10" y="35" fontSize="20" fontWeight="bold" fill="white">Checkatrade</text>
+                </svg>
+                <span className="text-white font-bold text-sm">✓</span>
+              </div>
             </div>
             <div className="text-center">
               <div className="text-4xl font-bold text-gray-900 mb-2">4.9</div>
