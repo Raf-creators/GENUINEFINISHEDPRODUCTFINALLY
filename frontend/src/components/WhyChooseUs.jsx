@@ -117,7 +117,7 @@ const WhyChooseUs = () => {
                 <div className="text-gray-600">Years of Experience</div>
               </div>
               <div className="bg-white p-6 rounded-xl shadow-md text-center">
-                <div className="text-3xl font-bold text-green-700 mb-2">1000+</div>
+                <div className="text-3xl font-bold text-green-700 mb-2">50+</div>
                 <div className="text-gray-600">Happy Customers</div>
               </div>
               <div className="bg-white p-6 rounded-xl shadow-md text-center">
