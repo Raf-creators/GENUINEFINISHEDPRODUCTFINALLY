@@ -254,6 +254,35 @@ async def get_gallery_images():
             detail="Failed to fetch gallery images"
         )
 
+@api_router.get("/gallery/real-photos")
+async def get_real_gallery_photos():
+    """Get real Google Drive gallery photos organized by service"""
+    try:
+        import json
+        gallery_data_path = '/app/real_gallery_data.json'
+        
+        if not os.path.exists(gallery_data_path):
+            # Create the gallery data if it doesn't exist
+            logger.info("Gallery data file not found, creating it...")
+            import subprocess
+            result = subprocess.run(['python', '/app/create_gallery_data.py'], 
+                                  capture_output=True, text=True, cwd='/app')
+            if result.returncode != 0:
+                raise Exception(f"Failed to create gallery data: {result.stderr}")
+        
+        with open(gallery_data_path, 'r') as f:
+            gallery_data = json.load(f)
+        
+        logger.info(f"Serving real gallery data with {len(gallery_data)} service albums")
+        return gallery_data
+        
+    except Exception as e:
+        logger.error(f"Error fetching real gallery photos: {e}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Failed to fetch real gallery photos: {str(e)}"
+        )
+
 @api_router.post("/gallery", response_model=MessageResponse)
 async def create_gallery_image(image_data: GalleryImageCreate):
     """Upload a new gallery image (admin endpoint)"""
