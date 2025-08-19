@@ -73,8 +73,8 @@ const ServicePhotoAlbums = () => {
                 description: "Professional patio cleaning and maintenance"
               }))
             },
-            "Garden Clearance": {
-              service_name: "Garden Clearance",
+            "Maintenance": {
+              service_name: "Maintenance",
               photo_count: 23,
               description: "Complete garden clearance and waste removal services for overgrown and cluttered gardens.",
               cover_photo: "https://drive.google.com/uc?export=view&id=clearance_sample",
@@ -83,7 +83,7 @@ const ServicePhotoAlbums = () => {
                 name: `Clearance_${i + 1}.JPG`,
                 url: `https://drive.google.com/uc?export=view&id=clearance_${i}`,
                 thumbnail_url: `https://drive.google.com/thumbnail?id=clearance_${i}&sz=w400`,
-                service: "Garden Clearance",
+                service: "Maintenance",
                 description: "Complete garden clearance and waste removal"
               }))
             },
