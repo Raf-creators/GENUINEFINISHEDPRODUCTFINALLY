@@ -40,7 +40,7 @@ const HeroSection = () => {
               </div>
               <div className="flex items-center space-x-2">
                 <Award className="w-5 h-5 text-green-700" />
-                <span className="font-semibold">238+ Reviews</span>
+                <span className="font-semibold">50+ Reviews</span>
               </div>
             </div>
 
