@@ -65,7 +65,7 @@ const HeroSection = () => {
             {/* Quick Info */}
             <div className="grid grid-cols-2 gap-6 pt-8">
               <div className="text-center">
-                <div className="text-2xl font-bold text-green-700">5+</div>
+                <div className="text-2xl font-bold text-green-700">1+</div>
                 <div className="text-sm text-gray-600">Years Experience</div>
               </div>
               <div className="text-center">
