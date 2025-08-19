@@ -38,28 +38,28 @@ export const services = [
     id: 6,
     title: "Planting Services",
     description: "Expert planting schemes to suit your space and style. Professional plant selection, installation, and ongoing care to create beautiful garden displays.",
-    image: "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1Nzh8MHwxfHNlYXJjaHw2fHxwbGFudGluZ3xlbnwwfHx8fDE3NTQ4Mzc5NDJ8MA&ixlib=rb-4.1.0&q=85",
+    image: "https://customer-assets.emergentagent.com/job_balham-gardening-hub/artifacts/1eq1wuxc_Planting.jpeg",
     features: ["Plant Selection", "Flower Bed Design", "Seasonal Planting", "Bulb Planting", "Plant Care Advice"]
   },
   {
     id: 7,
     title: "Patio Services",
     description: "Professional patio installation, repair, and maintenance. From new patio construction to pressure washing and restoration of existing patios.",
-    image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1Nzh8MHwxfHNlYXJjaHw1fHxwYXRpb3xlbnwwfHx8fDE3NTQ4Mzc5NDJ8MA&ixlib=rb-4.1.0&q=85",
+    image: "https://customer-assets.emergentagent.com/job_balham-gardening-hub/artifacts/m5ax1zd3_Patio.jpeg",
     features: ["Patio Installation", "Patio Repair", "Pressure Washing", "Stone & Block Paving", "Patio Design"]
   },
   {
     id: 8,
     title: "Pruning",
     description: "Expert pruning services for trees, shrubs, and plants. Professional techniques to promote healthy growth and maintain the shape and size of your plants.",
-    image: "https://images.unsplash.com/photo-1515150144380-bca9f1650ed9?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Nzd8MHwxfHNlYXJjaHwyfHxnYXJkZW5pbmd8ZW58MHx8fHwxNzU0ODM3OTM2fDA&ixlib=rb-4.1.0&q=85",
+    image: "https://customer-assets.emergentagent.com/job_balham-gardening-hub/artifacts/gwwh93vr_Pruning.jpeg",
     features: ["Tree Pruning", "Shrub Pruning", "Seasonal Pruning", "Health Assessment", "Shape Maintenance"]
   },
   {
     id: 9,
     title: "Trellis & Fencing",
     description: "Professional trellis installation and fencing services. Custom solutions for privacy, plant support, and garden structure. Quality materials and expert installation.",
-    image: "https://images.unsplash.com/photo-1585128792020-803d29415281?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1Nzh8MHwxfHNlYXJjaHw3fHx0cmVsbGlzfGVufDB8fHx8MTc1NDgzNzk0Mnww&ixlib=rb-4.1.0&q=85",
+    image: "https://customer-assets.emergentagent.com/job_balham-gardening-hub/artifacts/mt1mal3e_Trellis.jpeg",
     features: ["Trellis Installation", "Garden Fencing", "Privacy Screens", "Plant Support Systems", "Custom Design"]
   }
 ];
