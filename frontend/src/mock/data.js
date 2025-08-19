@@ -182,6 +182,11 @@ export const faqs = [
     id: 6,
     question: "Can you supply plants, soil, and materials?",
     answer: "Yes, if you let us know your requirements when booking, we can supply plants, soil, compost, and other materials. We work with premium suppliers in London to ensure quality."
+  },
+  {
+    id: 7,
+    question: "Do I need to provide power for your tools?",
+    answer: "No, you don't need to provide power for our tools. We come fully equipped with battery-powered and petrol-powered equipment, so no mains electricity is required. The only exception is our jet wash, which may need access to a power outlet in some cases."
   }
 ];
 
