@@ -329,3 +329,37 @@ agent_communication:
       message: "✅ BACKEND TESTING COMPLETE: All 29 tests passed (100% success rate). Verified Review model updates - lat/lng/postcode/images fields working correctly, rating range 1-10 enforced, coordinate data present for all seeded reviews. All other endpoints (services, quotes, contacts, gallery) functioning properly. No critical issues found. Backend API fully supports map functionality."
     - agent: "testing"
       message: "✅ PHOTO MODAL BACKEND VERIFICATION COMPLETE: Confirmed GET /api/reviews returns exactly 39 reviews as expected. All reviews contain proper lat, lng, postcode fields with London coordinate data. Images field properly implemented as arrays - 2 reviews have photo arrays (2 and 5 images respectively), 37 reviews have empty arrays. Photo modal system has all required backend data. Rating validation (1-10 range) working correctly. All other endpoints remain fully functional with no regressions detected."
+
+### CONTENT UPDATES COMPLETED ✓
+
+**All Content Updates Successfully Completed:**
+
+1. ✅ **"Free waste disposal" → "Free disposal of green waste"**
+   - Updated `/app/frontend/src/components/WhyChooseUs.jsx` line 30
+   - Updated `/app/frontend/src/mock/data.js` line 174
+
+2. ✅ **Added FAQ about tools not needing power**
+   - Added new FAQ entry (id: 7) in `/app/frontend/src/mock/data.js`
+   - Content: "Do I need to provide power for your tools? No, you don't need to provide power for our tools. We come fully equipped with battery-powered and petrol-powered equipment, so no mains electricity is required. The only exception is our jet wash, which may need access to a power outlet in some cases."
+
+3. ✅ **Swapped "Garden Clearance" and "Maintenance" names in gallery**
+   - Updated `/app/frontend/src/components/ServicePhotoAlbums.jsx`
+   - "Garden Clearance" section now shows maintenance content
+   - "Maintenance" section now shows clearance content
+
+4. ✅ **Updated Reviews Section to Checkatrade**
+   - Changed header from "Google Reviews" to "Checkatrade Reviews"  
+   - Limited display to 5 reviews maximum
+   - Added "View All Reviews on Checkatrade" button linking to checkatrade.com/trades/pnmgardening
+   - Updated base count to "50+ Checkatrade reviews"
+
+5. ✅ **Updated Experience Stats from "1000+ reviews and 5+ years" to "50+ reviews and 1+ year"**
+   - Updated `/app/frontend/src/components/HeroSection.jsx`: "1000+" → "50+", "5+" → "1+"
+   - Updated `/app/frontend/src/components/ContactSection.jsx`: "1000+ satisfied customers" → "50+ satisfied customers", "5+ years serving Balham" → "1+ year serving Balham"
+   - Updated `/app/frontend/src/components/WhyChooseUs.jsx`: "1000+" → "50+", "5+" → "1+"
+
+**All requested content updates have been successfully implemented.** The application now reflects the corrected statistics, updated FAQ, proper service name swapping, and Checkatrade branding as requested.
+
+---
+
+### PENDING TASKS
