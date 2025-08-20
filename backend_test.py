@@ -331,13 +331,13 @@ class APITester:
         invalid_contact = {
             "name": "Test User",
             "email": "test@email.com",
-            "phone": "07123456789",
+            "phone": "07748 853590",
             "subject": "",  # Empty subject
             "message": "Test message"
         }
         self.test_endpoint("POST", "/contact", data=invalid_contact, expected_status=422, description="Create contact with empty subject")
         
-        # 6. Gallery Tests
+        # 7. Gallery Tests
         print("\n" + "=" * 40)
         print("🖼️ TESTING GALLERY ENDPOINTS")
         print("=" * 40)
