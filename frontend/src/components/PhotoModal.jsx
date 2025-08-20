@@ -50,12 +50,15 @@ const PhotoModal = ({ isOpen, onClose, review }) => {
           <div className="aspect-video bg-gray-100 rounded-lg overflow-hidden">
             <img
               src={images[currentImageIndex]}
-              alt={`Work completed in ${review.postcode} - Image ${currentImageIndex + 1}`}
+              alt={`Professional work by ${review.name} - Image ${currentImageIndex + 1}`}
               className="w-full h-full object-cover"
               onError={(e) => {
-                console.error('Failed to load image:', images[currentImageIndex]);
-                // Remove the automatic fallback to placeholder - let it show the broken image or retry
-                console.log('Image load failed for:', images[currentImageIndex]);
+                console.error('Modal image failed to load:', images[currentImageIndex]);
+                // Don't replace with placeholder, just log the error
+                // The image will show as broken which is better than a misleading placeholder
+              }}
+              onLoad={() => {
+                console.log('Modal image loaded successfully:', images[currentImageIndex]);
               }}
             />
           </div>
