@@ -149,7 +149,7 @@ export const faqs = [
   {
     id: 1,
     question: "How can I get a quote?",
-    answer: "You can get a free quote by filling out our contact form, calling us on 020 3488 1912, or emailing us at gardeningpnm@gmail.com. We provide fast and competitive quotes for all our services."
+    answer: "You can get a free quote by filling out our contact form, calling us on 07748 853590, or emailing us at gardeningpnm@gmail.com. We provide fast and competitive quotes for all our services."
   },
   {
     id: 2,
