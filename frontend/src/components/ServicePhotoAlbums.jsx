@@ -88,15 +88,20 @@ const ServicePhotoAlbums = () => {
   }, []);
 
   const openPhotoModal = (photo) => {
-    setModalPhoto({
-      images: [photo.url],
-      service: photo.service,
-      postcode: "SW12", // Default postcode
-      text: photo.description,
-      name: "Verified Customer",
+    // Create a proper modal photo object with better error handling
+    const modalPhotoData = {
+      images: [photo.url], // Use the full-size image URL
+      service: photo.service || 'Garden Service',
+      postcode: "SW12", 
+      text: photo.description || `Professional ${photo.service} work`,
+      name: "PNM Gardeners", 
       rating: 10,
-      date: "Recent work"
-    });
+      date: "Professional Work",
+      photoName: photo.name
+    };
+    
+    console.log('Opening photo modal with:', modalPhotoData.images[0]);
+    setModalPhoto(modalPhotoData);
     setPhotoModalOpen(true);
   };
 
