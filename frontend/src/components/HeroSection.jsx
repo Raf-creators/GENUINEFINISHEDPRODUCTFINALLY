@@ -58,7 +58,7 @@ const HeroSection = () => {
                 onClick={() => window.open('tel:07748853590')}
               >
                 <Phone className="w-5 h-5 mr-2" />
-                020 3488 1912
+                07748 853590
               </Button>
             </div>
 
