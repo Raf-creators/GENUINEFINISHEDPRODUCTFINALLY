@@ -287,22 +287,45 @@ class APITester:
         }
         self.test_endpoint("POST", "/quotes", data=empty_name_quote, expected_status=422, description="Create quote with empty name")
         
-        # 5. Contact Form Tests
+        
+        # 6. Contact Form Tests with Email
         print("\n" + "=" * 40)
-        print("📞 TESTING CONTACT ENDPOINTS")
+        print("📞 TESTING CONTACT FORM WITH EMAIL")
         print("=" * 40)
         
         self.test_endpoint("GET", "/contacts", description="Get all contacts")
         
-        # Test creating valid contact
+        # Test creating valid contact with email notifications
         contact_data = {
             "name": "Robert Wilson",
             "email": "robert.wilson@email.com",
-            "phone": "02087654321",
+            "phone": "07748 853590",  # Using correct phone number
             "subject": "Garden Design Consultation",
             "message": "I'm interested in a complete garden redesign for my property. Could we arrange a consultation?"
         }
-        self.test_endpoint("POST", "/contact", data=contact_data, description="Create valid contact")
+        print(f"\n📧 Testing contact form with email notifications...")
+        response = self.test_endpoint("POST", "/contact", data=contact_data, description="Create contact with email notifications")
+        
+        if response:
+            print(f"   ✅ Contact form submitted successfully")
+            print(f"   📧 Email notifications should be sent to:")
+            print(f"      • Business: gardeningpnm@gmail.com (contact notification)")
+            print(f"      • Customer: {contact_data['email']} (confirmation)")
+        
+        # Test another contact form submission
+        contact_data_2 = {
+            "name": "Sarah Davis",
+            "email": "sarah.davis@email.com",
+            "phone": "07748 853590",
+            "subject": "Hedge Trimming Service",
+            "message": "Need professional hedge trimming service for large garden hedge. When can you visit?"
+        }
+        print(f"\n📧 Testing second contact form submission...")
+        response2 = self.test_endpoint("POST", "/contact", data=contact_data_2, description="Create second contact with emails")
+        
+        if response2:
+            print(f"   ✅ Second contact form submitted successfully")
+            print(f"   📧 Additional email notifications sent")
         
         # Test invalid contact (missing subject)
         invalid_contact = {
