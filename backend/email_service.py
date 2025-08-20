@@ -4,19 +4,44 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from datetime import datetime
 import logging
+from sendgrid import SendGridAPIClient
+from sendgrid.helpers.mail import Mail
 
 logger = logging.getLogger(__name__)
 
 class EmailService:
     def __init__(self):
-        # Email configuration - using Gmail SMTP
-        self.smtp_server = "smtp.gmail.com"
-        self.smtp_port = 587
+        # SendGrid configuration
+        self.sendgrid_api_key = os.environ.get('SENDGRID_API_KEY')
+        self.sender_email = os.environ.get('SENDER_EMAIL', 'gardeningpnm@gmail.com')
         self.business_email = "gardeningpnm@gmail.com"
         
-        # For production, you would set these as environment variables
-        # For now, we'll use a simple SMTP setup that doesn't require authentication
-        # In production, you'd need an App Password for Gmail
+        if not self.sendgrid_api_key:
+            logger.warning("SENDGRID_API_KEY not found in environment variables")
+        
+    def send_email(self, to_email: str, subject: str, html_content: str) -> bool:
+        """Send email using SendGrid"""
+        try:
+            message = Mail(
+                from_email=self.sender_email,
+                to_emails=to_email,
+                subject=subject,
+                html_content=html_content
+            )
+
+            sg = SendGridAPIClient(api_key=self.sendgrid_api_key)
+            response = sg.send(message)
+            
+            if response.status_code == 202:
+                logger.info(f"Email sent successfully to {to_email}")
+                return True
+            else:
+                logger.error(f"Failed to send email. Status code: {response.status_code}")
+                return False
+                
+        except Exception as e:
+            logger.error(f"Failed to send email to {to_email}: {e}")
+            return False
         
     async def send_quote_notification(self, quote_data):
         """Send email notification for new quote requests"""
@@ -57,14 +82,13 @@ class EmailService:
             </html>
             """
             
-            # For development/testing, we'll log the email content
-            # In production, you would actually send the email
-            logger.info(f"EMAIL NOTIFICATION - Quote Request from {quote_data.name}")
-            logger.info(f"Subject: {subject}")
-            logger.info(f"Content: {html_content}")
+            # Send to business email
+            success = self.send_email(self.business_email, subject, html_content)
             
-            # Store email content for admin dashboard (optional)
-            return True
+            if success:
+                logger.info(f"Quote notification sent to {self.business_email}")
+            
+            return success
             
         except Exception as e:
             logger.error(f"Failed to send quote notification email: {e}")
@@ -108,11 +132,13 @@ class EmailService:
             </html>
             """
             
-            logger.info(f"EMAIL NOTIFICATION - Contact from {contact_data.name}")
-            logger.info(f"Subject: {subject}")
-            logger.info(f"Content: {html_content}")
+            # Send to business email  
+            success = self.send_email(self.business_email, subject, html_content)
             
-            return True
+            if success:
+                logger.info(f"Contact notification sent to {self.business_email}")
+                
+            return success
             
         except Exception as e:
             logger.error(f"Failed to send contact notification email: {e}")
@@ -166,8 +192,13 @@ class EmailService:
             </html>
             """
             
-            logger.info(f"CUSTOMER CONFIRMATION - Sent to {customer_email}")
-            return True
+            # Send to customer
+            success = self.send_email(customer_email, subject, html_content)
+            
+            if success:
+                logger.info(f"Customer confirmation sent to {customer_email}")
+                
+            return success
             
         except Exception as e:
             logger.error(f"Failed to send customer confirmation email: {e}")
