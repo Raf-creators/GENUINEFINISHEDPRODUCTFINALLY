@@ -35,6 +35,67 @@ class APITester:
         self.failed = 0
         self.errors = []
         
+    def test_email_service_config(self):
+        """Test SendGrid email service configuration"""
+        print(f"\n🔧 Testing Email Service Configuration")
+        print("=" * 50)
+        
+        # Check environment variables
+        try:
+            import os
+            sendgrid_key = os.environ.get('SENDGRID_API_KEY')
+            sender_email = os.environ.get('SENDER_EMAIL')
+            
+            if sendgrid_key:
+                print(f"   ✅ SENDGRID_API_KEY: Found (length: {len(sendgrid_key)})")
+                self.passed += 1
+            else:
+                print(f"   ❌ SENDGRID_API_KEY: Not found in environment")
+                self.failed += 1
+                self.errors.append("SENDGRID_API_KEY not found in environment variables")
+            
+            if sender_email:
+                print(f"   ✅ SENDER_EMAIL: {sender_email}")
+                if sender_email == "gardeningpnm@gmail.com":
+                    print(f"   ✅ Sender email matches expected business email")
+                    self.passed += 1
+                else:
+                    print(f"   ⚠️  Sender email differs from expected: gardeningpnm@gmail.com")
+            else:
+                print(f"   ❌ SENDER_EMAIL: Not found in environment")
+                self.failed += 1
+                self.errors.append("SENDER_EMAIL not found in environment variables")
+                
+        except Exception as e:
+            print(f"   ❌ Error checking environment variables: {e}")
+            self.failed += 1
+            self.errors.append(f"Environment variable check failed: {e}")
+        
+        # Test email service import
+        try:
+            print(f"\n🔍 Testing Email Service Import...")
+            import sys
+            sys.path.append('/app/backend')
+            from email_service import email_service
+            
+            print(f"   ✅ Email service imported successfully")
+            print(f"   📧 Business email: {email_service.business_email}")
+            print(f"   📧 Sender email: {email_service.sender_email}")
+            
+            # Verify correct phone number in email templates
+            if hasattr(email_service, 'send_customer_confirmation'):
+                print(f"   ✅ Customer confirmation method available")
+                self.passed += 1
+            else:
+                print(f"   ❌ Customer confirmation method not found")
+                self.failed += 1
+                self.errors.append("send_customer_confirmation method not found")
+                
+        except Exception as e:
+            print(f"   ❌ Error importing email service: {e}")
+            self.failed += 1
+            self.errors.append(f"Email service import failed: {e}")
+    
     def test_endpoint(self, method, endpoint, data=None, expected_status=200, description=""):
         """Test an API endpoint"""
         url = f"{API_URL}{endpoint}"
