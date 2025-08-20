@@ -289,9 +289,11 @@ const ServicePhotoAlbums = () => {
                     }}
                   />
                   
-                  {/* Hover Overlay */}
-                  <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300 flex items-center justify-center">
-                    <Eye className="w-6 h-6 text-white opacity-0 group-hover:opacity-100 transition-opacity" />
+                  {/* Simplified hover overlay that doesn't block clicks */}
+                  <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300 pointer-events-none">
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <Eye className="w-8 h-8 text-white opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
+                    </div>
                   </div>
                 </div>
               </CardContent>
