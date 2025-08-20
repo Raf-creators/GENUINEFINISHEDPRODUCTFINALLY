@@ -255,17 +255,29 @@ const ServicePhotoAlbums = () => {
               <CardContent className="p-0">
                 <div className="aspect-square bg-gray-100 rounded-lg overflow-hidden relative">
                   <img
-                    src={photo.thumbnail_url}
-                    alt={photo.name}
+                    src={photo.thumbnail_url || photo.url}
+                    alt={`${photo.service} - ${photo.name}`}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    loading="lazy"
                     onError={(e) => {
+                      console.log('Thumbnail failed, trying full URL:', photo.url);
                       // Try the direct URL if thumbnail fails
                       if (e.target.src !== photo.url) {
                         e.target.src = photo.url;
                       } else {
-                        // Final fallback
-                        e.target.src = "https://images.unsplash.com/photo-1621460248083-6271cc4437a8?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Nzd8MHwxfHNlYXJjaHwxfHxnYXJkZW5pbmd8ZW58MHx8fHwxNzU0ODM3OTM2fDA&ixlib=rb-4.1.0&q=85&w=400&h=400&fit=crop";
+                        console.error('Both thumbnail and full URL failed for:', photo.name);
+                        // Set a minimal placeholder instead of heavy fallback
+                        e.target.style.backgroundColor = '#f3f4f6';
+                        e.target.style.display = 'none';
+                        // Add a simple text placeholder
+                        const placeholder = document.createElement('div');
+                        placeholder.className = 'w-full h-full flex items-center justify-center bg-gray-100 text-gray-500 text-sm';
+                        placeholder.textContent = photo.name;
+                        e.target.parentNode.appendChild(placeholder);
                       }
+                    }}
+                    onLoad={() => {
+                      console.log('Image loaded successfully:', photo.name);
                     }}
                   />
                   
