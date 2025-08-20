@@ -322,7 +322,7 @@ class APITester:
         invalid_quote = {
             "name": "Test User",
             "email": "invalid-email",
-            "phone": "07123456789",
+            "phone": "07748 853590",
             "service": "Garden Maintenance",
             "message": "Test message"
         }
@@ -342,7 +342,7 @@ class APITester:
         empty_name_quote = {
             "name": "",
             "email": "test@email.com",
-            "phone": "07123456789",
+            "phone": "07748 853590",
             "service": "Garden Maintenance",
             "message": "Test message"
         }
