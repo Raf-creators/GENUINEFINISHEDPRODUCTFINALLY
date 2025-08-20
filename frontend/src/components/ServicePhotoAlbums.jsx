@@ -88,6 +88,12 @@ const ServicePhotoAlbums = () => {
   }, []);
 
   const openPhotoModal = (photo) => {
+    // Debug logging
+    console.log('🔍 Opening photo modal for:', photo.name);
+    console.log('🔍 Photo URL:', photo.url);
+    console.log('🔍 Thumbnail URL:', photo.thumbnail_url);
+    console.log('🔍 Full photo object:', photo);
+    
     // Create a proper modal photo object with better error handling
     const modalPhotoData = {
       images: [photo.url], // Use the full-size image URL
@@ -100,7 +106,9 @@ const ServicePhotoAlbums = () => {
       photoName: photo.name
     };
     
-    console.log('Opening photo modal with:', modalPhotoData.images[0]);
+    console.log('🔍 Modal photo data:', modalPhotoData);
+    console.log('🔍 Modal image URL being set:', modalPhotoData.images[0]);
+    
     setModalPhoto(modalPhotoData);
     setPhotoModalOpen(true);
   };
