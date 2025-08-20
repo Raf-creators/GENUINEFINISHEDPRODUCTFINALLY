@@ -1,7 +1,7 @@
 {
   "Garden Maintenance": {
     "service_name": "Garden Maintenance",
-    "photo_count": 5,
+    "photo_count": 10,
     "description": "Comprehensive garden maintenance including lawn mowing, hedge trimming, weeding, and general upkeep. Professional service to keep your garden looking its best all year round.",
     "cover_photo": "https://customer-assets.emergentagent.com/job_balham-gardening-hub/artifacts/iavpo09s_Garden%20Maintenance.jpeg",
     "photos": [
@@ -44,6 +44,46 @@
         "thumbnail_url": "https://customer-assets.emergentagent.com/job_balham-gardening-hub/artifacts/xw2eh2r6_IMG_2768.JPG",
         "service": "Garden Maintenance",
         "description": "Completed garden maintenance showing professional results"
+      },
+      {
+        "id": "garden_maintenance_6",
+        "name": "IMG_2769.JPG",
+        "url": "https://customer-assets.emergentagent.com/job_balham-gardening-hub/artifacts/1orgnlby_IMG_2769.JPG",
+        "thumbnail_url": "https://customer-assets.emergentagent.com/job_balham-gardening-hub/artifacts/1orgnlby_IMG_2769.JPG",
+        "service": "Garden Maintenance",
+        "description": "Professional patio cleaning and garden maintenance in London property"
+      },
+      {
+        "id": "garden_maintenance_7",
+        "name": "IMG_2771.JPG",
+        "url": "https://customer-assets.emergentagent.com/job_balham-gardening-hub/artifacts/5x47q7wz_IMG_2771.JPG",
+        "thumbnail_url": "https://customer-assets.emergentagent.com/job_balham-gardening-hub/artifacts/5x47q7wz_IMG_2771.JPG",
+        "service": "Garden Maintenance",
+        "description": "Beautiful striped lawn maintenance and comprehensive garden care"
+      },
+      {
+        "id": "garden_maintenance_8",
+        "name": "IMG_2778.JPG",
+        "url": "https://customer-assets.emergentagent.com/job_balham-gardening-hub/artifacts/lvea3n99_IMG_2778.JPG",
+        "thumbnail_url": "https://customer-assets.emergentagent.com/job_balham-gardening-hub/artifacts/lvea3n99_IMG_2778.JPG",
+        "service": "Garden Maintenance",
+        "description": "Professional lawn striping and mature garden maintenance"
+      },
+      {
+        "id": "garden_maintenance_9",
+        "name": "IMG_3165.JPG",
+        "url": "https://customer-assets.emergentagent.com/job_balham-gardening-hub/artifacts/2kn1ns4u_IMG_3165.JPG",
+        "thumbnail_url": "https://customer-assets.emergentagent.com/job_balham-gardening-hub/artifacts/2kn1ns4u_IMG_3165.JPG",
+        "service": "Garden Maintenance",
+        "description": "Side garden maintenance with professional lawn care techniques"
+      },
+      {
+        "id": "garden_maintenance_10",
+        "name": "IMG_3226.JPG",
+        "url": "https://customer-assets.emergentagent.com/job_balham-gardening-hub/artifacts/7iz2kgbi_IMG_3226.JPG",
+        "thumbnail_url": "https://customer-assets.emergentagent.com/job_balham-gardening-hub/artifacts/7iz2kgbi_IMG_3226.JPG",
+        "service": "Garden Maintenance",
+        "description": "Professional maintenance work in progress with equipment and waste collection"
       }
     ]
   },
