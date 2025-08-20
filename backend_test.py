@@ -40,15 +40,35 @@ class APITester:
         print(f"\n🔧 Testing Email Service Configuration")
         print("=" * 50)
         
-        # Check environment variables
+        # Check environment variables from backend .env file
         try:
             import os
+            from pathlib import Path
+            from dotenv import load_dotenv
+            
+            # Load backend .env file
+            backend_env_path = Path('/app/backend/.env')
+            if backend_env_path.exists():
+                load_dotenv(backend_env_path)
+                print(f"   ✅ Backend .env file found and loaded")
+            else:
+                print(f"   ❌ Backend .env file not found")
+                self.failed += 1
+                self.errors.append("Backend .env file not found")
+                return
+            
             sendgrid_key = os.environ.get('SENDGRID_API_KEY')
             sender_email = os.environ.get('SENDER_EMAIL')
             
             if sendgrid_key:
                 print(f"   ✅ SENDGRID_API_KEY: Found (length: {len(sendgrid_key)})")
-                self.passed += 1
+                if sendgrid_key.startswith('SG.'):
+                    print(f"   ✅ API key format appears correct (starts with 'SG.')")
+                    self.passed += 1
+                else:
+                    print(f"   ⚠️  API key format may be incorrect (should start with 'SG.')")
+                    self.failed += 1
+                    self.errors.append("SendGrid API key format appears incorrect")
             else:
                 print(f"   ❌ SENDGRID_API_KEY: Not found in environment")
                 self.failed += 1
@@ -71,7 +91,7 @@ class APITester:
             self.failed += 1
             self.errors.append(f"Environment variable check failed: {e}")
         
-        # Test email service import
+        # Test email service import and configuration
         try:
             print(f"\n🔍 Testing Email Service Import...")
             import sys
@@ -81,6 +101,15 @@ class APITester:
             print(f"   ✅ Email service imported successfully")
             print(f"   📧 Business email: {email_service.business_email}")
             print(f"   📧 Sender email: {email_service.sender_email}")
+            
+            # Check if API key is loaded in service
+            if hasattr(email_service, 'sendgrid_api_key') and email_service.sendgrid_api_key:
+                print(f"   ✅ SendGrid API key loaded in service")
+                self.passed += 1
+            else:
+                print(f"   ❌ SendGrid API key not loaded in service")
+                self.failed += 1
+                self.errors.append("SendGrid API key not loaded in email service")
             
             # Verify correct phone number in email templates
             if hasattr(email_service, 'send_customer_confirmation'):
@@ -95,6 +124,34 @@ class APITester:
             print(f"   ❌ Error importing email service: {e}")
             self.failed += 1
             self.errors.append(f"Email service import failed: {e}")
+        
+        # Test email content validation
+        print(f"\n📧 Testing Email Content Validation...")
+        try:
+            # Check if phone number 07748 853590 is in email templates
+            with open('/app/backend/email_service.py', 'r') as f:
+                email_service_content = f.read()
+                
+            if '07748 853590' in email_service_content:
+                print(f"   ✅ Correct phone number (07748 853590) found in email templates")
+                self.passed += 1
+            else:
+                print(f"   ❌ Correct phone number (07748 853590) not found in email templates")
+                self.failed += 1
+                self.errors.append("Correct phone number not found in email templates")
+                
+            if 'gardeningpnm@gmail.com' in email_service_content:
+                print(f"   ✅ Business email (gardeningpnm@gmail.com) found in email templates")
+                self.passed += 1
+            else:
+                print(f"   ❌ Business email not found in email templates")
+                self.failed += 1
+                self.errors.append("Business email not found in email templates")
+                
+        except Exception as e:
+            print(f"   ❌ Error validating email content: {e}")
+            self.failed += 1
+            self.errors.append(f"Email content validation failed: {e}")
     
     def test_endpoint(self, method, endpoint, data=None, expected_status=200, description=""):
         """Test an API endpoint"""
