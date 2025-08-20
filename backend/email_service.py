@@ -153,7 +153,7 @@ class EmailService:
                     
                     <div style="background-color: #2d5016; color: white; padding: 20px; border-radius: 5px; text-align: center; margin: 30px 0;">
                         <h3 style="margin-top: 0; color: white;">Need immediate assistance?</h3>
-                        <p style="margin: 10px 0;">📞 <strong>Call us: 020 3488 1912</strong></p>
+                        <p style="margin: 10px 0;">📞 <strong>Call us: 07748 853590</strong></p>
                         <p style="margin: 10px 0;">📧 <strong>Email: gardeningpnm@gmail.com</strong></p>
                         <p style="margin-bottom: 0; font-size: 14px;">Available 7 days a week, 8am - 6pm</p>
                     </div>
