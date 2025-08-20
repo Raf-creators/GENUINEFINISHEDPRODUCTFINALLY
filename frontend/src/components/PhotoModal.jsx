@@ -53,12 +53,26 @@ const PhotoModal = ({ isOpen, onClose, review }) => {
               alt={`Professional work by ${review.name} - Image ${currentImageIndex + 1}`}
               className="w-full h-full object-cover"
               onError={(e) => {
-                console.error('Modal image failed to load:', images[currentImageIndex]);
-                // Don't replace with placeholder, just log the error
-                // The image will show as broken which is better than a misleading placeholder
+                console.error('❌ Modal image failed to load:', images[currentImageIndex]);
+                console.error('❌ Image element:', e.target);
+                console.error('❌ Current image index:', currentImageIndex);
+                console.error('❌ All images:', images);
+                
+                // Add error styling to make it visible
+                e.target.style.border = '2px solid red';
+                e.target.style.backgroundColor = '#fee2e2';
+                
+                // Add error text overlay
+                const errorDiv = document.createElement('div');
+                errorDiv.innerHTML = `<div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(0,0,0,0.8); color: white; padding: 10px; border-radius: 5px; font-size: 14px;">
+                  Image failed to load<br/>
+                  <small style="font-size: 12px; opacity: 0.8;">${images[currentImageIndex]}</small>
+                </div>`;
+                e.target.parentNode.style.position = 'relative';
+                e.target.parentNode.appendChild(errorDiv);
               }}
               onLoad={() => {
-                console.log('Modal image loaded successfully:', images[currentImageIndex]);
+                console.log('✅ Modal image loaded successfully:', images[currentImageIndex]);
               }}
             />
           </div>
