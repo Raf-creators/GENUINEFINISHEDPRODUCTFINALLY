@@ -420,8 +420,10 @@ class APITester:
         
         # Test UK phone number variations
         uk_phone_tests = [
+            {"phone": "07748 853590", "valid": True, "desc": "Business phone number"},
             {"phone": "07123456789", "valid": True, "desc": "Standard mobile"},
             {"phone": "02087654321", "valid": True, "desc": "London landline"},
+            {"phone": "+447748853590", "valid": True, "desc": "International format business"},
             {"phone": "+447123456789", "valid": True, "desc": "International format"},
             {"phone": "0712345678", "valid": True, "desc": "10 digit mobile"},
             {"phone": "123", "valid": False, "desc": "Too short"},
