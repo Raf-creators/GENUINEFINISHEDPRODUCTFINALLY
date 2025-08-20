@@ -79,8 +79,8 @@ const HeroSection = () => {
           <div className="relative">
             <div className="relative rounded-2xl overflow-hidden shadow-2xl">
               <img
-                src="https://images.unsplash.com/photo-1734079692160-fcbe4be6ab96?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1Nzh8MHwxfHNlYXJjaHwxfHxsYW5kc2NhcGluZ3xlbnwwfHx8fDE3NTQ4Mzc5NDJ8MA&ixlib=rb-4.1.0&q=85"
-                alt="Professional Landscaper at Work"
+                src="https://customer-assets.emergentagent.com/job_balham-gardening-hub/artifacts/vr6x6qen_27eea371-8cab-4d35-8c18-23b96c7feea6.JPG"
+                alt="Beautiful Garden in Balham - Professional Landscaping by PNM Gardeners"
                 className="w-full h-96 lg:h-[500px] object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
