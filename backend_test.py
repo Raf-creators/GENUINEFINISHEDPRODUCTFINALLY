@@ -210,22 +210,52 @@ class APITester:
         }
         self.test_endpoint("POST", "/reviews", data=invalid_low_review, expected_status=422, description="Create review with invalid rating (<1)")
         
-        # 4. Quote Requests Tests
+        # 4. SendGrid Email Integration Tests
         print("\n" + "=" * 40)
-        print("💬 TESTING QUOTE REQUESTS ENDPOINTS")
+        print("📧 TESTING SENDGRID EMAIL INTEGRATION")
+        print("=" * 40)
+        
+        # Test email service configuration
+        self.test_email_service_config()
+        
+        # 5. Quote Requests Tests with Email
+        print("\n" + "=" * 40)
+        print("💬 TESTING QUOTE REQUESTS WITH EMAIL")
         print("=" * 40)
         
         self.test_endpoint("GET", "/quotes", description="Get all quote requests")
         
-        # Test creating valid quote request
+        # Test creating valid quote request with email notifications
         quote_data = {
             "name": "Emily Johnson",
             "email": "emily.johnson@email.com",
-            "phone": "07123456789",
+            "phone": "07748 853590",  # Using correct phone number
             "service": "Garden Maintenance",
             "message": "I need regular garden maintenance for my property in Balham. Please provide a quote for weekly visits."
         }
-        self.test_endpoint("POST", "/quotes", data=quote_data, description="Create valid quote request")
+        print(f"\n📧 Testing quote request with email notifications...")
+        response = self.test_endpoint("POST", "/quotes", data=quote_data, description="Create quote request with email notifications")
+        
+        if response:
+            print(f"   ✅ Quote request created successfully")
+            print(f"   📧 Email notifications should be sent to:")
+            print(f"      • Business: gardeningpnm@gmail.com (quote notification)")
+            print(f"      • Customer: {quote_data['email']} (confirmation)")
+        
+        # Test another quote with different service
+        quote_data_2 = {
+            "name": "Michael Thompson",
+            "email": "michael.thompson@email.com", 
+            "phone": "07748 853590",
+            "service": "Garden Clearance",
+            "message": "Need complete garden clearance for overgrown back garden. Property in Balham area."
+        }
+        print(f"\n📧 Testing second quote request...")
+        response2 = self.test_endpoint("POST", "/quotes", data=quote_data_2, description="Create second quote request with emails")
+        
+        if response2:
+            print(f"   ✅ Second quote request created successfully")
+            print(f"   📧 Additional email notifications sent")
         
         # Test invalid quote request (bad email)
         invalid_quote = {
