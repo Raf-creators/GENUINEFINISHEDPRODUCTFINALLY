@@ -54,7 +54,8 @@ const PhotoModal = ({ isOpen, onClose, review }) => {
               className="w-full h-full object-cover"
               onError={(e) => {
                 console.error('Failed to load image:', images[currentImageIndex]);
-                e.target.src = "https://images.unsplash.com/photo-1621460248083-6271cc4437a8?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Nzd8MHwxfHNlYXJjaHwxfHxnYXJkZW5pbmd8ZW58MHx8fHwxNzU0ODM3OTM2fDA&ixlib=rb-4.1.0&q=85";
+                // Remove the automatic fallback to placeholder - let it show the broken image or retry
+                console.log('Image load failed for:', images[currentImageIndex]);
               }}
             />
           </div>
