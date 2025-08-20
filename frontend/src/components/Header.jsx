@@ -155,7 +155,7 @@ const Header = () => {
               <div className="pt-4 border-t flex flex-col space-y-2 text-sm">
                 <div className="flex items-center space-x-2 text-green-700">
                   <Phone className="w-4 h-4" />
-                  <span>020 3488 1912</span>
+                  <span>07748 853590</span>
                 </div>
                 <div className="flex items-center space-x-2 text-green-700">
                   <Mail className="w-4 h-4" />
