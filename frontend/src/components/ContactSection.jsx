@@ -304,7 +304,7 @@ const ContactSection = () => {
                 <div className="space-y-4">
                   <div className="flex items-center space-x-3">
                     <div className="w-3 h-3 bg-green-700 rounded-full"></div>
-                    <span className="text-gray-700">1+ year serving Balham</span>
+                    <span className="text-gray-700">20+ years serving Balham</span>
                   </div>
                   <div className="flex items-center space-x-3">
                     <div className="w-3 h-3 bg-green-700 rounded-full"></div>
