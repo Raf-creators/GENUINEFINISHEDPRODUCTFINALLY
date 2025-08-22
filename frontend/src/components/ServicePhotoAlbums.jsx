@@ -262,56 +262,30 @@ const ServicePhotoAlbums = () => {
             >
               <CardContent className="p-0">
                 <div className="aspect-square bg-gray-100 rounded-lg overflow-hidden relative">
-                  {/* Loading state */}
-                  <div className="absolute inset-0 flex items-center justify-center bg-gray-100 text-gray-500">
-                    <div className="animate-pulse">Loading...</div>
-                  </div>
-                  
                   <img
                     src={photo.thumbnail_url || photo.url}
                     alt={`${photo.service} - ${photo.name}`}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                     loading="lazy"
-                    style={{
-                      maxWidth: '400px',
-                      height: 'auto',
-                      objectFit: 'cover'
-                    }}
-                    onLoad={(e) => {
-                      console.log('Image loaded successfully:', photo.name);
-                      // Hide loading state when image loads
-                      const loadingDiv = e.target.previousElementSibling;
-                      if (loadingDiv && loadingDiv.className.includes('animate-pulse')) {
-                        loadingDiv.style.display = 'none';
-                      }
-                    }}
                     onError={(e) => {
-                      console.log('Thumbnail failed, trying optimized URL:', photo.url);
-                      // Hide loading state
-                      const loadingDiv = e.target.previousElementSibling;
-                      if (loadingDiv && loadingDiv.className.includes('animate-pulse')) {
-                        loadingDiv.style.display = 'none';
-                      }
-                      
+                      console.log('Thumbnail failed, trying full URL:', photo.url);
                       // Try the direct URL if thumbnail fails
                       if (e.target.src !== photo.url) {
-                        // Add optimization parameters to reduce file size
-                        const optimizedUrl = photo.url + '?w=400&q=75';
-                        e.target.src = optimizedUrl;
+                        e.target.src = photo.url;
                       } else {
-                        console.error('Image failed to load:', photo.name);
-                        // Create a better placeholder
+                        console.error('Both thumbnail and full URL failed for:', photo.name);
+                        // Set a minimal placeholder instead of heavy fallback
+                        e.target.style.backgroundColor = '#f3f4f6';
                         e.target.style.display = 'none';
+                        // Add a simple text placeholder
                         const placeholder = document.createElement('div');
-                        placeholder.className = 'w-full h-full flex flex-col items-center justify-center bg-gray-100 text-gray-500 text-xs p-2 text-center';
-                        placeholder.innerHTML = `
-                          <svg class="w-8 h-8 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                          </svg>
-                          <span>${photo.name}</span>
-                        `;
+                        placeholder.className = 'w-full h-full flex items-center justify-center bg-gray-100 text-gray-500 text-sm';
+                        placeholder.textContent = photo.name;
                         e.target.parentNode.appendChild(placeholder);
                       }
+                    }}
+                    onLoad={() => {
+                      console.log('Image loaded successfully:', photo.name);
                     }}
                   />
                   
