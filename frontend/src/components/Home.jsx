@@ -8,7 +8,6 @@ import WhyChooseUs from "./WhyChooseUs";
 import AreasServed from "./AreasServed";
 import FAQ from "./FAQ";
 import ContactSection from "./ContactSection";
-import Gallery from "./Gallery";
 import Footer from "./Footer";
 
 const Home = () => {
