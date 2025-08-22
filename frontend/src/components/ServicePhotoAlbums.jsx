@@ -130,36 +130,13 @@ const ServicePhotoAlbums = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  // Add loading state for better UX
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 py-20">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
-              Loading Gallery...
-            </h1>
-            <div className="animate-pulse">
-              <div className="w-64 h-4 bg-gray-200 rounded mx-auto mb-4"></div>
-              <div className="w-32 h-6 bg-green-200 rounded mx-auto"></div>
-            </div>
-          </div>
-          
-          {/* Skeleton grid */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[...Array(6)].map((_, i) => (
-              <Card key={i} className="border-0 shadow-lg bg-white animate-pulse">
-                <CardContent className="p-0">
-                  <div className="aspect-[4/3] bg-gray-200"></div>
-                  <div className="p-6">
-                    <div className="h-6 bg-gray-200 rounded mb-4"></div>
-                    <div className="h-4 bg-gray-200 rounded mb-2"></div>
-                    <div className="h-4 bg-gray-200 rounded w-3/4"></div>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+      <div className="min-h-screen bg-gray-50 py-20 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-green-700 mb-4"></div>
+          <h2 className="text-2xl font-semibold text-gray-700">Loading Gallery...</h2>
+          <p className="text-gray-500 mt-2">Loading real Google Drive photos</p>
         </div>
       </div>
     );
