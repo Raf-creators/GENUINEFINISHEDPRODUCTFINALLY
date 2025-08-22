@@ -252,22 +252,16 @@ const ServicePhotoAlbums = () => {
           </div>
         </div>
 
-        {/* Photo Grid - Real Google Drive Images with optimized loading */}
+        {/* Photo Grid - Real Google Drive Images */}
         <div className="grid md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 mb-8">
-          {currentPhotos.map((photo, index) => (
+          {currentPhotos.map((photo) => (
             <Card 
               key={photo.id} 
               className="border-0 shadow-md hover:shadow-lg transition-shadow cursor-pointer group"
               onClick={() => openPhotoModal(photo)}
             >
               <CardContent className="p-0">
-                <div 
-                  className="aspect-square bg-gray-100 rounded-lg overflow-hidden relative"
-                  style={{
-                    backgroundColor: '#f3f4f6',
-                    minHeight: '200px'
-                  }}
-                >
+                <div className="aspect-square bg-gray-100 rounded-lg overflow-hidden relative">
                   {/* Loading state */}
                   <div className="absolute inset-0 flex items-center justify-center bg-gray-100 text-gray-500">
                     <div className="animate-pulse">Loading...</div>
