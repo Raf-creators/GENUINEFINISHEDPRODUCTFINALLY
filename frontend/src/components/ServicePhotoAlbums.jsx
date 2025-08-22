@@ -267,6 +267,14 @@ const ServicePhotoAlbums = () => {
                     alt={`${photo.service} - ${photo.name}`}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                     loading="lazy"
+                    style={{
+                      // Optimize for customer-assets images which are large
+                      ...(photo.url.includes('customer-assets.emergentagent.com') ? {
+                        maxHeight: '300px',
+                        width: '100%',
+                        objectFit: 'cover'
+                      } : {})
+                    }}
                     onError={(e) => {
                       console.log('Thumbnail failed, trying full URL:', photo.url);
                       // Try the direct URL if thumbnail fails
