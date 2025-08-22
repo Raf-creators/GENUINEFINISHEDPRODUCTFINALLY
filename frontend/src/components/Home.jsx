@@ -20,7 +20,6 @@ const Home = () => {
       <ReviewsMap />
       <WhyChooseUs />
       <AreasServed />
-      <Gallery />
       <FAQ />
       <ContactSection />
       <Footer />
