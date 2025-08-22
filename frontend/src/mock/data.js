@@ -179,7 +179,7 @@ export const faqs = [
   {
     id: 7,
     question: "Do I need to provide power for your tools?",
-    answer: "No, you don't need to provide power for our tools. We come fully equipped with battery-powered and petrol-powered equipment, so no mains electricity is required. The only exception is our jet wash, which may need access to a power outlet in some cases."
+    answer: "No, you don't need to provide power for our tools. We come fully equipped with battery-powered and petrol-powered equipment, so no mains electricity is required. The only exception is our jet wash, which may need access to a garden tap in some cases."
   }
 ];
 
