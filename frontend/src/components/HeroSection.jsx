@@ -108,7 +108,7 @@ const HeroSection = () => {
             </div>
             <div>
               <div className="text-2xl font-bold text-green-700">✓</div>
-              <div className="text-sm text-gray-600 mt-2">Free Waste Disposal</div>
+              <div className="text-sm text-gray-600 mt-2">Free disposal of green waste</div>
             </div>
             <div>
               <div className="text-2xl font-bold text-green-700">✓</div>
