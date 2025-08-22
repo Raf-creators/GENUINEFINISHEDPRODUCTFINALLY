@@ -94,24 +94,24 @@ const ServicePhotoAlbums = () => {
     console.log('🔍 Thumbnail URL:', photo.thumbnail_url);
     console.log('🔍 Full photo object:', photo);
     
-    // For Google Drive URLs, we need to use a different format for the modal
+    // For Google Drive URLs, use the high-resolution thumbnail instead of the full image
     let modalImageUrl = photo.url;
     
-    // If it's a Google Drive URL, convert it to direct image format
+    // If it's a Google Drive URL, use a high-res thumbnail which works better
     if (photo.url && photo.url.includes('drive.google.com')) {
       // Extract the file ID from the URL
       const fileIdMatch = photo.url.match(/id=([a-zA-Z0-9_-]+)/);
       if (fileIdMatch) {
         const fileId = fileIdMatch[1];
-        // Use the direct image URL format that works better in img tags
-        modalImageUrl = `https://drive.google.com/uc?export=download&id=${fileId}`;
-        console.log('🔧 Converted Google Drive URL for modal:', modalImageUrl);
+        // Use high-resolution thumbnail (w800 instead of w400) for modal
+        modalImageUrl = `https://drive.google.com/thumbnail?id=${fileId}&sz=w800`;
+        console.log('🔧 Using high-res Google Drive thumbnail for modal:', modalImageUrl);
       }
     }
     
     // Create a proper modal photo object with better error handling
     const modalPhotoData = {
-      images: [modalImageUrl], // Use the converted URL
+      images: [modalImageUrl], // Use the high-res thumbnail URL
       service: photo.service || 'Garden Service',
       postcode: "SW12", 
       text: photo.description || `Professional ${photo.service} work`,
