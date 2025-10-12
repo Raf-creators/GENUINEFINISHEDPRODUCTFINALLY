@@ -3,14 +3,14 @@ export const services = [
     id: 1,
     title: "Garden Design",
     description: "Professional garden design services to create bespoke, beautiful outdoor spaces. Our experts work with you from concept to final plan to ensure a functional and stunning garden tailored to your needs.",
-    image: "https://customer-assets.emergentagent.com/job_london-garden-site/artifacts/cd0pqfuk_d3cd6acf-e8b9-4065-b1a3-5ef9c58a007c.jpeg",
+    image: "https://customer-assets.emergentagent.com/job_london-garden-site/artifacts/v84klhcf_image.png",
     features: ["Site Survey & Analysis", "Concept Development", "2D & 3D Visuals", "Planting Plans", "Lighting & Irrigation Design"]
   },
   {
     id: 2,
     title: "Soft Landscaping", 
     description: "Expert soft landscaping services focusing on the living elements of your garden, including the supply and installation of healthy plants, trees, and shrubs to bring your design to life.",
-    image: "https://customer-assets.emergentagent.com/job_balham-gardening-hub/artifacts/1eq1wuxc_Planting.jpeg",
+    image: "https://customer-assets.emergentagent.com/job_london-garden-site/artifacts/cd0pqfuk_d3cd6acf-e8b9-4065-b1a3-5ef9c58a007c.jpeg",
     features: ["Plant Supply & Installation", "Tree & Shrub Planting", "Border Preparation", "Mulching & Soil Conditioning", "Feature Planting"]
   },
   {
