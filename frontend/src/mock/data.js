@@ -1,62 +1,83 @@
 export const services = [
   {
     id: 1,
+    title: "Garden Design",
+    description: "Professional garden design services to create bespoke, beautiful outdoor spaces. Our experts work with you from concept to final plan to ensure a functional and stunning garden tailored to your needs.",
+    image: "https://customer-assets.emergentagent.com/job_london-garden-site/artifacts/cd0pqfuk_d3cd6acf-e8b9-4065-b1a3-5ef9c58a007c.jpeg",
+    features: ["Site Survey & Analysis", "Concept Development", "2D & 3D Visuals", "Planting Plans", "Lighting & Irrigation Design"]
+  },
+  {
+    id: 2,
+    title: "Soft Landscaping", 
+    description: "Expert soft landscaping services focusing on the living elements of your garden, including the supply and installation of healthy plants, trees, and shrubs to bring your design to life.",
+    image: "https://customer-assets.emergentagent.com/job_balham-gardening-hub/artifacts/1eq1wuxc_Planting.jpeg",
+    features: ["Plant Supply & Installation", "Tree & Shrub Planting", "Border Preparation", "Mulching & Soil Conditioning", "Feature Planting"]
+  },
+  {
+    id: 3,
+    title: "Hard Landscaping",
+    description: "Skilled hard landscaping services for all structural elements of your outdoor space. From laying patios and pathways to building walls and fences, we create the durable framework for your perfect garden.",
+    image: "https://customer-assets.emergentagent.com/job_london-garden-site/artifacts/a0ilni2y_9f5ef68c-f757-4b28-bb9b-a8f9cc5cd9ce.jpeg",
+    features: ["Patio & Paving Installation", "Decking Construction", "Retaining Wall Building", "Fence Installation & Repair", "Shed & Outbuilding Bases"]
+  },
+  {
+    id: 4,
     title: "Garden Maintenance",
     description: "Comprehensive garden maintenance including lawn mowing, hedge trimming, weeding, and general upkeep. Professional service to keep your garden looking its best all year round.",
     image: "https://customer-assets.emergentagent.com/job_balham-gardening-hub/artifacts/iavpo09s_Garden%20Maintenance.jpeg",
     features: ["Lawn Mowing", "Hedge Trimming", "Weeding", "General Upkeep", "Seasonal Maintenance"]
   },
   {
-    id: 2,
+    id: 5,
     title: "Garden Clearance",
     description: "Complete garden clearance services including removal of overgrown vegetation, waste disposal, and site preparation. Fast and efficient clearance with professional waste removal.",
     image: "https://customer-assets.emergentagent.com/job_balham-gardening-hub/artifacts/tu9u2wbq_Garden%20Clearance.jpeg",
     features: ["Overgrown Garden Clearance", "Waste Removal", "Site Preparation", "Ivy Removal", "Thorny Bush Disposal"]
   },
   {
-    id: 3,
+    id: 6,
     title: "Hedge Trimming & Removal",
     description: "Professional hedge trimming and removal services. Expert maintenance to keep your hedges neat and healthy, or complete removal when needed.",
     image: "https://customer-assets.emergentagent.com/job_balham-gardening-hub/artifacts/ccw4wf98_Hedge%20Trimming.jpeg",
     features: ["Hedge Trimming", "Hedge Removal", "Hedge Shaping", "Pruning", "Cleanup Service"]
   },
   {
-    id: 4,
+    id: 7,
     title: "Turfing",
     description: "Professional turf laying services to create beautiful, lush lawns. From ground preparation to final installation of premium quality turf.",
     image: "https://customer-assets.emergentagent.com/job_balham-gardening-hub/artifacts/p467qw39_Turfing.jpeg",
     features: ["Ground Preparation", "Turf Installation", "Lawn Creation", "Soil Treatment", "Aftercare Advice"]
   },
   {
-    id: 5,
+    id: 8,
     title: "Lawn Care",
     description: "Professional lawn care services including mowing, edging, weed treatment, and overseeding. Keep your lawn healthy and beautiful throughout the year.",
     image: "https://customer-assets.emergentagent.com/job_balham-gardening-hub/artifacts/84y7gk19_Lawn%20Care.jpeg",
     features: ["Lawn Mowing", "Edging", "Weed Treatment", "Overseeding", "Lawn Health Assessment"]
   },
   {
-    id: 6,
+    id: 9,
     title: "Planting Services",
     description: "Expert planting schemes to suit your space and style. Professional plant selection, installation, and ongoing care to create beautiful garden displays.",
     image: "https://customer-assets.emergentagent.com/job_balham-gardening-hub/artifacts/1eq1wuxc_Planting.jpeg",
     features: ["Plant Selection", "Flower Bed Design", "Seasonal Planting", "Bulb Planting", "Plant Care Advice"]
   },
   {
-    id: 7,
+    id: 10,
     title: "Patio Services",
     description: "Professional patio installation, repair, and maintenance. From new patio construction to pressure washing and restoration of existing patios.",
     image: "https://customer-assets.emergentagent.com/job_balham-gardening-hub/artifacts/m5ax1zd3_Patio.jpeg",
     features: ["Patio Installation", "Patio Repair", "Pressure Washing", "Stone & Block Paving", "Patio Design"]
   },
   {
-    id: 8,
+    id: 11,
     title: "Pruning",
     description: "Expert pruning services for trees, shrubs, and plants. Professional techniques to promote healthy growth and maintain the shape and size of your plants.",
     image: "https://customer-assets.emergentagent.com/job_balham-gardening-hub/artifacts/gwwh93vr_Pruning.jpeg",
     features: ["Tree Pruning", "Shrub Pruning", "Seasonal Pruning", "Health Assessment", "Shape Maintenance"]
   },
   {
-    id: 9,
+    id: 12,
     title: "Trellis & Fencing",
     description: "Professional trellis installation and fencing services. Custom solutions for privacy, plant support, and garden structure. Quality materials and expert installation.",
     image: "https://customer-assets.emergentagent.com/job_balham-gardening-hub/artifacts/mt1mal3e_Trellis.jpeg",
