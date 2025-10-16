@@ -135,12 +135,12 @@ const Header = () => {
               >
                 Areas
               </button>
-              <a 
-                href="/gallery"
+              <Link 
+                to="/gallery"
                 className="text-gray-700 hover:text-green-800 font-medium text-left"
               >
                 Gallery
-              </a>
+              </Link>
               <button 
                 onClick={() => scrollToSection('contact')} 
                 className="text-gray-700 hover:text-green-800 font-medium text-left"
