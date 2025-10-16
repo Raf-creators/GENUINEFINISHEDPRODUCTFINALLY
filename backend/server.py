@@ -333,3 +333,8 @@ async def shutdown_db_client():
     await database.close()
     client.close()
     logger.info("Database connections closed")
+if __name__ == "__main__":
+    import uvicorn
+    import os
+    port = int(os.environ.get("PORT", 8001))
+    uvicorn.run(app, host="0.0.0.0", port=port)
