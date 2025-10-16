@@ -1,0 +1,31 @@
+services:
+  # Backend API Service
+  - type: web
+    name: pnm-gardeners-backend
+    env: python
+    buildCommand: cd backend && pip install -r requirements.txt
+    startCommand: cd backend && python server.py
+    plan: free
+    envVars:
+      - key: MONGO_URL
+        value: mongodb+srv://pnm-user:PASSWORD@cluster.mongodb.net/pnm_gardeners
+      - key: DB_NAME
+        value: pnm_gardeners
+      - key: CORS_ORIGINS
+        value: "*"
+      - key: SENDGRID_API_KEY
+        value: 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
+      - key: SENDER_EMAIL
+        value: gardeningpnm@gmail.com
+      - key: PORT
+        value: 8001
+
+  # Frontend Static Site Service  
+  - type: static
+    name: pnm-gardeners-frontend
+    buildCommand: cd frontend && npm install && npm run build
+    staticPublishPath: ./frontend/build
+    plan: free
+    envVars:
+      - key: REACT_APP_BACKEND_URL
+        value: https://pnm-gardeners-backend.onrender.com
