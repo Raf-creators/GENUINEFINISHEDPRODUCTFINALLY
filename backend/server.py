@@ -128,6 +128,20 @@ async def create_review(review_data: ReviewCreate):
             detail="Failed to submit review"
         )
 
+# Database initialization endpoint for production
+@api_router.post("/init-db", response_model=MessageResponse)
+async def initialize_database():
+    """Initialize database with seed data (admin only)"""
+    try:
+        await database.seed_database()
+        return MessageResponse(message="Database initialized successfully")
+    except Exception as e:
+        logger.error(f"Error initializing database: {e}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Failed to initialize database"
+        )
+
 # Quote Requests Endpoints
 @api_router.post("/quotes", response_model=MessageResponse)
 async def create_quote_request(quote_data: QuoteRequestCreate):
