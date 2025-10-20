@@ -147,21 +147,89 @@ async def initialize_database():
 async def add_basic_reviews():
     """Add basic reviews for map and reviews section"""
     try:
-        # Simple reviews data for map
+        # Your actual Checkatrade reviews with correct postcodes
         reviews = [
-            {"id": "1", "name": "Verified Customer", "rating": 10, "date": "4 days ago", "text": "Great communication from start to finish. Delighted with the end result.", "service": "Garden clearance", "postcode": "SW19", "lat": 51.4214, "lng": -0.1878, "images": []},
-            {"id": "2", "name": "Verified Customer", "rating": 10, "date": "4 days ago", "text": "Really great experience, the guys were friendly and efficient.", "service": "Garden Clearance", "postcode": "SW16", "lat": 51.4325, "lng": -0.1221, "images": []},
-            {"id": "3", "name": "Verified Customer", "rating": 10, "date": "5 days ago", "text": "Quick and professional service.", "service": "Bush removal", "postcode": "SW16", "lat": 51.4352, "lng": -0.1205, "images": []}
+            {
+                "id": "1",
+                "name": "Verified Customer", 
+                "rating": 10,
+                "date": "4 days ago",
+                "text": "Great communication from start to finish. Computerised drawing was provided so we could visualise the end result. The team arrived when they said they would, worked fast and efficiently. Delighted with the end result.",
+                "service": "Complete garden clearance and removal of waste, laying of lawn, jet washing patio",
+                "postcode": "SW19",
+                "lat": 51.4214,
+                "lng": -0.1878,
+                "images": [],
+                "approved": True,
+                "created_at": "2024-01-01T00:00:00"
+            },
+            {
+                "id": "2",
+                "name": "Verified Customer",
+                "rating": 10, 
+                "date": "4 days ago",
+                "text": "Really great experience, the guys were friendly, helpful, informed and efficient. Cleared a really heavily congested garden with no issue and were very dilligent about it. Absolutely would recommend and go with again.",
+                "service": "Garden Clearance",
+                "postcode": "SW16", 
+                "lat": 51.4325,
+                "lng": -0.1221,
+                "images": [],
+                "approved": True,
+                "created_at": "2024-01-01T00:00:00"
+            },
+            {
+                "id": "3", 
+                "name": "Verified Customer",
+                "rating": 10,
+                "date": "5 days ago",
+                "text": "Booked on day of posting and completed within 2 hours of booking",
+                "service": "Dispose of thorny bush", 
+                "postcode": "SW16",
+                "lat": 51.4352,
+                "lng": -0.1205,
+                "images": [],
+                "approved": True,
+                "created_at": "2024-01-01T00:00:00"
+            },
+            {
+                "id": "4",
+                "name": "Verified Customer",
+                "rating": 9,
+                "date": "6 days ago", 
+                "text": "PNM gardening were quick to quote from a photo and easy to communicate with. The two gardeners did a great job and cleared an overgrown garden really quickly and left no mess. Would recommend",
+                "service": "Small garden clearance",
+                "postcode": "SW12",
+                "lat": 51.4648,
+                "lng": -0.1731,
+                "images": [],
+                "approved": True,
+                "created_at": "2024-01-01T00:00:00"
+            },
+            {
+                "id": "5",
+                "name": "Verified Customer",
+                "rating": 10,
+                "date": "6 days ago",
+                "text": "Very good job, good communication and would use again.",
+                "service": "Ivy Removal", 
+                "postcode": "SW10",
+                "lat": 51.4892,
+                "lng": -0.1934,
+                "images": [],
+                "approved": True,
+                "created_at": "2024-01-01T00:00:00"
+            }
         ]
         
-        # Insert into database
-        for review in reviews:
-            await database.db["reviews"].insert_one(review)
+        # Clear existing reviews and insert new ones
+        await database.db.reviews.delete_many({})
+        result = await database.db.reviews.insert_many(reviews)
         
-        return MessageResponse(message="Reviews added successfully")
+        return MessageResponse(message=f"Successfully added {len(reviews)} reviews to database")
+        
     except Exception as e:
         logger.error(f"Error adding reviews: {e}")
-        return MessageResponse(message=f"Added reviews with some issues: {str(e)}")
+        return MessageResponse(message=f"Partial success, error: {str(e)}")
 
 # Quote Requests Endpoints
 @api_router.post("/quotes", response_model=MessageResponse)
