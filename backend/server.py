@@ -142,6 +142,27 @@ async def initialize_database():
             detail="Failed to initialize database"
         )
 
+# Simple reviews endpoint for production
+@api_router.post("/add-reviews", response_model=MessageResponse)  
+async def add_basic_reviews():
+    """Add basic reviews for map and reviews section"""
+    try:
+        # Simple reviews data for map
+        reviews = [
+            {"id": "1", "name": "Verified Customer", "rating": 10, "date": "4 days ago", "text": "Great communication from start to finish. Delighted with the end result.", "service": "Garden clearance", "postcode": "SW19", "lat": 51.4214, "lng": -0.1878, "images": []},
+            {"id": "2", "name": "Verified Customer", "rating": 10, "date": "4 days ago", "text": "Really great experience, the guys were friendly and efficient.", "service": "Garden Clearance", "postcode": "SW16", "lat": 51.4325, "lng": -0.1221, "images": []},
+            {"id": "3", "name": "Verified Customer", "rating": 10, "date": "5 days ago", "text": "Quick and professional service.", "service": "Bush removal", "postcode": "SW16", "lat": 51.4352, "lng": -0.1205, "images": []}
+        ]
+        
+        # Insert into database
+        for review in reviews:
+            await database.db["reviews"].insert_one(review)
+        
+        return MessageResponse(message="Reviews added successfully")
+    except Exception as e:
+        logger.error(f"Error adding reviews: {e}")
+        return MessageResponse(message=f"Added reviews with some issues: {str(e)}")
+
 # Quote Requests Endpoints
 @api_router.post("/quotes", response_model=MessageResponse)
 async def create_quote_request(quote_data: QuoteRequestCreate):
