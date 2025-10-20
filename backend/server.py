@@ -133,13 +133,13 @@ async def create_review(review_data: ReviewCreate):
 async def initialize_database():
     """Initialize database with seed data (admin only)"""
     try:
-        await database.seed_database()
+        await database.seed_initial_data()
         return MessageResponse(message="Database initialized successfully")
     except Exception as e:
         logger.error(f"Error initializing database: {e}")
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail="Failed to initialize database"
+            detail=f"Failed to initialize database: {str(e)}"
         )
 
 # Simple reviews endpoint for production
