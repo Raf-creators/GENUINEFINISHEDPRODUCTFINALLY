@@ -18,10 +18,10 @@ async def scrape_checkatrade_reviews():
         # Navigate to the reviews page
         url = "https://www.checkatrade.com/trades/pnmgardening/reviews"
         print(f"Navigating to {url}...")
-        await page.goto(url, wait_until="networkidle")
+        await page.goto(url, wait_until="domcontentloaded", timeout=60000)
         
         # Wait for initial reviews to load
-        await page.wait_for_selector('[data-testid="review-card"]', timeout=10000)
+        await page.wait_for_selector('[data-testid="review-card"]', timeout=15000)
         
         # Click "Load more" button repeatedly until no more reviews
         load_more_count = 0
