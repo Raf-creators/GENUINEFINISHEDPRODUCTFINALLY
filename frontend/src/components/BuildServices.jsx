@@ -22,25 +22,25 @@ const BuildServices = () => {
 
   const buildServices = [
     {
-      id: "soft-landscaping",
-      title: "Soft Landscaping",
-      description: "Expert soft landscaping including planting schemes, flower beds, borders, and seasonal displays. Professional plant selection and installation to create stunning garden features.",
-      image: "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1Nzh8MHwxfHNlYXJjaHw2fHxwbGFudGluZ3xlbnwwfHx8fDE3NTQ4Mzc5NDJ8MA&ixlib=rb-4.1.0&q=85",
-      features: ["Plant Selection", "Flower Bed Design", "Seasonal Planting", "Bulb Planting", "Plant Care Advice"],
-    },
-    {
       id: "hard-landscaping",
       title: "Hard Landscaping",
-      description: "Professional hard landscaping including patios, pathways, driveways, and retaining walls. Quality construction using premium materials for long-lasting results.",
+      description: "Skilled hard landscaping services for all structural elements of your outdoor space. From laying patios and pathways to building walls and fences, we create the durable framework for your perfect garden.",
       image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1Nzh8MHwxfHNlYXJjaHw1fHxwYXRpb3xlbnwwfHx8fDE3NTQ4Mzc5NDJ8MA&ixlib=rb-4.1.0&q=85",
-      features: ["Patio Installation", "Pathway Construction", "Driveway Paving", "Retaining Walls", "Stone & Block Paving"],
+      features: ["Patio & Paving Installation", "Decking Construction", "Retaining Wall Building", "Fence Installation & Repair", "Shed & Outbuilding Bases"],
     },
     {
-      id: "fencing-decking",
-      title: "Fences, Decking & Trellis",
-      description: "Professional installation of garden fencing, decking, and trellis work. Quality carpentry and construction to enhance your outdoor living space with durable, attractive structures.",
-      image: "https://images.unsplash.com/photo-1585128792020-803d29415281?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1Nzh8MHwxfHNlYXJjaHw3fHx0cmVsbGlzfGVufDB8fHx8MTc1NDgzNzk0Mnww&ixlib=rb-4.1.0&q=85",
-      features: ["Garden Fencing", "Decking Installation", "Trellis Work", "Privacy Screens", "Custom Carpentry"],
+      id: "soft-landscaping",
+      title: "Soft Landscaping",
+      description: "Expert soft landscaping services focusing on the living elements of your garden, including the supply and installation of healthy plants, trees, and shrubs to bring your design to life.",
+      image: "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1Nzh8MHwxfHNlYXJjaHw2fHxwbGFudGluZ3xlbnwwfHx8fDE3NTQ4Mzc5NDJ8MA&ixlib=rb-4.1.0&q=85",
+      features: ["Plant Supply & Installation", "Tree & Shrub Planting", "Border Preparation", "Mulching & Soil Conditioning", "Feature Planting"],
+    },
+    {
+      id: "garden-design",
+      title: "Garden Design",
+      description: "Professional garden design services to create bespoke, beautiful outdoor spaces. Our experts work with you from concept to final plan to ensure a functional and stunning garden tailored to your needs.",
+      image: "https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1Nzh8MHwxfHNlYXJjaHwxfHxnYXJkZW4lMjBkZXNpZ258ZW58MHx8fHwxNzU0ODM3OTQyfDA&ixlib=rb-4.1.0&q=85",
+      features: ["Site Survey & Analysis", "Concept Development", "2D & 3D Visuals", "Planting Plans", "Lighting & Irrigation Design"],
     },
   ];
 
