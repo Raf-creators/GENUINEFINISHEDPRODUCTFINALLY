@@ -1,17 +1,14 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import { Card } from "./ui/card";
 
-const DesignBuildMaintain = () => {
-  const navigate = useNavigate();
-
+const DesignBuildMaintain = ({ onCategorySelect }) => {
   const sections = [
     {
       id: "design",
       title: "DESIGN",
       image: "https://images.unsplash.com/photo-1523726491678-bf852e717f6a?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1Nzh8MHwxfHNlYXJjaHw1fHxnYXJkZW4lMjBkZXNpZ24lMjBwbGFufGVufDB8fHx8MTc2MTEwNzAwNXww&ixlib=rb-4.1.0&q=85",
       description: "Using our designers to create innovative ideas and visualize your dream garden",
-      clickable: false,
+      clickable: true,
     },
     {
       id: "build",
@@ -19,7 +16,6 @@ const DesignBuildMaintain = () => {
       image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1Nzh8MHwxfHNlYXJjaHw3fHxnYXJkZW4lMjBjb25zdHJ1Y3Rpb258ZW58MHx8fHwxNzYxMTA3MDA1fDA&ixlib=rb-4.1.0&q=85",
       description: "Bringing bespoke designs to life with precision and quality craftsmanship",
       clickable: true,
-      route: "/build",
     },
     {
       id: "maintain",
@@ -27,13 +23,23 @@ const DesignBuildMaintain = () => {
       image: "https://images.unsplash.com/photo-1592419044706-39796d40f98c?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1Nzh8MHwxfHNlYXJjaHwxfHxnYXJkZW5lciUyMHRyaW1taW5nJTIwaGVkZ2V8ZW58MHx8fHwxNzYxMTA3MDA1fDA&ixlib=rb-4.1.0&q=85",
       description: "Ongoing expert gardening to keep your outdoor space perfect year-round",
       clickable: true,
-      route: "/maintain",
     },
   ];
 
   const handleCardClick = (section) => {
-    if (section.clickable) {
-      navigate(section.route);
+    if (section.clickable && onCategorySelect) {
+      // Call parent function to update selected category
+      onCategorySelect(section.id);
+      
+      // Smooth scroll to services section
+      setTimeout(() => {
+        const servicesSection = document.getElementById('category-services');
+        if (servicesSection) {
+          const yOffset = -80; // Offset for fixed header
+          const y = servicesSection.getBoundingClientRect().top + window.pageYOffset + yOffset;
+          window.scrollTo({ top: y, behavior: 'smooth' });
+        }
+      }, 100);
     }
   };
 
