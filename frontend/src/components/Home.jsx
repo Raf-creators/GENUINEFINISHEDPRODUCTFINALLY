@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Header from "./Header";
 import HeroSection from "./HeroSection";
-import ServicesSection from "./ServicesSection";
+import DesignBuildMaintain from "./DesignBuildMaintain";
 import ReviewsSection from "./ReviewsSection";
 import ReviewsMap from "./ReviewsMap";
 import WhyChooseUs from "./WhyChooseUs";
@@ -15,7 +15,7 @@ const Home = () => {
     <div className="min-h-screen bg-white">
       <Header />
       <HeroSection />
-      <ServicesSection />
+      <DesignBuildMaintain />
       <ReviewsSection />
       <ReviewsMap />
       <WhyChooseUs />
