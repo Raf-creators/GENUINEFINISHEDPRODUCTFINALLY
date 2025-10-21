@@ -33,34 +33,12 @@ async def scrape_checkatrade_reviews():
             f.write(content)
         print("Page content saved for inspection")
         
-        # Click "Load more" button repeatedly until no more reviews
-        load_more_count = 0
-        max_attempts = 20  # Safety limit
+        # Try to find review elements - we'll inspect the HTML first
+        print("Checking for review elements...")
         
-        while load_more_count < max_attempts:
-            try:
-                # Look for the "Load more reviews" button
-                load_more_button = page.locator('button:has-text("Load more reviews")')
-                
-                # Check if button exists and is visible
-                if await load_more_button.count() > 0 and await load_more_button.is_visible():
-                    print(f"Clicking 'Load more' (attempt {load_more_count + 1})...")
-                    await load_more_button.click()
-                    # Wait for new content to load
-                    await asyncio.sleep(2)
-                    load_more_count += 1
-                else:
-                    print("No more 'Load more' button found. All reviews loaded.")
-                    break
-            except Exception as e:
-                print(f"Error clicking load more: {e}")
-                break
-        
-        # Extract all reviews
-        print("Extracting review data...")
-        review_cards = await page.locator('[data-testid="review-card"]').all()
-        
-        print(f"Found {len(review_cards)} reviews")
+        # Let's return early and check the HTML structure first
+        await browser.close()
+        return []
         
         for idx, card in enumerate(review_cards):
             try:
