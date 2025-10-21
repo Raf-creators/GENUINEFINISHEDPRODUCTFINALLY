@@ -20,8 +20,18 @@ async def scrape_checkatrade_reviews():
         print(f"Navigating to {url}...")
         await page.goto(url, wait_until="domcontentloaded", timeout=60000)
         
-        # Wait for initial reviews to load
-        await page.wait_for_selector('[data-testid="review-card"]', timeout=15000)
+        # Wait for page to be ready
+        await asyncio.sleep(5)
+        
+        # Take a screenshot for debugging
+        await page.screenshot(path="/app/backend/checkatrade_page.png")
+        print("Screenshot saved for debugging")
+        
+        # Get page content to inspect
+        content = await page.content()
+        with open("/app/backend/page_content.html", "w") as f:
+            f.write(content)
+        print("Page content saved for inspection")
         
         # Click "Load more" button repeatedly until no more reviews
         load_more_count = 0
