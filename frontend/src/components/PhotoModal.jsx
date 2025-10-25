@@ -9,11 +9,44 @@ const PhotoModal = ({ isOpen, onClose, review }) => {
   if (!review) return null;
   
   // Ensure images exist and is an array
-  const images = Array.isArray(review.images) ? review.images : [];
+  let images = Array.isArray(review.images) ? review.images : [];
   if (images.length === 0) {
     console.log('No images found for review:', review);
     return null;
   }
+
+  // Convert Google Drive URLs to proper viewable format
+  images = images.map(url => {
+    if (url.includes('storage.googleapis.com')) {
+      // Google Storage URLs - already viewable
+      return url;
+    }
+    
+    if (url.includes('drive.google.com')) {
+      // Extract file ID from various Google Drive URL formats
+      let fileId = null;
+      
+      // Format: https://drive.google.com/file/d/FILE_ID/view
+      const fileMatch = url.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
+      if (fileMatch) {
+        fileId = fileMatch[1];
+      }
+      
+      // Format: https://drive.google.com/uc?export=view&id=FILE_ID
+      const idMatch = url.match(/[?&]id=([a-zA-Z0-9_-]+)/);
+      if (idMatch) {
+        fileId = idMatch[1];
+      }
+      
+      // If we found a file ID, create a direct thumbnail URL
+      if (fileId) {
+        return `https://drive.google.com/thumbnail?id=${fileId}&sz=w1600`;
+      }
+    }
+    
+    // Return original URL if not a Google Drive URL
+    return url;
+  });
 
   const nextImage = () => {
     setCurrentImageIndex((prev) => (prev + 1) % images.length);
