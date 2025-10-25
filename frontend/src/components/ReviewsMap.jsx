@@ -202,18 +202,31 @@ const ReviewsMap = () => {
                       </button>
                       
                       <div className="grid grid-cols-2 gap-2">
-                        {selectedReview.images.slice(0, 4).map((image, index) => (
-                          <img
-                            key={index}
-                            src={image}
-                            alt={`Work completed ${index + 1}`}
-                            className="w-full h-20 object-cover rounded-lg border cursor-pointer hover:opacity-80 transition-opacity"
-                            onClick={() => openPhotoModal(selectedReview)}
-                            onError={(e) => {
-                              e.target.style.display = 'none';
-                            }}
-                          />
-                        ))}
+                        {selectedReview.images.slice(0, 4).map((image, index) => {
+                          // Convert Google Drive URLs to thumbnail format
+                          let imageUrl = image;
+                          if (image.includes('drive.google.com')) {
+                            const fileIdMatch = image.match(/[?&]id=([a-zA-Z0-9_-]+)|\/file\/d\/([a-zA-Z0-9_-]+)/);
+                            if (fileIdMatch) {
+                              const fileId = fileIdMatch[1] || fileIdMatch[2];
+                              imageUrl = `https://drive.google.com/thumbnail?id=${fileId}&sz=w400`;
+                            }
+                          }
+                          
+                          return (
+                            <img
+                              key={index}
+                              src={imageUrl}
+                              alt={`Work completed ${index + 1}`}
+                              className="w-full h-20 object-cover rounded-lg border cursor-pointer hover:opacity-80 transition-opacity"
+                              onClick={() => openPhotoModal(selectedReview)}
+                              onError={(e) => {
+                                console.error('Thumbnail failed to load:', imageUrl);
+                                e.target.style.display = 'none';
+                              }}
+                            />
+                          );
+                        })}
                       </div>
                     </div>
                   )}
