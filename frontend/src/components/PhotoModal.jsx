@@ -99,10 +99,15 @@ const PhotoModal = ({ isOpen, onClose, review }) => {
                 if (!e.target.parentNode.querySelector('.error-message')) {
                   const errorDiv = document.createElement('div');
                   errorDiv.className = 'error-message';
-                  errorDiv.innerHTML = `<div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(239, 68, 68, 0.95); color: white; padding: 24px; border-radius: 12px; text-align: center; max-width: 80%;">
-                    <div style="font-size: 48px; margin-bottom: 12px;">📷</div>
-                    <div style="font-size: 18px; font-weight: 600; margin-bottom: 8px;">Image Unavailable</div>
-                    <div style="font-size: 14px; opacity: 0.95;">This image could not be loaded</div>
+                  const isCheckatradeImage = images[currentImageIndex].includes('storage.googleapis.com');
+                  const message = isCheckatradeImage 
+                    ? 'This Checkatrade review photo link has expired. Contact us to see our latest work photos!'
+                    : 'This image could not be loaded';
+                  errorDiv.innerHTML = `<div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(135deg, #1e293b 0%, #334155 100%); color: white; padding: 48px; border-radius: 8px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;">
+                    <div style="font-size: 64px; margin-bottom: 20px;">📸</div>
+                    <div style="font-size: 22px; font-weight: 600; margin-bottom: 12px; max-width: 500px; line-height: 1.4;">Photo Currently Unavailable</div>
+                    <div style="font-size: 16px; opacity: 0.9; max-width: 450px; line-height: 1.6;">${message}</div>
+                    ${isCheckatradeImage ? '<div style="margin-top: 20px; padding: 12px 24px; background: rgba(34, 197, 94, 0.2); border: 2px solid rgba(34, 197, 94, 0.4); border-radius: 8px; font-size: 14px;">✓ Verified Checkatrade Review</div>' : ''}
                   </div>`;
                   e.target.parentNode.style.position = 'relative';
                   e.target.parentNode.appendChild(errorDiv);
