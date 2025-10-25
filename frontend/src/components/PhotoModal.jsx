@@ -15,40 +15,16 @@ const PhotoModal = ({ isOpen, onClose, review }) => {
     return null;
   }
 
-  // Convert Google Storage URLs to proxy or handle them
-  // Note: Google Storage URLs from Checkatrade have authentication tokens that expire
-  // For now, we'll attempt to load them and show error message if they fail
+  // Use backend proxy for external images
+  const backendUrl = process.env.REACT_APP_BACKEND_URL || import.meta.env.REACT_APP_BACKEND_URL;
+  
   images = images.map(url => {
-    if (url.includes('storage.googleapis.com') && url.includes('core-media-service')) {
-      // These are Checkatrade's Google Cloud Storage URLs
-      // They may have expired authentication tokens
-      // Try to load them, but they might fail
-      return url;
+    // Use proxy for all external images to bypass CORS and authentication issues
+    if (url.includes('storage.googleapis.com') || url.includes('drive.google.com')) {
+      return `${backendUrl}/api/proxy-image?url=${encodeURIComponent(url)}`;
     }
     
-    if (url.includes('drive.google.com')) {
-      // Extract file ID from various Google Drive URL formats
-      let fileId = null;
-      
-      // Format: https://drive.google.com/file/d/FILE_ID/view
-      const fileMatch = url.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
-      if (fileMatch) {
-        fileId = fileMatch[1];
-      }
-      
-      // Format: https://drive.google.com/uc?export=view&id=FILE_ID
-      const idMatch = url.match(/[?&]id=([a-zA-Z0-9_-]+)/);
-      if (idMatch) {
-        fileId = idMatch[1];
-      }
-      
-      // If we found a file ID, create a direct thumbnail URL
-      if (fileId) {
-        return `https://drive.google.com/thumbnail?id=${fileId}&sz=w1600`;
-      }
-    }
-    
-    // Return original URL
+    // Return original URL for other images
     return url;
   });
 
