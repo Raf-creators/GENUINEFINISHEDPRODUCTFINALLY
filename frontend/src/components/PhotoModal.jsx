@@ -86,44 +86,23 @@ const PhotoModal = ({ isOpen, onClose, review }) => {
               alt={`Professional work by ${review.name} - Image ${currentImageIndex + 1}`}
               className="w-full h-full object-cover"
               onError={(e) => {
-                console.error('❌ Modal image failed to load:', images[currentImageIndex]);
+                console.error('❌ Image failed to load:', images[currentImageIndex]);
                 
-                // If it's a Google Drive URL with export=download, try export=view instead
-                if (images[currentImageIndex].includes('export=download')) {
-                  const viewUrl = images[currentImageIndex].replace('export=download', 'export=view');
-                  console.log('🔄 Trying alternative Google Drive URL:', viewUrl);
-                  e.target.src = viewUrl;
-                  return;
-                }
-                
-                // If it's a Google Drive URL with export=view, try the thumbnail
-                if (images[currentImageIndex].includes('export=view')) {
-                  const fileIdMatch = images[currentImageIndex].match(/id=([a-zA-Z0-9_-]+)/);
-                  if (fileIdMatch) {
-                    const fileId = fileIdMatch[1];
-                    const thumbnailUrl = `https://drive.google.com/thumbnail?id=${fileId}&sz=w800`;
-                    console.log('🔄 Trying Google Drive thumbnail URL:', thumbnailUrl);
-                    e.target.src = thumbnailUrl;
-                    return;
-                  }
-                }
-                
-                console.error('❌ All Google Drive URL formats failed for:', images[currentImageIndex]);
-                
-                // Add error styling to make it visible
-                e.target.style.border = '2px solid red';
-                e.target.style.backgroundColor = '#fee2e2';
+                // Hide the image and show error message
                 e.target.style.display = 'none';
                 
-                // Add error text overlay
-                const errorDiv = document.createElement('div');
-                errorDiv.innerHTML = `<div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(0,0,0,0.8); color: white; padding: 20px; border-radius: 8px; text-align: center; max-width: 80%;">
-                  <div style="font-size: 16px; margin-bottom: 8px;">⚠️ Image failed to load</div>
-                  <div style="font-size: 14px; opacity: 0.9;">This Google Drive image cannot be displayed</div>
-                  <div style="font-size: 12px; opacity: 0.7; margin-top: 8px; word-break: break-all;">${images[currentImageIndex]}</div>
-                </div>`;
-                e.target.parentNode.style.position = 'relative';
-                e.target.parentNode.appendChild(errorDiv);
+                // Add error message if not already present
+                if (!e.target.parentNode.querySelector('.error-message')) {
+                  const errorDiv = document.createElement('div');
+                  errorDiv.className = 'error-message';
+                  errorDiv.innerHTML = `<div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(239, 68, 68, 0.95); color: white; padding: 24px; border-radius: 12px; text-align: center; max-width: 80%;">
+                    <div style="font-size: 48px; margin-bottom: 12px;">📷</div>
+                    <div style="font-size: 18px; font-weight: 600; margin-bottom: 8px;">Image Unavailable</div>
+                    <div style="font-size: 14px; opacity: 0.95;">This image could not be loaded</div>
+                  </div>`;
+                  e.target.parentNode.style.position = 'relative';
+                  e.target.parentNode.appendChild(errorDiv);
+                }
               }}
               onLoad={() => {
                 console.log('✅ Modal image loaded successfully:', images[currentImageIndex]);
