@@ -203,14 +203,12 @@ const ReviewsMap = () => {
                       
                       <div className="grid grid-cols-2 gap-2">
                         {selectedReview.images.slice(0, 4).map((image, index) => {
-                          // Convert Google Drive URLs to thumbnail format
+                          // Use backend proxy for external images
+                          const backendUrl = process.env.REACT_APP_BACKEND_URL || 'https://garden-pro-app.preview.emergentagent.com';
                           let imageUrl = image;
-                          if (image.includes('drive.google.com')) {
-                            const fileIdMatch = image.match(/[?&]id=([a-zA-Z0-9_-]+)|\/file\/d\/([a-zA-Z0-9_-]+)/);
-                            if (fileIdMatch) {
-                              const fileId = fileIdMatch[1] || fileIdMatch[2];
-                              imageUrl = `https://drive.google.com/thumbnail?id=${fileId}&sz=w400`;
-                            }
+                          
+                          if (image.includes('storage.googleapis.com') || image.includes('drive.google.com')) {
+                            imageUrl = `${backendUrl}/api/proxy-image?url=${encodeURIComponent(image)}`;
                           }
                           
                           return (
