@@ -175,11 +175,11 @@ const ReviewsMap = () => {
                 <CardContent className="space-y-4">
                   <div className="flex items-center space-x-2">
                     <div className="flex text-yellow-400">
-                      {[...Array(Math.floor(selectedReview.rating))].map((_, i) => (
-                        <Star key={i} className="w-4 h-4 fill-current" />
+                      {[...Array(5)].map((_, i) => (
+                        <Star key={i} className={`w-4 h-4 ${i < Math.floor(selectedReview.rating / 2) ? 'fill-current' : ''}`} />
                       ))}
                     </div>
-                    <span className="font-semibold text-lg">{selectedReview.rating}/10</span>
+                    <span className="font-semibold text-lg">{(selectedReview.rating / 2).toFixed(1)}/5</span>
                   </div>
 
                   <div>
