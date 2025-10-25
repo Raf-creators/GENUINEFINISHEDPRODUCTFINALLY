@@ -410,6 +410,7 @@ async def general_exception_handler(request, exc):
 
 # Include the router in the main app
 app.include_router(api_router)
+app.include_router(image_proxy_router)
 
 # CORS middleware
 app.add_middleware(
