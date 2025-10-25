@@ -15,10 +15,14 @@ const PhotoModal = ({ isOpen, onClose, review }) => {
     return null;
   }
 
-  // Convert Google Drive URLs to proper viewable format
+  // Convert Google Storage URLs to proxy or handle them
+  // Note: Google Storage URLs from Checkatrade have authentication tokens that expire
+  // For now, we'll attempt to load them and show error message if they fail
   images = images.map(url => {
-    if (url.includes('storage.googleapis.com')) {
-      // Google Storage URLs - already viewable
+    if (url.includes('storage.googleapis.com') && url.includes('core-media-service')) {
+      // These are Checkatrade's Google Cloud Storage URLs
+      // They may have expired authentication tokens
+      // Try to load them, but they might fail
       return url;
     }
     
@@ -44,7 +48,7 @@ const PhotoModal = ({ isOpen, onClose, review }) => {
       }
     }
     
-    // Return original URL if not a Google Drive URL
+    // Return original URL
     return url;
   });
 
