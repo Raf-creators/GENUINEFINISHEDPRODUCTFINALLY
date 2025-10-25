@@ -17,6 +17,7 @@ from models import (
 )
 from database import Database
 from email_service import email_service
+from image_proxy import router as image_proxy_router
 
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
