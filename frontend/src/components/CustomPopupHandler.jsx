@@ -95,8 +95,15 @@ const CustomPopupHandler = ({ reviews, openPhotoModal }) => {
 
         // Set selected review when marker is clicked AND open the popup
         marker.on('click', () => {
+          console.log('Marker clicked, attempting to open popup for:', review.postcode);
+          
           // Open the popup on the map
-          marker.openPopup();
+          try {
+            marker.openPopup();
+            console.log('Popup opened successfully');
+          } catch (error) {
+            console.error('Error opening popup:', error);
+          }
           
           // Also trigger custom event to update the side panel
           window.dispatchEvent(new CustomEvent('markerClicked', { detail: review }));
