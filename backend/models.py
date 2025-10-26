@@ -23,7 +23,7 @@ class ServiceCreate(BaseModel):
 class Review(BaseModel):
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
     name: str
-    rating: int = Field(..., ge=1, le=10)  # Changed to allow ratings up to 10 to match Checkatrade
+    rating: float = Field(..., ge=1, le=10)  # Changed to float to allow decimal ratings like 9.67
     date: str
     text: str
     service: str
@@ -36,7 +36,7 @@ class Review(BaseModel):
 
 class ReviewCreate(BaseModel):
     name: str
-    rating: int = Field(..., ge=1, le=10)  # Changed to allow ratings up to 10
+    rating: float = Field(..., ge=1, le=10)  # Changed to float to allow decimal ratings
     text: str
     service: str
     postcode: Optional[str] = None
