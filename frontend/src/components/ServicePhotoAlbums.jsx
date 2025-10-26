@@ -6,6 +6,8 @@ import { Badge } from "./ui/badge";
 import PhotoModal from "./PhotoModal";
 
 const ServicePhotoAlbums = () => {
+  const navigate = useNavigate();
+  const [selectedCategory, setSelectedCategory] = useState(null);
   const [albums, setAlbums] = useState([]);
   const [selectedAlbum, setSelectedAlbum] = useState(null);
   const [loading, setLoading] = useState(true);
