@@ -109,11 +109,8 @@ const ServiceGallery = () => {
         };
         
         const albumName = serviceToAlbumMap[serviceId];
-        if (albumName && data.albums) {
-          const album = data.albums.find(a => a.name === albumName);
-          if (album) {
-            servicePhotos = album.photos;
-          }
+        if (albumName && data[albumName]) {
+          servicePhotos = data[albumName].photos || [];
         }
         
         // If no photos found, use placeholder
