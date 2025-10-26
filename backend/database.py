@@ -280,8 +280,9 @@ class Database:
                     "created_at": "2024-01-01T00:00:00"
                 }
             ]
-            await self.db.reviews.insert_many(all_reviews)
-            logger.info(f"Seeded {len(all_reviews)} reviews with coordinates")
+            # DISABLED - Reviews are loaded via add_all_reviews.py script
+            # await self.db.reviews.insert_many(all_reviews)
+            logger.info(f"Review seeding disabled - use add_all_reviews.py script")
             
             # Seed gallery images
             gallery_data = [
