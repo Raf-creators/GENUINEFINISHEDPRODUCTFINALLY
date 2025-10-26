@@ -69,7 +69,15 @@ const CustomPopupHandler = ({ reviews, openPhotoModal }) => {
           </div>
         `;
 
-        const popup = L.popup().setContent(popupContent);
+        const popup = L.popup({
+          maxWidth: 300,
+          minWidth: 250,
+          autoPan: true,
+          closeButton: true,
+          autoClose: true,
+          closeOnClick: false
+        }).setContent(popupContent);
+        
         marker.bindPopup(popup);
 
         // Add click handler for the photo button after popup opens
@@ -85,10 +93,12 @@ const CustomPopupHandler = ({ reviews, openPhotoModal }) => {
           }
         });
 
-        // Set selected review when marker is clicked
+        // Set selected review when marker is clicked AND open the popup
         marker.on('click', () => {
-          // We need to access setSelectedReview from the parent component
-          // For now, let's trigger a custom event
+          // Open the popup on the map
+          marker.openPopup();
+          
+          // Also trigger custom event to update the side panel
           window.dispatchEvent(new CustomEvent('markerClicked', { detail: review }));
         });
       }
