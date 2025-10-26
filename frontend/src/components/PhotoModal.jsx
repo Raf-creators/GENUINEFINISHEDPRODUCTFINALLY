@@ -47,11 +47,11 @@ const PhotoModal = ({ isOpen, onClose, review }) => {
                 {review.postcode}
               </Badge>
               <div className="flex text-yellow-400">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className={`w-4 h-4 ${i < Math.floor(review.rating / 2) ? 'fill-current' : ''}`} />
+                {[...Array(10)].map((_, i) => (
+                  <Star key={i} className={`w-3 h-3 ${i < Math.floor(review.rating) ? 'fill-current' : ''}`} />
                 ))}
               </div>
-              <span className="font-semibold">{(review.rating / 2).toFixed(1)}/5</span>
+              <span className="font-semibold">{review.rating}/10</span>
             </div>
           </div>
         </div>
