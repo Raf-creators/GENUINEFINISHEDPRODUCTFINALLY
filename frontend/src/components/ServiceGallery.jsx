@@ -97,15 +97,15 @@ const ServiceGallery = () => {
         const serviceToAlbumMap = {
           "garden-maintenance": "Garden Maintenance",
           "garden-clearance": "Garden Clearance",
-          "hedge-trimming": "Hedge Trimming & Removal",
+          "hedge-trimming": "Hedge Trimming",
           "turfing": "Turfing",
-          "hard-landscaping": "Hard Landscaping",
-          "soft-landscaping": "Soft Landscaping",
-          "fencing-decking-trellis": "Fences, Decking & Trellis",
-          "garden-design-planning": "Garden Design",
-          "3d-visualization": "Garden Design",
-          "planting-schemes": "Soft Landscaping",
-          "outdoor-lighting-design": "Garden Design",
+          "hard-landscaping": "Patio",
+          "soft-landscaping": "Planting",
+          "fencing-decking-trellis": "Trellis",
+          "garden-design-planning": "Planting",
+          "3d-visualization": "Planting",
+          "planting-schemes": "Planting",
+          "outdoor-lighting-design": "Planting",
         };
         
         const albumName = serviceToAlbumMap[serviceId];
