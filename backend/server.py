@@ -146,10 +146,9 @@ async def initialize_database():
 # Complete Checkatrade reviews endpoint
 @api_router.post("/add-all-reviews", response_model=MessageResponse)  
 async def add_all_checkatrade_reviews():
-    """Add all 58 Checkatrade reviews with proper postcodes and coordinates"""
+    """This endpoint is deprecated - reviews are now loaded via add_all_reviews.py script"""
     try:
-        # All 58 actual Checkatrade reviews with London postcodes
-        reviews = [
+        return MessageResponse(message="This endpoint is deprecated. Use the add_all_reviews.py script instead to load the 52 real Checkatrade reviews.")
             {"id": "1", "name": "Verified Customer", "rating": 10, "date": "4 days ago", "text": "Great communication from start to finish. Computerised drawing was provided so we could visualise the end result. The team arrived when they said they would, worked fast and efficiently. Delighted with the end result.", "service": "Complete garden clearance and removal of waste, laying of lawn, jet washing patio", "postcode": "SW19", "lat": 51.4214, "lng": -0.1878, "images": [], "approved": True, "created_at": "2024-01-01T00:00:00"},
             {"id": "2", "name": "Verified Customer", "rating": 10, "date": "4 days ago", "text": "Really great experience, the guys were friendly, helpful, informed and efficient. Cleared a really heavily congested garden with no issue and were very dilligent about it. Absolutely would recommend and go with again.", "service": "Garden Clearance", "postcode": "SW16", "lat": 51.4325, "lng": -0.1221, "images": [], "approved": True, "created_at": "2024-01-01T00:00:00"},
             {"id": "3", "name": "Verified Customer", "rating": 10, "date": "5 days ago", "text": "Booked on day of posting and completed within 2 hours of booking", "service": "Dispose of thorny bush", "postcode": "SW16", "lat": 51.4352, "lng": -0.1205, "images": [], "approved": True, "created_at": "2024-01-01T00:00:00"},
