@@ -210,10 +210,17 @@ const ServiceGallery = () => {
                 onClick={() => setSelectedPhoto({ ...photo, index })}
               >
                 <img
-                  src={photo.thumbnail || photo.url}
-                  alt={photo.caption || `Photo ${index + 1}`}
+                  src={photo.thumbnail_url || photo.thumbnail || photo.url}
+                  alt={photo.caption || photo.name || `Photo ${index + 1}`}
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                   loading="lazy"
+                  onError={(e) => {
+                    console.error('Failed to load:', photo.thumbnail_url);
+                    // Try original URL if thumbnail fails
+                    if (e.target.src !== photo.url) {
+                      e.target.src = photo.url;
+                    }
+                  }}
                 />
                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300" />
               </div>
