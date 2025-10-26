@@ -269,9 +269,9 @@ const ReviewsMap = () => {
           <Card className="border-0 shadow-lg">
             <CardContent className="p-6 text-center">
               <div className="text-3xl font-bold text-green-700 mb-2">
-                4.9
+                9.8
               </div>
-              <div className="text-sm text-gray-600">Average Rating (out of 5)</div>
+              <div className="text-sm text-gray-600">Average Rating (out of 10)</div>
             </CardContent>
           </Card>
           
