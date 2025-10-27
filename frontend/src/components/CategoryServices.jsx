@@ -159,12 +159,14 @@ const CategoryServices = ({ selectedCategory }) => {
               </CardContent>
               
               <CardFooter className="pt-4">
-                <Button 
-                  onClick={() => navigate(`/gallery/${service.id}`)}
-                  className="w-full bg-green-700 hover:bg-green-800 text-white"
-                >
-                  View Gallery
-                </Button>
+                {!service.hideGallery && (
+                  <Button 
+                    onClick={() => navigate(`/gallery/${service.id}`)}
+                    className="w-full bg-green-700 hover:bg-green-800 text-white"
+                  >
+                    View Gallery
+                  </Button>
+                )}
               </CardFooter>
             </Card>
           ))}
