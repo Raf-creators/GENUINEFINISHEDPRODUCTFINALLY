@@ -83,7 +83,7 @@ const CategoryServices = ({ selectedCategory }) => {
         id: "hedge-trimming",
         title: "Hedge Trimming & Removal",
         description: "Professional hedge trimming and removal services. Expert maintenance to keep your hedges neat and healthy, or complete removal when needed.",
-        image: "https://customer-assets.emergentagent.com/job_balham-gardening-hub/artifacts/ccw4wf98_Hedge%20Trimming.jpeg",
+        image: "https://customer-assets.emergentagent.com/job_garden-reviews-map/artifacts/ju1xb2ir_image.png",
         features: ["Hedge Trimming", "Hedge Removal", "Hedge Shaping", "Pruning", "Cleanup Service"],
       },
       {
