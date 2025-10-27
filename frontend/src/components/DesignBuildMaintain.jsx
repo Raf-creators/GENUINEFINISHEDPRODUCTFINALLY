@@ -13,7 +13,7 @@ const DesignBuildMaintain = ({ onCategorySelect }) => {
     {
       id: "build",
       title: "BUILD",
-      image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1Nzh8MHwxfHNlYXJjaHw3fHxnYXJkZW4lMjBjb25zdHJ1Y3Rpb258ZW58MHx8fHwxNzYxMTA3MDA1fDA&ixlib=rb-4.1.0&q=85",
+      image: "https://customer-assets.emergentagent.com/job_garden-reviews-map/artifacts/n5h63vp5_image.png",
       description: "Bringing bespoke designs to life with precision and quality craftsmanship",
       clickable: true,
     },
