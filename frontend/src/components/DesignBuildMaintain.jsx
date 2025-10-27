@@ -20,7 +20,7 @@ const DesignBuildMaintain = ({ onCategorySelect }) => {
     {
       id: "maintain",
       title: "MAINTAIN",
-      image: "https://images.unsplash.com/photo-1592419044706-39796d40f98c?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1Nzh8MHwxfHNlYXJjaHwxfHxnYXJkZW5lciUyMHRyaW1taW5nJTIwaGVkZ2V8ZW58MHx8fHwxNzYxMTA3MDA1fDA&ixlib=rb-4.1.0&q=85",
+      image: "https://customer-assets.emergentagent.com/job_garden-reviews-map/artifacts/njrr7ecu_WhatsApp%20Image%202025-10-26%20at%2017.40.45_83706279.jpg",
       description: "Ongoing expert gardening to keep your outdoor space perfect year-round",
       clickable: true,
     },
