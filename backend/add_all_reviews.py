@@ -109,10 +109,30 @@ async def add_all_reviews():
     delete_result = await db.reviews.delete_many({})
     print(f"Deleted {delete_result.deleted_count} existing reviews")
     
-    # Add all reviews
+    # Add all reviews with coordinate offsets for duplicate postcodes
     mongo_reviews = []
+    postcode_counts = {}  # Track how many times we've used each postcode
+    
     for rating, service, text, postcode in reviews_data:
-        lat, lng = POSTCODE_COORDS.get(postcode, (51.5074, -0.1278))  # Default to London center
+        base_lat, base_lng = POSTCODE_COORDS.get(postcode, (51.5074, -0.1278))  # Default to London center
+        
+        # Add small offset for duplicate postcodes so markers don't stack
+        offset_count = postcode_counts.get(postcode, 0)
+        postcode_counts[postcode] = offset_count + 1
+        
+        # Create a circular pattern of offsets (0.002 degrees ≈ 200 meters)
+        import math
+        if offset_count > 0:
+            angle = (offset_count - 1) * (2 * math.pi / 8)  # Spread in circle
+            radius = 0.002 + (offset_count // 8) * 0.001  # Increase radius for more markers
+            lat_offset = radius * math.cos(angle)
+            lng_offset = radius * math.sin(angle)
+        else:
+            lat_offset = 0
+            lng_offset = 0
+        
+        lat = base_lat + lat_offset
+        lng = base_lng + lng_offset
         
         review_doc = {
             'id': str(uuid.uuid4()),
