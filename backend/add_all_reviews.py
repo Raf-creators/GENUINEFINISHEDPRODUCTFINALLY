@@ -120,11 +120,11 @@ async def add_all_reviews():
         offset_count = postcode_counts.get(postcode, 0)
         postcode_counts[postcode] = offset_count + 1
         
-        # Create a circular pattern of offsets (0.002 degrees ≈ 200 meters)
+        # Create a circular pattern of offsets (0.006 degrees ≈ 600 meters)
         import math
         if offset_count > 0:
             angle = (offset_count - 1) * (2 * math.pi / 8)  # Spread in circle
-            radius = 0.002 + (offset_count // 8) * 0.001  # Increase radius for more markers
+            radius = 0.006 + (offset_count // 8) * 0.003  # Increase radius for more markers (larger spacing)
             lat_offset = radius * math.cos(angle)
             lng_offset = radius * math.sin(angle)
         else:
