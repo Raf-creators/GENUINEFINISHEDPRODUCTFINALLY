@@ -32,7 +32,7 @@ const WhyChooseUs = () => {
     {
       icon: Recycle,
       title: "Reputable Company",
-      description: "We hold an outstanding reputation for our garden services, reliability and commitment to excellence in Balham."
+      description: "We hold an outstanding reputation for our garden services, reliability and commitment to excellence in South West London."
     }
   ];
 
