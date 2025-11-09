@@ -252,7 +252,7 @@ const ContactSection = () => {
                     <Phone className="w-6 h-6 mt-1 flex-shrink-0" />
                     <div>
                       <div className="font-semibold mb-1">Phone & WhatsApp</div>
-                      <div className="text-green-100">07748 853590</div>
+                      <div className="text-green-100">07340 833142</div>
                       <div className="text-sm text-green-100 mt-1">
                         Available 7 days a week, 8am - 6pm
                       </div>
