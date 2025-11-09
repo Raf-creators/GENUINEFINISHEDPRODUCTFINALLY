@@ -79,7 +79,7 @@ const WhyChooseUs = () => {
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="space-y-6">
               <h3 className="text-3xl font-bold text-gray-900">
-                Your Local Trustworthy Balham Gardeners
+                Your Local Trustworthy South West London Gardeners
               </h3>
               <p className="text-gray-600 leading-relaxed">
                 At PNM Gardeners, we deliver exceptional gardening services to all types of gardens 
