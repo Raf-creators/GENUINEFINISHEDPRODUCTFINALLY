@@ -241,7 +241,7 @@ const AdminDashboard = () => {
           <p className="text-green-700 mb-2">
             All form submissions are automatically logged to the backend server logs and can be configured to send email notifications to:
           </p>
-          <p className="font-semibold text-green-800">📫 gardeningpnm@gmail.com</p>
+          <p className="font-semibold text-green-800">📫 contact@pnmgardening.com</p>
           <p className="text-sm text-green-600 mt-2">
             To enable actual email sending, you'll need to configure SMTP settings in the backend email service.
           </p>
