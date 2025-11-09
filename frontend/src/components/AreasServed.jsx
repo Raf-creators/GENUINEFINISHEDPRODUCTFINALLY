@@ -87,7 +87,7 @@ const AreasServed = () => {
                       <Mail className="w-5 h-5 text-green-700" />
                       <div>
                         <div className="font-medium text-gray-900">Email with Photos</div>
-                        <div className="text-green-700 font-semibold">info@pnmgardeners.co.uk</div>
+                        <div className="text-green-700 font-semibold">contact@pnmgardening.com</div>
                       </div>
                     </div>
                   </div>
