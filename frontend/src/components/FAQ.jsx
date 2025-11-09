@@ -18,7 +18,7 @@ const FAQ = () => {
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
             Got questions about our gardening services? Here are the most common questions 
-            our customers ask about our services in Balham and surrounding areas.
+            our customers ask about our services in South West London and surrounding areas.
           </p>
         </div>
 
