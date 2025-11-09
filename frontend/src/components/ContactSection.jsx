@@ -263,7 +263,7 @@ const ContactSection = () => {
                     <Mail className="w-6 h-6 mt-1 flex-shrink-0" />
                     <div>
                       <div className="font-semibold mb-1">Email</div>
-                      <div className="text-green-100">info@pnmgardeners.co.uk</div>
+                      <div className="text-green-100">contact@pnmgardening.com</div>
                       <div className="text-sm text-green-100 mt-1">
                         Send photos for accurate quotes
                       </div>
