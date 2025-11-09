@@ -103,7 +103,7 @@ const AreasServed = () => {
                     <Button 
                       variant="outline" 
                       className="w-full border-green-700 text-green-700 hover:bg-green-700 hover:text-white"
-                      onClick={() => window.open('tel:07748853590')}
+                      onClick={() => window.open('tel:07340833142')}
                     >
                       <Phone className="w-4 h-4 mr-2" />
                       Call Now
