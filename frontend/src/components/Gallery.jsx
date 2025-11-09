@@ -114,7 +114,7 @@ const Gallery = () => {
           </h3>
           <p className="text-gray-600 mb-6">
             Let PNM Gardeners transform and maintain your garden to the highest standards. 
-            Contact us today for reliable, high-quality gardening services in Balham.
+            Contact us today for reliable, high-quality gardening services in South West London.
           </p>
           <Button 
             onClick={scrollToContact}
