@@ -7,7 +7,7 @@ const WhyChooseUs = () => {
     {
       icon: Award,
       title: "Specialised",
-      description: "We specialise in gardening services in Balham and ensure all work is done to the highest standards."
+      description: "We specialise in gardening services in South West London and ensure all work is done to the highest standards."
     },
     {
       icon: Shield,
