@@ -19,10 +19,10 @@ const AreasServed = () => {
         {/* Section Header */}
         <div className="text-center mb-16">
           <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
-            We Cover Balham & Surrounding Areas
+            We Cover South West London & Surrounding Areas
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            We provide professional gardening services across Balham and the surrounding London areas. 
+            We provide professional gardening services across South West London and the surrounding areas. 
             If your area isn't listed, please contact us - we'd be happy to help!
           </p>
         </div>
