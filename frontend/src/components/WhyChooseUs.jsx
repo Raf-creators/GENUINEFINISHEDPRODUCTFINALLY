@@ -83,7 +83,7 @@ const WhyChooseUs = () => {
               </h3>
               <p className="text-gray-600 leading-relaxed">
                 At PNM Gardeners, we deliver exceptional gardening services to all types of gardens 
-                in Balham and surrounding London areas. Our small but dedicated team of garden 
+                in South West London and surrounding areas. Our small but dedicated team of garden 
                 specialists is professional, friendly, and reliable, ensuring that your garden 
                 receives the highest level of care and attention.
               </p>
