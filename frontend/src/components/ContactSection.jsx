@@ -274,7 +274,7 @@ const ContactSection = () => {
                     <MapPin className="w-6 h-6 mt-1 flex-shrink-0" />
                     <div>
                       <div className="font-semibold mb-1">Service Area</div>
-                      <div className="text-green-100">Balham, London</div>
+                      <div className="text-green-100">South West London</div>
                       <div className="text-sm text-green-100 mt-1">
                         & surrounding South London areas
                       </div>
