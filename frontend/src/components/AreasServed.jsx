@@ -79,7 +79,7 @@ const AreasServed = () => {
                       <Phone className="w-5 h-5 text-green-700" />
                       <div>
                         <div className="font-medium text-gray-900">Call or WhatsApp</div>
-                        <div className="text-green-700 font-semibold">07748 853590</div>
+                        <div className="text-green-700 font-semibold">07340 833142</div>
                       </div>
                     </div>
                     
