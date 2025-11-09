@@ -69,7 +69,7 @@ const Gallery = () => {
             Our Recent Garden Transformations
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Take a look at some of our recent gardening projects in Balham and surrounding areas. 
+            Take a look at some of our recent gardening projects in South West London and surrounding areas. 
             We take pride in transforming gardens and creating beautiful outdoor spaces.
           </p>
           {error && (
