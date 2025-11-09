@@ -62,8 +62,8 @@ const ServicesSection = () => {
             A Well-Kept Garden — Without Your Time Commitment
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Professional, reliable gardening services in Balham, London. 
-            Call us at <span className="font-semibold text-green-700">07748 853590</span>. 
+            Professional, reliable gardening services in South West London. 
+            Call us at <span className="font-semibold text-green-700">07340 833142</span>. 
             We'll provide fast and free quotes for your requests.
           </p>
           {error && (
