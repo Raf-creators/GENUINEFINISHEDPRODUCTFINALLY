@@ -53,10 +53,10 @@ const FAQ = () => {
               </p>
               <div className="space-y-2 text-lg">
                 <div className="font-semibold text-green-700">
-                  Call us: 07748 853590
+                  Call us: 07340 833142
                 </div>
                 <div className="font-semibold text-green-700">
-                  Email: info@pnmgardeners.co.uk
+                  Email: contact@pnmgardening.com
                 </div>
               </div>
             </div>
