@@ -95,7 +95,7 @@ const ContactSection = () => {
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
             Ready to transform your garden? Fill in the form below or call us directly for a 
-            fast, free, and competitive quote for all your gardening needs in Balham.
+            fast, free, and competitive quote for all your gardening needs in South West London.
           </p>
         </div>
 
