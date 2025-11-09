@@ -51,7 +51,7 @@ const AreasServed = () => {
 
                 <div className="mt-8 p-6 bg-green-50 rounded-xl">
                   <p className="text-gray-700 leading-relaxed">
-                    <strong>Primary Service Area:</strong> Balham, Tooting, Wandsworth, Clapham, Streatham, 
+                    <strong>Primary Service Area:</strong> South West London, Tooting, Wandsworth, Clapham, Streatham, 
                     and surrounding South London areas. We also serve other London postcodes - 
                     please contact us to confirm coverage for your specific location.
                   </p>
